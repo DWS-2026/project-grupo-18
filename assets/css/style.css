@@ -1,4 +1,29 @@
-header {
+.main-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #00ff00;
+  text-align: center;
+  text-shadow:
+    0 0 10px #00ff00,
+    0 0 20px #00ff00,
+    0 0 30px #00ff00;
+  font-family: "Orbitron", sans-serif;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.nav-btn {
+  color: #00ff00;
+  border: 1px solid #00ff00;
+}
+
+.nav-btn:hover {
+  background-color: #00ff00;
+  color: #000000;
+  box-shadow:
+    0 0 10px #00ff00,
+    0 0 20px #00ff00,
+    0 0 30px #00ff00;
 }
 
 body::before {

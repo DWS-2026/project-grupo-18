@@ -21,17 +21,6 @@
   padding: 4rem 0;
   border-radius: 12px;
 }
-.main-title {
-  font-size: 3rem;
-  font-weight: 700;
-  color: #00ff00;
-  text-align: center;
-  text-shadow:
-    0 0 10px #00ff00,
-    0 0 20px #00ff00,
-    0 0 30px #00ff00;
-  font-family: "Orbitron", sans-serif;
-}
 
 .subtitle {
   text-align: center;
