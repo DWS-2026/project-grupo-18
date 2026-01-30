@@ -1,5 +1,4 @@
-# [Nombre de la Aplicación]
-
+# CyberCert Academy
 ## 👥 Miembros del Equipo
 | Nombre y Apellidos | Correo URJC | Usuario GitHub |
 |:--- |:--- |:--- |
@@ -22,18 +21,19 @@ Indicar las entidades principales que gestionará la aplicación y las relacione
 1. **Usuario**
 2. **Certificación**
 3. **Carrito**
-4. **Categoria**
+4. **Reseña**
 
 **Relaciones entre entidades:**
 - Cada usuario puede poseer varias certificaciones
-- El casrrito puede contener 1 o mas certificaciones
-- Una certificacion puede pertenecer a una categoria
+- El carrito puede contener 1 o mas certificaciones
+- Cada usuario podrá dejar multiples reseña
+- Cada certificación podrá tener varias reseñas
 
 ### **Permisos de los Usuarios**
 Describir los permisos de cada tipo de usuario e indicar de qué entidades es dueño:
 
 * **Usuario Anónimo**: 
-  - Permisos: Visualización de catálogo y registro]
+  - Permisos: Visualización de catálogo y registro
   - No es dueño de ningun certificado
 
 * **Usuario Registrado**: 
@@ -47,8 +47,8 @@ Describir los permisos de cada tipo de usuario e indicar de qué entidades es du
 ### **Imágenes**
 Indicar qué entidades tendrán asociadas una o varias imágenes:
 
-- **[Usuario]**: Una imagen de perfil por cada usuario
-- **[Certificado]**: Una imagen por certificado
+- **Usuario**: Una imagen de perfil por cada usuario
+- **Certificado**: Una imagen por certificado
 
 
 ---
