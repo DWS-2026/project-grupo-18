@@ -3,53 +3,53 @@
 ## 👥 Miembros del Equipo
 | Nombre y Apellidos | Correo URJC | Usuario GitHub |
 |:--- |:--- |:--- |
-| [Nombre 1] | [email1]@alumnos.urjc.es | [User1] |
+| Ricardo de Francisco Alfonso | r.defrancisco.2024@alumnos.urjc.es | rikydefco20 |
+| Jaime Bonafé Macedo | j.bonafe.2024@alumnos.urjc.es | Bonapona |
 | Erik Halasz | e.halasz.2024@alumnos.urjc.es | qixfnqu |
-| [Nombre 3] | [email3]@alumnos.urjc.es | [User3] |
-| [Nombre 4] | [email4]@alumnos.urjc.es | [User4] |
+
 
 ---
 
 ## 🎭 **Preparación: Definición del Proyecto**
 
 ### **Descripción del Tema**
-[Escribe aquí una descripción breve y concisa de qué trata tu aplicación, el sector al que pertenece y qué valor aporta al usuario].
+Esta web va a tratar la venta y exposición de varias certificaciones de ciberseguridad.
+Desde el punto de vista de un usuario, esta página proporciona una funcionalidad personalizada de consulta de los certificados adquiridos y la habilidad de adquirir más certificados.
 
 ### **Entidades**
 Indicar las entidades principales que gestionará la aplicación y las relaciones entre ellas:
 
-1. **[Entidad 1]**: [Ej: Usuario]
-2. **[Entidad 2]**: [Ej: Producto]
-3. **[Entidad 3]**: [Ej: Pedido]
-4. **[Entidad 4]**: [Ej: Categoría]
+1. **Usuario**
+2. **Certificación**
+3. **Carrito**
+4. **Categoria**
 
 **Relaciones entre entidades:**
-- [Ej: Usuario - Pedido: Un usuario puede tener múltiples pedidos (1:N)]
-- [Ej: Pedido - Producto: Un pedido puede contener múltiples productos y un producto puede estar en múltiples pedidos (N:M)]
-- [Ej: Producto - Categoría: Un producto pertenece a una categoría (N:1)]
-- [Descripción de otras relaciones relevantes]
+- Cada usuario puede poseer varias certificaciones
+- El casrrito puede contener 1 o mas certificaciones
+- Una certificacion puede pertenecer a una categoria
 
 ### **Permisos de los Usuarios**
 Describir los permisos de cada tipo de usuario e indicar de qué entidades es dueño:
 
 * **Usuario Anónimo**: 
-  - Permisos: [Ej: Visualización de catálogo, búsqueda de productos, registro]
-  - No es dueño de ninguna entidad
+  - Permisos: Visualización de catálogo y registro]
+  - No es dueño de ningun certificado
 
 * **Usuario Registrado**: 
-  - Permisos: [Ej: Gestión de perfil, realizar pedidos, crear valoraciones]
-  - Es dueño de: [Ej: Sus propios Pedidos, su Perfil de Usuario, sus Valoraciones]
+  - Permisos: Gestión de perfil, compra de certificados, crear valoraciones, consulta de certificados adquiridos.
+  - Es dueño de: De su perfil, sus certificados, de su carrito y de sus valoraciones.
 
 * **Administrador**: 
-  - Permisos: [Ej: Gestión completa de productos (CRUD), visualización de estadísticas, moderación de contenido]
-  - Es dueño de: [Ej: Productos, Categorías, puede gestionar todos los Pedidos y Usuarios]
+  - Permisos: Gestion completa, acceso al panel de administracion, gestion de la base de datos
+  - Es dueño de: Todo
 
 ### **Imágenes**
 Indicar qué entidades tendrán asociadas una o varias imágenes:
 
-- **[Entidad con imágenes 1]**: [Ej: Usuario - Una imagen de avatar por usuario]
-- **[Entidad con imágenes 2]**: [Ej: Producto - Múltiples imágenes por producto (galería)]
-- **[Entidad con imágenes 3]**: [Ej: Categoría - Una imagen representativa por categoría]
+- **[Usuario]**: Una imagen de perfil por cada usuario
+- **[Certificado]**: Una imagen por certificado
+
 
 ---
 
