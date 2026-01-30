@@ -6,7 +6,7 @@
 | Ricardo de Francisco Alfonso | r.defrancisco.2024@alumnos.urjc.es | rikydefco20 |
 | Jaime Bonafé Macedo | j.bonafe.2024@alumnos.urjc.es | Bonapona |
 | Erik Halasz | e.halasz.2024@alumnos.urjc.es | qixfnqu |
-| [Nombre 4] | [email4]@alumnos.urjc.es | [User4] |
+
 
 ---
 
