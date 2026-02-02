@@ -22,7 +22,7 @@
 }
 
 .btn-green {
-  background-color: #0d1117; 
+  background-color: #0d1117;
   color: #00ff00;
   border: 2px solid #00ff00;
   border-radius: 8px;
@@ -32,34 +32,40 @@
   font-family: "Orbitron", sans-serif;
   cursor: pointer;
   transition: all 0.3s ease;
-  }
-
-
-.btn-green:hover {
-  background-color: #00ff00; 
-  color: #0d1117; 
-  box-shadow: 0 0 20px #00ff00, 0 0 20px #00ff00, 0 0 20px #00ff00; 
 }
 
+.btn-green:hover {
+  background-color: #00ff00;
+  color: #0d1117;
+  box-shadow:
+    0 0 20px #00ff00,
+    0 0 20px #00ff00,
+    0 0 20px #00ff00;
+}
 
 .btn-green:focus,
 .btn-green:active {
   outline: none;
-  box-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 60px #00ff00;
+  box-shadow:
+    0 0 20px #00ff00,
+    0 0 40px #00ff00,
+    0 0 60px #00ff00;
 }
 
-.input-neon{
+.input-neon {
   background: transparent;
   outline: none;
   border: 1px solid #00ff00;
+  color: #00ff00;
+  outline: none;
 }
 
-.input-neon:focus{
+.input-neon:focus {
   background: transparent;
   outline: none;
 }
 
-.form-label{
+.form-label {
   color: #00ff00;
   font-family: "Orbitron", sans-serif;
 }
