@@ -21,11 +21,10 @@
   outline: none;
 }
 
-/* Botón verde neón con hover */
 .btn-green {
-  background-color: #0d1117; /* fondo oscuro por defecto */
-  color: #00ff00; /* texto verde */
-  border: 2px solid #00ff00; /* borde verde */
+  background-color: #0d1117; 
+  color: #00ff00;
+  border: 2px solid #00ff00;
   border-radius: 8px;
   padding: 0.8rem 2rem;
   font-size: 1.2rem;
@@ -36,14 +35,14 @@
   box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
 }
 
-/* Hover: fondo verde, texto oscuro */
+
 .btn-green:hover {
-  background-color: #00ff00; /* fondo verde al pasar el mouse */
-  color: #0d1117; /* texto oscuro */
-  box-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 60px #00ff00; /* glow más intenso */
+  background-color: #00ff00; 
+  color: #0d1117; 
+  box-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 60px #00ff00; 
 }
 
-/* Focus y active: sin outline y glow */
+
 .btn-green:focus,
 .btn-green:active {
   outline: none;
