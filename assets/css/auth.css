@@ -1,0 +1,50 @@
+.card1 {
+  background-color: #0d1117;
+  color: #c9d1d9;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.card1-title {
+  font-weight: 600;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #00ff00;
+  text-align: center;
+  text-shadow:
+    0 0 10px #00ff00,
+    0 0 20px #00ff00,
+    0 0 30px #00ff00;
+  font-family: "Orbitron", sans-serif;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.btn-green {
+  background-color: #0d1117; 
+  color: #00ff00;
+  border: 2px solid #00ff00;
+  border-radius: 8px;
+  padding: 0.8rem 2rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-family: "Orbitron", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+}
+
+
+.btn-green:hover {
+  background-color: #00ff00; 
+  color: #0d1117; 
+  box-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 60px #00ff00; 
+}
+
+
+.btn-green:focus,
+.btn-green:active {
+  outline: none;
+  box-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 60px #00ff00;
+}
