@@ -1,0 +1,33 @@
+.neon-section {
+  color: #00ff00;
+}
+
+.neon-button {
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  background-color: transparent;
+  outline: none;
+}
+
+.neon-button:hover {
+  background-color: #00ff00;
+  color: #000000;
+  box-shadow:
+    0 0 10px #00ff00,
+    0 0 20px #00ff00,
+    0 0 30px #00ff00;
+}
+
+.neon-button:focus {
+  background-color: #00ff00;
+  color: #000000;
+  box-shadow:
+    0 0 10px #00ff00,
+    0 0 20px #00ff00,
+    0 0 30px #00ff00;
+}
+
+.neon-li {
+  background-color: transparent;
+  color: #00ff00;
+}
