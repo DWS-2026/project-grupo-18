@@ -1,3 +1,18 @@
+* {
+  font-family: "Orbitron", sans-serif;
+}
+
+p,
+strong,
+i {
+  margin: 0;
+}
+
+a {
+  display: border-box;
+  text-decoration: none;
+}
+
 nav {
   background-color: #121111;
   box-shadow: 0 0 10px #00ff00;
@@ -47,7 +62,4 @@ body::before {
     #0f0f23 100%
   );
   z-index: -1;
-}
-
-footer {
 }
