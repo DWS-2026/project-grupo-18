@@ -17,6 +17,19 @@
     />
     <link rel="stylesheet" href="../assets/css/style.css" />
     <link rel="stylesheet" href="../assets/css/index.css" />
+    <style>
+      /* Forzar color neon en los option del select */
+      #course-select, #course-select option {
+        color: #00ff00 !important;
+        background: #111 !important;
+        text-shadow: 0 0 8px #00ff00;
+      }
+      /* Neon para todos los textos */
+      .text-neon {
+        color: #00ff00 !important;
+        text-shadow: 0 0 8px #00ff00;
+      }
+    </style>
   </head>
   <body>
     <header>
@@ -51,98 +64,49 @@
     </header>
 
     <div class="container mt-5">
-      <h2 class="text-center mb-4 courses-title">Shopping Cart</h2>
+      <h2 class="text-center mb-4 courses-title text-neon">Shopping Cart</h2>
       <div class="row">
         <div class="col-lg-8 mb-4">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Your Courses</h5>
+              <h5 class="card-title text-neon">Your Courses</h5>
               <div class="table-responsive">
-                <table class="table table-dark table-hover align-middle">
-                  <thead>
+                <table class="table table-striped table-bordered table-neon align-middle" id="cart-table">
+                  <thead class="table-dark">
                     <tr>
-                      <th scope="col">Course</th>
-                      <th scope="col">Price</th>
-                      <th scope="col">Remove</th>
+                      <th class="text-neon">ID</th>
+                      <th class="text-neon">Course</th>
+                      <th class="text-neon">Price</th>
+                      <th class="text-neon">Actions</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <img
-                          src="../assets/img/Pentest.png"
-                          alt="Pentesting Certification"
-                          style="
-                            width: 60px;
-                            height: 40px;
-                            object-fit: cover;
-                            border-radius: 5px;
-                            margin-right: 10px;
-                          "
-                        />
-                        Pentesting Certification
-                      </td>
-                      <td>$49.99</td>
-                      <td>
-                        <button class="btn btn-danger btn-sm">
-                          <i class="fa fa-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <img
-                          src="../assets/img/pwn.jpg"
-                          alt="Pwn Fundamentals"
-                          style="
-                            width: 60px;
-                            height: 40px;
-                            object-fit: cover;
-                            border-radius: 5px;
-                            margin-right: 10px;
-                          "
-                        />
-                        Pwn Fundamentals
-                      </td>
-                      <td>$39.99</td>
-                      <td>
-                        <button class="btn btn-danger btn-sm">
-                          <i class="fa fa-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
+                  <tbody id="cart-body">
                   </tbody>
                 </table>
-                <p class="text-muted">
-                  * This is a static example. Integrate with JS for dynamic
-                  cart.
-                </p>
+                <div class="d-flex align-items-center gap-2 mb-3">
+                  <select class="form-select text-neon bg-dark" id="course-select" style="max-width:300px;"></select>
+                  <button class="btn neon-button text-neon" id="add-course-btn"><i class="fa fa-plus me-1"></i> Añadir curso</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div class="col-lg-4 mb-4">
-          <div class="card">
+          <div class="card" style="border: 1px solid #00ff00;">
             <div class="card-body">
-              <h5 class="card-title">Summary</h5>
+              <h5 class="card-title text-neon" style="font-family:'Orbitron',sans-serif;">Summary</h5>
               <ul class="list-group list-group-flush mb-3">
-                <li
-                  class="list-group-item bg-transparent text-light d-flex justify-content-between align-items-center"
-                >
-                  Subtotal <span>$89.98</span>
+                <li class="list-group-item bg-transparent text-neon d-flex justify-content-between align-items-center">
+                  Subtotal <span id="summary-subtotal" class="text-neon">$0.00</span>
                 </li>
-                <li
-                  class="list-group-item bg-transparent text-light d-flex justify-content-between align-items-center"
-                >
-                  Discount <span>-$0.00</span>
+                <li class="list-group-item bg-transparent text-neon d-flex justify-content-between align-items-center">
+                  Discount <span id="summary-discount" class="text-neon">-$0.00</span>
                 </li>
-                <li
-                  class="list-group-item bg-transparent text-light d-flex justify-content-between align-items-center fw-bold"
-                >
-                  Total <span>$89.98</span>
+                <li class="list-group-item bg-transparent text-neon d-flex justify-content-between align-items-center fw-bold">
+                  Total <span id="summary-total" class="text-neon">$0.00</span>
                 </li>
               </ul>
-              <button class="btn btn-success w-100">
+              <button class="btn neon-button w-100 text-neon">
                 <i class="fa fa-credit-card me-2"></i>Checkout
               </button>
             </div>
@@ -151,5 +115,105 @@
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Cursos disponibles para añadir
+      const availableCourses = [
+        {
+          name: 'Pentesting Certification',
+          price: 49.99,
+          img: '../assets/img/Pentest.png'
+        },
+        {
+          name: 'Pwn Fundamentals',
+          price: 39.99,
+          img: '../assets/img/pwn.jpg'
+        },
+        {
+          name: 'OSINT',
+          price: 29.99,
+          img: '../assets/img/OSINT.jpg'
+        },
+        {
+          name: 'Web Hacking',
+          price: 59.99,
+          img: '../assets/img/web.jpg'
+        }
+      ];
+
+      let cart = [
+        availableCourses[0],
+        availableCourses[1]
+      ];
+
+      function renderCart() {
+        const tbody = document.getElementById('cart-body');
+        tbody.innerHTML = '';
+        cart.forEach((course, idx) => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td class="bg-dark text-neon">${idx + 1}</td>
+            <td class="bg-dark text-neon">
+              <img src="${course.img}" alt="${course.name}" style="width:60px;height:40px;object-fit:cover;border-radius:5px;margin-right:10px;vertical-align:middle;" />
+              <span style="vertical-align:middle;" class="text-neon">${course.name}</span>
+            </td>
+            <td class="bg-dark text-neon">$${course.price.toFixed(2)}</td>
+            <td class="bg-dark text-neon">
+              <button class="btn btn-danger btn-sm delete-button" onclick="removeCourse(${idx})">
+                <i class="fa-solid fa-trash"></i> <span style="color:#fff;">Delete</span>
+              </button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+        updateSummary();
+        updateCourseSelect();
+      }
+
+      function removeCourse(idx) {
+        cart.splice(idx, 1);
+        renderCart();
+      }
+
+      function updateCourseSelect() {
+        const select = document.getElementById('course-select');
+        select.innerHTML = '';
+        availableCourses.forEach((course, idx) => {
+          // No permitir añadir cursos ya en el carrito
+          if (!cart.includes(course)) {
+            const opt = document.createElement('option');
+            opt.value = idx;
+            opt.textContent = `${course.name} ($${course.price})`;
+            opt.classList.add('text-neon');
+            opt.style.color = '#00ff00'; // Forzar color neon en option
+            opt.style.background = '#111';
+            select.appendChild(opt);
+          }
+        });
+        // Si no hay cursos disponibles, deshabilitar el botón
+        document.getElementById('add-course-btn').disabled = select.options.length === 0;
+      }
+
+      function addCourse() {
+        const select = document.getElementById('course-select');
+        const idx = parseInt(select.value);
+        if (!isNaN(idx) && availableCourses[idx] && !cart.includes(availableCourses[idx])) {
+          cart.push(availableCourses[idx]);
+          renderCart();
+        }
+      }
+
+      function updateSummary() {
+        let subtotal = cart.reduce((sum, c) => sum + c.price, 0);
+        let discount = 0; // Aquí puedes aplicar lógica de descuento
+        let total = subtotal - discount;
+        document.getElementById('summary-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+        document.getElementById('summary-discount').textContent = `-$${discount.toFixed(2)}`;
+        document.getElementById('summary-total').textContent = `$${total.toFixed(2)}`;
+      }
+
+      document.getElementById('add-course-btn').addEventListener('click', addCourse);
+      updateCourseSelect();
+      renderCart();
+    </script>
   </body>
 </html>
