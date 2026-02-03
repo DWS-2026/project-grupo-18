@@ -106,7 +106,7 @@
                   Total <span id="summary-total" class="text-neon">$0.00</span>
                 </li>
               </ul>
-              <button class="btn neon-button w-100 text-neon">
+              <button class="btn neon-button w-100 text-neon" id="checkout-btn">
                 <i class="fa fa-credit-card me-2"></i>Checkout
               </button>
             </div>
@@ -214,6 +214,10 @@
       document.getElementById('add-course-btn').addEventListener('click', addCourse);
       updateCourseSelect();
       renderCart();
+      // Redirigir al checkout
+      document.getElementById('checkout-btn').addEventListener('click', function() {
+        window.location.href = 'checkout.html';
+      });
     </script>
   </body>
 </html>
