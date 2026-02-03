@@ -31,3 +31,34 @@
   background-color: transparent;
   color: #00ff00;
 }
+
+.neon-star {
+  color: #00ff00;
+}
+
+.neon-star:hover {
+  color: #00ff00;
+  text-shadow:
+    0 0 10px #00ff00,
+    0 0 20px #00ff00,
+    0 0 30px #00ff00;
+}
+
+.form-control {
+  background-color: transparent;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  outline: none;
+}
+
+.form-control:focus {
+  background-color: transparent;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  outline: none;
+}
+
+.form-control::placeholder {
+  color: #00ff00;
+  opacity: 0.7;
+}
