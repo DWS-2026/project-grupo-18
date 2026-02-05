@@ -1,0 +1,78 @@
+* {
+  font-family: "Orbitron", sans-serif;
+}
+
+p,
+strong,
+i {
+  margin: 0;
+}
+
+a {
+  display: border-box;
+  text-decoration: none;
+}
+
+nav {
+  background-color: #121111;
+  box-shadow: 0 0 10px #00ff00;
+}
+
+.main-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #00ff00;
+  text-align: center;
+  text-shadow:
+    0 0 10px #00ff00,
+    0 0 20px #00ff00,
+    0 0 30px #00ff00;
+  font-family: "Orbitron", sans-serif;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.nav-btn {
+  color: #00ff00;
+  border: 1px solid #00ff00;
+}
+
+.nav-btn:hover {
+  background-color: #00ff00;
+  color: #000000;
+  box-shadow:
+    0 0 10px #00ff00,
+    0 0 20px #00ff00,
+    0 0 30px #00ff00;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    #000000 0%,
+    #0a0a0a 25%,
+    #1a1a2e 50%,
+    #16213e 75%,
+    #0f0f23 100%
+  );
+  z-index: -1;
+}
+.neon-button {
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  background-color: transparent;
+}
+.neon-button:hover {
+  background-color: #00ff00;
+  color: #000000;
+  box-shadow:
+    0 0 10px #00ff00,
+    0 0 20px #00ff00,
+    0 0 30px #00ff00;
+}

@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CyberCert</title>
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../assets/css/certification.css" />
+  </head>
+
+  <body class="d-flex flex-column min-vh-100">
+    <header>
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a
+            class="navbar-brand fw-bold main-title"
+            href="../index.html"
+            style="font-family: &quot;Orbitron&quot;, sans-serif"
+          >
+            <i class="fa-solid fa-shield-halved me-2"></i>
+            CyberCert Academy
+          </a>
+
+          <div
+            class="collapse navbar-collapse justify-content-end"
+            id="navbarContent"
+          >
+            <div class="d-flex align-items-center gap-2">
+              <a
+                href="shopping-cart.html"
+                class="btn btn-outline nav-btn position-relative"
+              >
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                <span
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                >
+                  2
+                </span>
+              </a>
+
+              <a href="login.html" class="btn btn-outline nav-btn">
+                <i class="fa-solid fa-right-to-bracket me-1"></i> Login
+              </a>
+              <a href="register.html" class="btn btn-outline nav-btn">
+                <i class="fa-solid fa-user-plus me-1"></i> Register
+              </a>
+              <a href="admin.html" class="btn btn-outline nav-btn">
+                <i class="fa-solid fa-user-shield me-1"></i> Admin Panel
+              </a>
+              <a href="profile.html" class="btn btn-outline nav-btn">
+                <i class="fa-solid fa-user me-1"></i> Profile
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="flex-fill">
+      <section class="py-4 bg-dark neon-section">
+        <div class="container">
+          <div class="row text-center">
+            <div class="col-md-3">
+              <strong>Level</strong>
+              <p>Intermediate</p>
+            </div>
+            <div class="col-md-3">
+              <strong>Duration</strong>
+              <p>60 hours</p>
+            </div>
+            <div class="col-md-3">
+              <strong>Format</strong>
+              <p>Online / Labs</p>
+            </div>
+            <div class="col-md-3">
+              <strong>Language</strong>
+              <p>English</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DESCRIPTION -->
+      <section class="py-5 neon-section">
+        <div class="container">
+          <div class="row align-items-center">
+            <!-- Imagen -->
+            <div class="col-md-6 mb-4 mb-md-0 text-center">
+              <img
+                src="../assets/img/Pentest.png"
+                class="img-fluid rounded shadow"
+                alt="Pentesting Lab"
+              />
+            </div>
+
+            <!-- Texto -->
+            <div class="col-md-6">
+              <h2 class="mb-4">Description</h2>
+              <p>
+                This certification is designed for professionals who want to
+                acquire practical skills in ethical hacking, vulnerability
+                assessment, and system exploitation in real-world environments.
+              </p>
+              <p>
+                Throughout the course, you will work with guided labs,
+                real-world scenarios, and tools used in the cybersecurity
+                industry.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTENT -->
+      <section class="py-5 bg-dark neon-section">
+        <div class="container">
+          <div class="row">
+            <!-- Contents -->
+            <div class="col-md-6 mb-4 mb-md-0">
+              <h2 class="mb-4">Contents</h2>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item neon-li">Pentesting Fundamentals</li>
+                <li class="list-group-item neon-li">Recon and Enumeration</li>
+                <li class="list-group-item neon-li">
+                  Vulnerability exploitation
+                </li>
+                <li class="list-group-item neon-li">Post exploitation</li>
+                <li class="list-group-item neon-li">Professional reporting</li>
+              </ul>
+            </div>
+
+            <!-- Requisites -->
+            <div class="col-md-6">
+              <h2 class="mb-4">Requisites</h2>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item neon-li">
+                  Basic understanding of networking
+                </li>
+                <li class="list-group-item neon-li">
+                  Basic usage of Linux and Windows
+                </li>
+                <li class="list-group-item neon-li">Security fundamentals</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="py-5 text-center neon-section">
+        <div class="container">
+          <h2 class="mb-3">¿Ready to get your certificate?</h2>
+          <p class="mb-4">Make the next step in your cybersecurity carrer.</p>
+          <button class="btn neon-button">Sign up</button>
+        </div>
+      </section>
+
+      <!-- Review -->
+      <section class="py-5 neon-section">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-8">
+              <h2 class="mb-4 text-center">Add your review</h2>
+
+              <form>
+                <div class="mb-3">
+                  <label class="form-label">Your name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="John Doe"
+                    required
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Rating</label>
+                  <div class="d-flex gap-2 fs-4">
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                  </div>
+                  <small class="text-secondary">Click to rate</small>
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label">Your review</label>
+                  <textarea
+                    class="form-control"
+                    rows="4"
+                    placeholder="Share your experience with this certification..."
+                    required
+                  ></textarea>
+                </div>
+
+                <div class="text-center">
+                  <button type="submit" class="btn neon-button">
+                    Submit review
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-dark text-light py-3">
+      <div class="container">
+        <div class="row align-items-center">
+          <!-- Brand -->
+          <div class="col-md-6 mb-2 mb-md-0">
+            <span class="fw-bold text-secondary">
+              <i class="fa-solid fa-shield-halved me-1"></i>
+              CyberCert Academy
+            </span>
+          </div>
+
+          <!-- Social / Contact -->
+          <div class="col-md-6 text-end">
+            <a href="#" class="text-secondary me-2"
+              ><i class="fab fa-github"></i
+            ></a>
+            <a href="#" class="text-secondary me-2"
+              ><i class="fab fa-linkedin"></i
+            ></a>
+            <a href="#" class="text-secondary"
+              ><i class="fab fa-twitter"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="text-center text-secondary small mt-2">
+          © 2026 CyberCert Academy · All rights reserved
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
