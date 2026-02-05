@@ -1,55 +1,56 @@
-# [Nombre de la Aplicación]
-
+# CyberCert Academy
 ## 👥 Miembros del Equipo
 | Nombre y Apellidos | Correo URJC | Usuario GitHub |
 |:--- |:--- |:--- |
-| [Nombre 1] | [email1]@alumnos.urjc.es | [User1] |
-| [Nombre 2] | [email2]@alumnos.urjc.es | [User2] |
-| [Nombre 3] | [email3]@alumnos.urjc.es | [User3] |
-| [Nombre 4] | [email4]@alumnos.urjc.es | [User4] |
+| Ricardo de Francisco Alfonso | r.defrancisco.2024@alumnos.urjc.es | rikydefco20 |
+| Jaime Bonafé Macedo | j.bonafe.2024@alumnos.urjc.es | Bonapona |
+| Erik Halasz | e.halasz.2024@alumnos.urjc.es | qixfnqu |
+| Pablo Dominguez | p.dominguezg.2024@alumnos.urjc.es | dmngz |
+
 
 ---
 
 ## 🎭 **Preparación: Definición del Proyecto**
 
 ### **Descripción del Tema**
-[Escribe aquí una descripción breve y concisa de qué trata tu aplicación, el sector al que pertenece y qué valor aporta al usuario].
+Esta web va a tratar la venta y exposición de varias certificaciones de ciberseguridad.
+Desde el punto de vista de un usuario, esta página proporciona una funcionalidad personalizada de consulta de los certificados adquiridos y la habilidad de adquirir más certificados.
 
 ### **Entidades**
 Indicar las entidades principales que gestionará la aplicación y las relaciones entre ellas:
 
-1. **[Entidad 1]**: [Ej: Usuario]
-2. **[Entidad 2]**: [Ej: Producto]
-3. **[Entidad 3]**: [Ej: Pedido]
-4. **[Entidad 4]**: [Ej: Categoría]
+1. **Usuario**
+2. **Certificación**
+3. **Carrito**
+4. **Reseña**
 
 **Relaciones entre entidades:**
-- [Ej: Usuario - Pedido: Un usuario puede tener múltiples pedidos (1:N)]
-- [Ej: Pedido - Producto: Un pedido puede contener múltiples productos y un producto puede estar en múltiples pedidos (N:M)]
-- [Ej: Producto - Categoría: Un producto pertenece a una categoría (N:1)]
-- [Descripción de otras relaciones relevantes]
+- Cada usuario puede poseer varias certificaciones
+- El carrito puede contener 1 o mas certificaciones
+- Cada usuario podrá dejar multiples reseña
+- Cada certificación podrá tener varias reseñas
 
 ### **Permisos de los Usuarios**
 Describir los permisos de cada tipo de usuario e indicar de qué entidades es dueño:
 
 * **Usuario Anónimo**: 
-  - Permisos: [Ej: Visualización de catálogo, búsqueda de productos, registro]
-  - No es dueño de ninguna entidad
+  - Permisos: Visualización de catálogo y registro
+  - No es dueño de ningun certificado
 
 * **Usuario Registrado**: 
-  - Permisos: [Ej: Gestión de perfil, realizar pedidos, crear valoraciones]
-  - Es dueño de: [Ej: Sus propios Pedidos, su Perfil de Usuario, sus Valoraciones]
+  - Permisos: Gestión de perfil, compra de certificados, crear valoraciones, consulta de certificados adquiridos.
+  - Es dueño de: De su perfil, sus certificados, de su carrito y de sus valoraciones.
 
 * **Administrador**: 
-  - Permisos: [Ej: Gestión completa de productos (CRUD), visualización de estadísticas, moderación de contenido]
-  - Es dueño de: [Ej: Productos, Categorías, puede gestionar todos los Pedidos y Usuarios]
+  - Permisos: Gestion completa, acceso al panel de administracion, gestion de la base de datos
+  - Es dueño de: Todo
 
 ### **Imágenes**
 Indicar qué entidades tendrán asociadas una o varias imágenes:
 
-- **[Entidad con imágenes 1]**: [Ej: Usuario - Una imagen de avatar por usuario]
-- **[Entidad con imágenes 2]**: [Ej: Producto - Múltiples imágenes por producto (galería)]
-- **[Entidad con imágenes 3]**: [Ej: Categoría - Una imagen representativa por categoría]
+- **Usuario**: Una imagen de perfil por cada usuario
+- **Certificado**: Una imagen por certificado
+
 
 ---
 
@@ -62,74 +63,99 @@ Indicar qué entidades tendrán asociadas una o varias imágenes:
 ### **Diagrama de Navegación**
 Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicación:
 
-![Diagrama de Navegación](images/navigation-diagram.png)
+![Diagrama de Navegación](images/diagrama_cibercert.jpg)
 
-> [Descripción opcional del flujo de navegación: Ej: "El usuario puede acceder desde la página principal a todas las secciones mediante el menú de navegación. Los usuarios anónimos solo tienen acceso a las páginas públicas, mientras que los registrados pueden acceder a su perfil y panel de usuario."]
+> [El usuario puede acceder con normalidad a los distintos certificados y a las paginas de login pero para poder acceder a la pagina del carrito y del perfil necesariamente debe estar registrado. Solo el administrador podra acceder a la pagina especial de Admin Panel ]
 
 ### **Capturas de Pantalla y Descripción de Páginas**
 
 #### **1. Página Principal / Home**
-![Página Principal](images/home-page.png)
+![Página Principal](images/pantalla_index.jpg)
 
-> [Descripción breve: Ej: "Página de inicio que muestra los productos destacados, categorías principales y un banner promocional. Incluye barra de navegación y acceso a registro/login para usuarios no autenticados."]
+> [Esta es la pagina principal que nos permite acceder a las siguientes paginas, nos muestra los certificados, una pequeña descripcion sobre nosotros y la pagina y unas reseñas simuladas de la web.]
+
+#### **2. Página de perfil**
+<img width="1421" height="950" alt="image" src="https://github.com/user-attachments/assets/f582f0a0-c9e3-4625-9095-65c3c08901b1" />
+
+> [Esta pestaña muestra el perfil del usuario, aquí verá sus datos de perfil como el nombre de usuario, email y las certificaciones que tiene, estos datos pueden ser editados por el usuario]
+
+#### **3. Pantalla de administración**
+<img width="1421" height="950" alt="image" src="https://github.com/user-attachments/assets/fe9c1f3e-0e8d-4046-a435-01dbdb468044" />
+
+> [El administradir de la web, a través de esta pantalla podrá gestionar tanto los usuarios como las certificaciones, pudiendo añadir o eliminar dichos objetos]
+
+#### **4. Paneles login/register**
+
+<img width="1421" height="950" alt="image" src="https://github.com/user-attachments/assets/893783d3-4a2d-4ee5-88d9-a048c3e1f2af" />
+
+<img width="1421" height="950" alt="image" src="https://github.com/user-attachments/assets/ca8fe194-ee2c-4042-b7e6-684eaf2a20c1" />
+
+> [Paneles para el inicio de sisión o registro de un usuario en la web]
+
+#### **4. Shopping cart/checkout**
+
+<img width="1421" height="950" alt="image" src=" />
+
+> [En esta Página el usuario elige las certificaciones que quiere obtener]
+
+<img width="1421" height="950" alt="image" src=" />
+
+> [En esta Página el usuario realiza el pago]
 
 #### **AQUÍ AÑADIR EL RESTO DE PÁGINAS**
 
 ### **Participación de Miembros en la Práctica 1**
 
-#### **Alumno 1 - [Nombre Completo]**
-
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+#### **Alumno 1 - [Ricardo de Francisco Alfonso]**
+s 
+[Mi trabajo se ha centrado principalmente en la creacion de index.html definiendo la estetica general de la web para las paginas posteriores. Tambien he trabajado en la creacion de todas las imagenes del proyecto y la creacion del diagrama de pantallas]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Creacion del index](https://github.com/DWS-2026/dws-2026-project-base/commit/64587d7800cdd73db956c425924a9f5e2242bb98)  | [index.html](https://github.com/DWS-2026/project-grupo-18/blob/main/index.html)   |
+|2| [Creacion del style.css principal](https://github.com/DWS-2026/dws-2026-project-base/commit/0b02a4892e77d2e1acad7bb805b198f2b12fe7db)  | [style.css](https://github.com/DWS-2026/project-grupo-18/blob/main/assets/css/style.css)   |
+|3| [Mejora auth.css](https://github.com/DWS-2026/dws-2026-project-base/commit/6d9fae0f9fe6ccf4db309c32413f6ef67dce9362)  | [auth.css](https://github.com/DWS-2026/project-grupo-18/blob/main/assets/css/auth.css)   |
+|4| [Cambio estilos en el perfil](URL_commit_4)  | [profile.css](https://github.com/DWS-2026/project-grupo-18/blob/main/assets/css/profile.css)   |
+
 
 ---
 
-#### **Alumno 2 - [Nombre Completo]**
+#### **Alumno 2 - [Jaime Bonafé Macedo]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Me encargué de crear el panel de administración, la pantalla de registro y el perfil de usuario, con ello tambíén se creó los archivos css correspondientes]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Add profile html](https://github.com/DWS-2026/dws-2026-project-base/commit/0bbfb85a39382781e65a01c9d3fb27492a749bce)  | [profile.html](https://github.com/DWS-2026/project-grupo-18/blob/main/pages/profile.html)   |
+|2| [Admin panel added](https://github.com/DWS-2026/dws-2026-project-base/commit/90bc1bf51c2192e56e4c28121326c942942b7b27)  | [Admin.html](https://github.com/DWS-2026/project-grupo-18/blob/main/pages/admin.html)   |
+|3| [auth.css added with register.html and updated login.html](https://github.com/DWS-2026/dws-2026-project-base/commit/b1be59d387e24f5579b865d0440fb4491e454d1e)  | [auth.css, login.html, register.html](https://github.com/DWS-2026/project-grupo-18/blob/main/pages/register.html)   |
 
 ---
 
-#### **Alumno 3 - [Nombre Completo]**
+#### **Alumno 3 - [Erik Halasz]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Mi tarea principal ha sido la creación de la pagina certification.html, pero también hice retoques importantes a la estructira general de los estilos, creación de un header y footer comunes para cada página y archivos de css]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Added certifications page, updated general css and structure](https://github.com/DWS-2026/project-grupo-18/commit/008cf7c9de081120ca0f2df1f7c6c00b69fa8108)  | [certification.html](https://github.com/DWS-2026/project-grupo-18/blob/main/pages/certification.html)   |
+|2| [Update index.html](https://github.com/DWS-2026/project-grupo-18/commit/767df3a62c0d7f387154c50dba0ec4d8c431731e)  | [index.html](https://github.com/DWS-2026/project-grupo-18/blob/main/index.html)   |
+|3| [Add review section](https://github.com/DWS-2026/project-grupo-18/commit/a655eae95cd2ae3db414a96e456dc29d7f7737df)  | [certification.html](https://github.com/DWS-2026/project-grupo-18/blob/main/pages/certification.html)   |
+|4| [Update header in shopping cart and index.html](https://github.com/DWS-2026/project-grupo-18/commit/d608c2a3151b1d77177e4c8aea15ccb739a9a4e4) | [shopping-cart.html](https://github.com/DWS-2026/project-grupo-18/blob/main/pages/shopping-cart.html)  |
 
 ---
 
-#### **Alumno 4 - [Nombre Completo]**
+#### **Alumno 4 - [Pablo Domínguez]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Mi tarea principal fue encargarme de la creación del carrito y de la pantalla de pago, y también de hacer el video de demostración de la pagina web]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Shopping cart creation](URL_commit_1)  | [shopping-cart.html](https://github.com/DWS-2026/project-grupo-18/blob/main/pages/shopping-cart.html)   |
+|2| [Shopping cart style](URL_commit_2)  | [shopping-cart.css(https://github.com/DWS-2026/project-grupo-18/blob/main/pages/shopping-cart.css)   |
+|3| [Checkout style](URL_commit_3)  | [checkout.css](https://github.com/DWS-2026/project-grupo-18/blob/main/pages/checkout.css)   |
+|4| [Checkout creation](URL_commit_4)  | [checkout.html](https://github.com/DWS-2026/project-grupo-18/blob/main/pages/checkout.html)   |
+|5| [Demostration video](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
 
 ---
 
