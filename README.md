@@ -128,10 +128,10 @@ s
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Added certifications page, updated general css and structure]((https://github.com/DWS-2026/project-grupo-18/commit/008cf7c9de081120ca0f2df1f7c6c00b69fa8108))  | [certification.html]((https://github.com/DWS-2026/project-grupo-18/blob/main/pages/certification.html))   |
-|2| [Update index.html]((https://github.com/DWS-2026/project-grupo-18/commit/767df3a62c0d7f387154c50dba0ec4d8c431731e))  | [index.html]((https://github.com/DWS-2026/project-grupo-18/blob/main/index.html))   |
-|3| [Add review section]((https://github.com/DWS-2026/project-grupo-18/commit/a655eae95cd2ae3db414a96e456dc29d7f7737df))  | [certification.html]((https://github.com/DWS-2026/project-grupo-18/blob/main/pages/certification.html))   |
-|4| [Update header in shopping cart and index.html]((https://github.com/DWS-2026/project-grupo-18/commit/d608c2a3151b1d77177e4c8aea15ccb739a9a4e4))  | [shopping-cart.html]((https://github.com/DWS-2026/project-grupo-18/blob/main/pages/shopping-cart.html))   |
+|1| [Added certifications page, updated general css and structure](https://github.com/DWS-2026/project-grupo-18/commit/008cf7c9de081120ca0f2df1f7c6c00b69fa8108)  | [certification.html](https://github.com/DWS-2026/project-grupo-18/blob/main/pages/certification.html)   |
+|2| [Update index.html](https://github.com/DWS-2026/project-grupo-18/commit/767df3a62c0d7f387154c50dba0ec4d8c431731e)  | [index.html](https://github.com/DWS-2026/project-grupo-18/blob/main/index.html)   |
+|3| [Add review section](https://github.com/DWS-2026/project-grupo-18/commit/a655eae95cd2ae3db414a96e456dc29d7f7737df)  | [certification.html](https://github.com/DWS-2026/project-grupo-18/blob/main/pages/certification.html)   |
+|4| [Update header in shopping cart and index.html](https://github.com/DWS-2026/project-grupo-18/commit/d608c2a3151b1d77177e4c8aea15ccb739a9a4e4) | [shopping-cart.html](https://github.com/DWS-2026/project-grupo-18/blob/main/pages/shopping-cart.html)  |
 
 ---
 
