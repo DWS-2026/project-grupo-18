@@ -57,7 +57,7 @@ Indicar qué entidades tendrán asociadas una o varias imágenes:
 ## 🛠 **Práctica 1: Maquetación de páginas con HTML y CSS**
 
 ### **Vídeo de Demostración**
-📹 **[Enlace al vídeo en YouTube](https://www.youtube.com/watch?v=x91MPoITQ3I)**
+📹 **[Enlace al vídeo en YouTube](https://youtu.be/QZzmBuk9WQc)**
 > Vídeo mostrando las principales funcionalidades de la aplicación web.
 
 ### **Diagrama de Navegación**
@@ -97,6 +97,16 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 <img width="1834" height="925" alt="image" src="https://github.com/user-attachments/assets/fd248b11-a415-4853-a239-b4d96d6105dc" />
 
 > [Pagina con la descripción de la certificación con un formulario para dejar reseñas]
+
+#### **4. Shopping cart/checkout**
+
+<img width="1421" height="950" alt="image" src=" />
+
+> [En esta Página el usuario elige las certificaciones que quiere obtener]
+
+<img width="1421" height="950" alt="image" src=" />
+
+> [En esta Página el usuario realiza el pago]
 
 #### **AQUÍ AÑADIR EL RESTO DE PÁGINAS**
 
@@ -141,17 +151,17 @@ s
 
 ---
 
-#### **Alumno 4 - [Nombre Completo]**
+#### **Alumno 4 - [Pablo Domínguez]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Mi tarea principal fue encargarme de la creación del carrito y de la pantalla de pago, y también de hacer el video de demostración de la pagina web]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Shopping cart creation](URL_commit_1)  | [shopping-cart.html](https://github.com/DWS-2026/project-grupo-18/blob/main/pages/shopping-cart.html)   |
+|2| [Shopping cart style](URL_commit_2)  | [shopping-cart.css(https://github.com/DWS-2026/project-grupo-18/blob/main/pages/shopping-cart.css)   |
+|3| [Checkout style](URL_commit_3)  | [checkout.css](https://github.com/DWS-2026/project-grupo-18/blob/main/pages/checkout.css)   |
+|4| [Checkout creation](URL_commit_4)  | [checkout.html](https://github.com/DWS-2026/project-grupo-18/blob/main/pages/checkout.html)   |
+|5| [Demostration video](URL_commit_5)  | [Archivo5](https://youtu.be/QZzmBuk9WQc)   |
 
 ---
 
