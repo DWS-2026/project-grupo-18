@@ -62,3 +62,15 @@
   color: #00ff00;
   opacity: 0.7;
 }
+
+i {
+  transition: 0.8s;
+}
+
+i:hover {
+  text-shadow:
+    0 0 10px #00ff00,
+    0 0 20px #00ff00,
+    0 0 30px #00ff00;
+  transform: rotate(60deg);
+}

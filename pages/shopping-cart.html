@@ -17,24 +17,35 @@
     />
     <link rel="stylesheet" href="../assets/css/style.css" />
     <link rel="stylesheet" href="../assets/css/index.css" />
+    <link rel="stylesheet" href="../assets/css/shoping-cart.css" />
   </head>
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     <header>
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a
-            class="navbar-brand fw-bold main-title"
-            href="../index.html"
-            style="font-family: &quot;Orbitron&quot;, sans-serif"
-          >
+          <a class="navbar-brand fw-bold main-title" href="../index.html">
             <i class="fa-solid fa-shield-halved me-2"></i>
             CyberCert Academy
           </a>
+
           <div
             class="collapse navbar-collapse justify-content-end"
             id="navbarContent"
           >
-            <div class="d-flex gap-2">
+            <div class="d-flex align-items-center gap-2">
+              <a
+                href="shopping-cart.html"
+                class="btn btn-outline nav-btn position-relative"
+              >
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                <span
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                >
+                  2
+                </span>
+              </a>
+
               <a href="login.html" class="btn btn-outline nav-btn">
                 <i class="fa-solid fa-right-to-bracket me-1"></i> Login
               </a>
@@ -44,112 +55,113 @@
               <a href="admin.html" class="btn btn-outline nav-btn">
                 <i class="fa-solid fa-user-shield me-1"></i> Admin Panel
               </a>
+              <a href="profile.html" class="btn btn-outline nav-btn">
+                <i class="fa-solid fa-user me-1"></i> Profile
+              </a>
             </div>
           </div>
         </div>
       </nav>
     </header>
-
-    <div class="container mt-5">
-      <h2 class="text-center mb-4 courses-title">Shopping Cart</h2>
-      <div class="row">
-        <div class="col-lg-8 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Your Courses</h5>
-              <div class="table-responsive">
-                <table class="table table-dark table-hover align-middle">
-                  <thead>
-                    <tr>
-                      <th scope="col">Course</th>
-                      <th scope="col">Price</th>
-                      <th scope="col">Remove</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <img
-                          src="../assets/img/Pentest.png"
-                          alt="Pentesting Certification"
-                          style="
-                            width: 60px;
-                            height: 40px;
-                            object-fit: cover;
-                            border-radius: 5px;
-                            margin-right: 10px;
-                          "
-                        />
-                        Pentesting Certification
-                      </td>
-                      <td>$49.99</td>
-                      <td>
-                        <button class="btn btn-danger btn-sm">
-                          <i class="fa fa-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <img
-                          src="../assets/img/pwn.jpg"
-                          alt="Pwn Fundamentals"
-                          style="
-                            width: 60px;
-                            height: 40px;
-                            object-fit: cover;
-                            border-radius: 5px;
-                            margin-right: 10px;
-                          "
-                        />
-                        Pwn Fundamentals
-                      </td>
-                      <td>$39.99</td>
-                      <td>
-                        <button class="btn btn-danger btn-sm">
-                          <i class="fa fa-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <p class="text-muted">
-                  * This is a static example. Integrate with JS for dynamic
-                  cart.
-                </p>
+    <main class="flex-fill">
+      <div class="container mt-5">
+        <h2 class="text-center mb-4 courses-title text-neon">Shopping Cart</h2>
+        <div class="row">
+          <div class="col-lg-8 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title text-neon">Your Courses</h5>
+                <div class="table-responsive">
+                  <table
+                    class="table table-striped table-bordered table-neon align-middle"
+                    id="cart-table"
+                  >
+                    <thead class="table-dark table-neon">
+                      <tr>
+                        <th class="text-neon">ID</th>
+                        <th class="text-neon">Course</th>
+                        <th class="text-neon">Price</th>
+                      </tr>
+                    </thead>
+                    <tbody id="cart-body">
+                      <tr>
+                        <td class="text-neon">0</td>
+                        <td class="text-neon">Pentesting Certification</td>
+                        <td class="text-neon">89.99$</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title text-neon">Summary</h5>
+                <ul class="list-group list-group-flush mb-3">
+                  <li
+                    class="list-group-item bg-transparent text-neon d-flex justify-content-between align-items-center"
+                  >
+                    Subtotal
+                    <span id="summary-subtotal" class="text-neon">$0.00</span>
+                  </li>
+                  <li
+                    class="list-group-item bg-transparent text-neon d-flex justify-content-between align-items-center"
+                  >
+                    Discount
+                    <span id="summary-discount" class="text-neon">-$0.00</span>
+                  </li>
+                  <li
+                    class="list-group-item bg-transparent text-neon d-flex justify-content-between align-items-center fw-bold"
+                  >
+                    Total
+                    <span id="summary-total" class="text-neon">$0.00</span>
+                  </li>
+                </ul>
+                <a
+                  href="checkout.html"
+                  class="btn neon-button w-100 text-neon"
+                  id="checkout-btn"
+                >
+                  <i class="fa fa-credit-card me-2"></i>Checkout
+                </a>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-4 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Summary</h5>
-              <ul class="list-group list-group-flush mb-3">
-                <li
-                  class="list-group-item bg-transparent text-light d-flex justify-content-between align-items-center"
-                >
-                  Subtotal <span>$89.98</span>
-                </li>
-                <li
-                  class="list-group-item bg-transparent text-light d-flex justify-content-between align-items-center"
-                >
-                  Discount <span>-$0.00</span>
-                </li>
-                <li
-                  class="list-group-item bg-transparent text-light d-flex justify-content-between align-items-center fw-bold"
-                >
-                  Total <span>$89.98</span>
-                </li>
-              </ul>
-              <button class="btn btn-success w-100">
-                <i class="fa fa-credit-card me-2"></i>Checkout
-              </button>
-            </div>
+      </div>
+    </main>
+    <footer class="bg-dark text-light py-3">
+      <div class="container">
+        <div class="row align-items-center">
+          <!-- Brand -->
+          <div class="col-md-6 mb-2 mb-md-0">
+            <span class="fw-bold text-secondary">
+              <i class="fa-solid fa-shield-halved me-1"></i>
+              CyberCert Academy
+            </span>
+          </div>
+
+          <!-- Social / Contact -->
+          <div class="col-md-6 text-end">
+            <a href="#" class="text-secondary me-2"
+              ><i class="fab fa-github"></i
+            ></a>
+            <a href="#" class="text-secondary me-2"
+              ><i class="fab fa-linkedin"></i
+            ></a>
+            <a href="#" class="text-secondary"
+              ><i class="fab fa-twitter"></i
+            ></a>
           </div>
         </div>
+
+        <div class="text-center text-secondary small mt-2">
+          © 2026 CyberCert Academy · All rights reserved
+        </div>
       </div>
-    </div>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
