@@ -112,7 +112,7 @@ s
 
 #### **Alumno 2 - [Jaime Bonafé Macedo]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Me encargué de crear el panel de administración, la pantalla de registro y el perfil de usuario, con ello tambíén se creó los archivos css correspondientes]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
