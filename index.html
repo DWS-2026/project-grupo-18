@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/index.css" />
   </head>
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     <header>
       <nav class="navbar navbar-expand-lg">
         <div class="container">
@@ -67,196 +67,199 @@
       </nav>
     </header>
 
-    <!-- ABOUT US -->
-    <div class="container mt-5">
-      <h2 class="text-center mb-4 courses-title">About Us</h2>
-      <div class="row align-items-center mb-5">
-        <div class="about-us">
-          <p class="about-us-text">
-            <strong>CyberCert Academy</strong> is dedicated to empowering
-            professionals with cutting-edge skills in cybersecurity. Our mission
-            is to provide hands-on training, real-world scenarios, and expert
-            guidance so you can confidently protect digital assets and advance
-            your career.
-          </p>
-          <p class="about-us-text">
-            Since our founding, we have trained hundreds of students, from
-            beginners to seasoned IT professionals, helping them achieve
-            certifications and gain practical experience in ethical hacking,
-            penetration testing, and security analysis.
-          </p>
-          <p class="about-us-text">
-            At CyberCert Academy, we believe learning should be interactive,
-            engaging, and tailored to the evolving demands of the cybersecurity
-            industry.
-          </p>
-        </div>
-      </div>
-
-      <div class="row text-center">
-        <div class="col-md-4 mb-4">
-          <div class="card h-100 neon-section p-3">
-            <i class="fa-solid fa-user-shield fa-3x mb-3 text-warning"></i>
-            <h5 class="card-title">Expert Instructors</h5>
-            <p class="card-text">
-              Learn from cybersecurity professionals with years of real-world
-              experience and deep knowledge in the field.
+    <main class="flex-fill">
+      <!-- ABOUT US -->
+      <div class="container mt-5">
+        <h2 class="text-center mb-4 courses-title">About Us</h2>
+        <div class="row align-items-center mb-5">
+          <div class="about-us">
+            <p class="about-us-text">
+              <strong>CyberCert Academy</strong> is dedicated to empowering
+              professionals with cutting-edge skills in cybersecurity. Our
+              mission is to provide hands-on training, real-world scenarios, and
+              expert guidance so you can confidently protect digital assets and
+              advance your career.
+            </p>
+            <p class="about-us-text">
+              Since our founding, we have trained hundreds of students, from
+              beginners to seasoned IT professionals, helping them achieve
+              certifications and gain practical experience in ethical hacking,
+              penetration testing, and security analysis.
+            </p>
+            <p class="about-us-text">
+              At CyberCert Academy, we believe learning should be interactive,
+              engaging, and tailored to the evolving demands of the
+              cybersecurity industry.
             </p>
           </div>
         </div>
 
-        <div class="col-md-4 mb-4">
-          <div class="card h-100 neon-section p-3">
-            <i class="fa-solid fa-laptop-code fa-3x mb-3 text-warning"></i>
-            <h5 class="card-title">Hands-On Labs</h5>
-            <p class="card-text">
-              Gain practical experience through guided labs, simulated attacks,
-              and real-world exercises that prepare you for actual security
-              challenges.
-            </p>
-          </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-          <div class="card h-100 neon-section p-3">
-            <i class="fa-solid fa-certificate fa-3x mb-3 text-warning"></i>
-            <h5 class="card-title">Certifications</h5>
-            <p class="card-text">
-              Earn recognized certifications that validate your skills and boost
-              your professional credibility in the cybersecurity industry.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container mt-5">
-      <h2 class="text-center mb-4 courses-title">Available Courses</h2>
-
-      <div class="row">
-        <!-- Course 1 -->
-
-        <div class="col-md-4 mb-4">
-          <a href="pages/certification.html">
-            <div class="card h-100">
-              <div class="text-center">
-                <img
-                  src="assets/img/Pentest.png"
-                  class="img-fluid"
-                  alt="Pentesting Certification"
-                  style="height: 200px; object-fit: cover"
-                />
-              </div>
-              <div class="card-body text-center">
-                <h5 class="card-title ct">Pentesting Certification</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <!-- Course 2 -->
-        <div class="col-md-4 mb-4">
-          <a href="pages/certification.html">
-            <div class="card h-100">
-              <div class="text-center">
-                <img
-                  src="assets/img/pwn.jpg"
-                  class="img-fluid"
-                  alt="Pwn Fundamentals"
-                  style="height: 200px; object-fit: cover"
-                />
-              </div>
-              <div class="card-body text-center">
-                <h5 class="card-title ct">Pwn Fundamentals</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <!-- Course 3 -->
-        <div class="col-md-4 mb-4">
-          <a href="pages/certification.html">
-            <div class="card h-100">
-              <div class="text-center">
-                <img
-                  src="assets/img/web.jpg"
-                  class="img-fluid"
-                  alt="Hacking Web"
-                  style="height: 200px; object-fit: cover"
-                />
-              </div>
-              <div class="card-body text-center">
-                <h5 class="card-title ct">Hacking Web</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-        <!-- Course 4 -->
-        <div class="col-md-4 mb-4">
-          <a href="pages/certification.html">
-            <div class="card h-100">
-              <div class="text-center">
-                <img
-                  src="assets/img/OSINT.jpg"
-                  class="img-fluid"
-                  alt="OSINT cert"
-                  style="height: 200px; object-fit: cover"
-                />
-              </div>
-              <div class="card-body text-center">
-                <h5 class="card-title ct">OSINT cert</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="container mt-5">
-      <h2 class="text-center mb-4 courses-title">Reviews</h2>
-
-      <div class="row">
-        <div class="col-md-4 mb-4">
-          <div class="card h-100 review-card">
-            <div class="card-body">
-              <h5 class="card-title">Great Learning Experience</h5>
+        <div class="row text-center">
+          <div class="col-md-4 mb-4">
+            <div class="card h-100 neon-section p-3">
+              <i class="fa-solid fa-user-shield fa-3x mb-3 text-warning"></i>
+              <h5 class="card-title">Expert Instructors</h5>
               <p class="card-text">
-                "CyberCert Academy provided me with the skills I needed to
-                advance my career in cybersecurity. The courses were
-                well-structured and the instructors were knowledgeable."
+                Learn from cybersecurity professionals with years of real-world
+                experience and deep knowledge in the field.
               </p>
-              <p class="card-text"><strong>- Alex J.</strong></p>
             </div>
           </div>
-        </div>
 
-        <div class="col-md-4 mb-4">
-          <div class="card h-100 review-card">
-            <div class="card-body">
-              <h5 class="card-title">Excellent Content</h5>
+          <div class="col-md-4 mb-4">
+            <div class="card h-100 neon-section p-3">
+              <i class="fa-solid fa-laptop-code fa-3x mb-3 text-warning"></i>
+              <h5 class="card-title">Hands-On Labs</h5>
               <p class="card-text">
-                "Very practical labs and real-world scenarios. Highly
-                recommended for anyone getting into cybersecurity."
+                Gain practical experience through guided labs, simulated
+                attacks, and real-world exercises that prepare you for actual
+                security challenges.
               </p>
-              <p class="card-text"><strong>- Maria L.</strong></p>
             </div>
           </div>
-        </div>
 
-        <div class="col-md-4 mb-4">
-          <div class="card h-100 review-card">
-            <div class="card-body">
-              <h5 class="card-title">Top Instructors</h5>
+          <div class="col-md-4 mb-4">
+            <div class="card h-100 neon-section p-3">
+              <i class="fa-solid fa-certificate fa-3x mb-3 text-warning"></i>
+              <h5 class="card-title">Certifications</h5>
               <p class="card-text">
-                "The instructors really know their stuff and explain complex
-                topics in a simple way."
+                Earn recognized certifications that validate your skills and
+                boost your professional credibility in the cybersecurity
+                industry.
               </p>
-              <p class="card-text"><strong>- Daniel R.</strong></p>
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+      <div class="container mt-5">
+        <h2 class="text-center mb-4 courses-title">Available Courses</h2>
+
+        <div class="row">
+          <!-- Course 1 -->
+
+          <div class="col-md-4 mb-4">
+            <a href="pages/certification.html">
+              <div class="card h-100">
+                <div class="text-center">
+                  <img
+                    src="assets/img/Pentest.png"
+                    class="img-fluid"
+                    alt="Pentesting Certification"
+                    style="height: 200px; object-fit: cover"
+                  />
+                </div>
+                <div class="card-body text-center">
+                  <h5 class="card-title ct">Pentesting Certification</h5>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!-- Course 2 -->
+          <div class="col-md-4 mb-4">
+            <a href="pages/certification.html">
+              <div class="card h-100">
+                <div class="text-center">
+                  <img
+                    src="assets/img/pwn.jpg"
+                    class="img-fluid"
+                    alt="Pwn Fundamentals"
+                    style="height: 200px; object-fit: cover"
+                  />
+                </div>
+                <div class="card-body text-center">
+                  <h5 class="card-title ct">Pwn Fundamentals</h5>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!-- Course 3 -->
+          <div class="col-md-4 mb-4">
+            <a href="pages/certification.html">
+              <div class="card h-100">
+                <div class="text-center">
+                  <img
+                    src="assets/img/web.jpg"
+                    class="img-fluid"
+                    alt="Hacking Web"
+                    style="height: 200px; object-fit: cover"
+                  />
+                </div>
+                <div class="card-body text-center">
+                  <h5 class="card-title ct">Hacking Web</h5>
+                </div>
+              </div>
+            </a>
+          </div>
+          <!-- Course 4 -->
+          <div class="col-md-4 mb-4">
+            <a href="pages/certification.html">
+              <div class="card h-100">
+                <div class="text-center">
+                  <img
+                    src="assets/img/OSINT.jpg"
+                    class="img-fluid"
+                    alt="OSINT cert"
+                    style="height: 200px; object-fit: cover"
+                  />
+                </div>
+                <div class="card-body text-center">
+                  <h5 class="card-title ct">OSINT cert</h5>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="container mt-5">
+        <h2 class="text-center mb-4 courses-title">Reviews</h2>
+
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <div class="card h-100 review-card">
+              <div class="card-body">
+                <h5 class="card-title">Great Learning Experience</h5>
+                <p class="card-text">
+                  "CyberCert Academy provided me with the skills I needed to
+                  advance my career in cybersecurity. The courses were
+                  well-structured and the instructors were knowledgeable."
+                </p>
+                <p class="card-text"><strong>- Alex J.</strong></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 mb-4">
+            <div class="card h-100 review-card">
+              <div class="card-body">
+                <h5 class="card-title">Excellent Content</h5>
+                <p class="card-text">
+                  "Very practical labs and real-world scenarios. Highly
+                  recommended for anyone getting into cybersecurity."
+                </p>
+                <p class="card-text"><strong>- Maria L.</strong></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 mb-4">
+            <div class="card h-100 review-card">
+              <div class="card-body">
+                <h5 class="card-title">Top Instructors</h5>
+                <p class="card-text">
+                  "The instructors really know their stuff and explain complex
+                  topics in a simple way."
+                </p>
+                <p class="card-text"><strong>- Daniel R.</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
 
     <footer class="bg-dark text-light py-3">
       <div class="container">
