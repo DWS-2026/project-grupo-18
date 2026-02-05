@@ -76,9 +76,13 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 
 #### **2. Página de perfil**
 <img width="1421" height="950" alt="image" src="https://github.com/user-attachments/assets/f582f0a0-c9e3-4625-9095-65c3c08901b1" />
-<img width="1421" height="950" alt="image" src="https://github.com/user-attachments/assets/f582f0a0-c9e3-4625-9095-65c3c08901b1" />
-
 > [Esta pestaña muestra el perfil del usuario, aquí verá sus datos de perfil como el nombre de usuario, email y las certificaciones que tiene, estos datos pueden ser editados por el usuario]
+
+#### **3. Pantalla de administración**
+<img width="1421" height="950" alt="image" src="https://github.com/user-attachments/assets/fe9c1f3e-0e8d-4046-a435-01dbdb468044" />
+
+> [El administradir de la web, a través de esta pantalla podrá gestionar tanto los usuarios como las certificaciones, pudiendo añadir o eliminar dichos objetos]
+
 
 #### **AQUÍ AÑADIR EL RESTO DE PÁGINAS**
 
