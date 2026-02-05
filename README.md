@@ -74,6 +74,12 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 
 > [Esta es la pagina principal que nos permite acceder a las siguientes paginas, nos muestra los certificados, una pequeña descripcion sobre nosotros y la pagina y unas reseñas simuladas de la web.]
 
+#### **2. Página de perfil**
+<img width="1421" height="950" alt="image" src="https://github.com/user-attachments/assets/f582f0a0-c9e3-4625-9095-65c3c08901b1" />
+<img width="1421" height="950" alt="image" src="https://github.com/user-attachments/assets/f582f0a0-c9e3-4625-9095-65c3c08901b1" />
+
+> [Esta pestaña muestra el perfil del usuario, aquí verá sus datos de perfil como el nombre de usuario, email y las certificaciones que tiene, estos datos pueden ser editados por el usuario]
+
 #### **AQUÍ AÑADIR EL RESTO DE PÁGINAS**
 
 ### **Participación de Miembros en la Práctica 1**
