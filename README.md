@@ -76,6 +76,7 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 
 #### **2. Página de perfil**
 <img width="1421" height="950" alt="image" src="https://github.com/user-attachments/assets/f582f0a0-c9e3-4625-9095-65c3c08901b1" />
+
 > [Esta pestaña muestra el perfil del usuario, aquí verá sus datos de perfil como el nombre de usuario, email y las certificaciones que tiene, estos datos pueden ser editados por el usuario]
 
 #### **3. Pantalla de administración**
@@ -83,13 +84,20 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 
 > [El administradir de la web, a través de esta pantalla podrá gestionar tanto los usuarios como las certificaciones, pudiendo añadir o eliminar dichos objetos]
 
+#### **4. Paneles login/register**
+
+<img width="1421" height="950" alt="image" src="https://github.com/user-attachments/assets/893783d3-4a2d-4ee5-88d9-a048c3e1f2af" />
+
+<img width="1421" height="950" alt="image" src="https://github.com/user-attachments/assets/ca8fe194-ee2c-4042-b7e6-684eaf2a20c1" />
+
+> [Paneles para el inicio de sisión o registro de un usuario en la web]
 
 #### **AQUÍ AÑADIR EL RESTO DE PÁGINAS**
 
 ### **Participación de Miembros en la Práctica 1**
 
 #### **Alumno 1 - [Ricardo de Francisco Alfonso]**
-
+s 
 [Mi trabajo se ha centrado principalmente en la creacion de index.html definiendo la estetica general de la web para las paginas posteriores. Tambien he trabajado en la creacion de todas las imagenes del proyecto y la creacion del diagrama de pantallas]
 
 | Nº    | Commits      | Files      |
