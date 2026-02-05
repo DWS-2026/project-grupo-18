@@ -91,6 +91,12 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 <img width="1421" height="950" alt="image" src="https://github.com/user-attachments/assets/ca8fe194-ee2c-4042-b7e6-684eaf2a20c1" />
 
 > [Paneles para el inicio de sisión o registro de un usuario en la web]
+#### **5. Página de certificación**
+
+<img width="1841" height="916" alt="image" src="https://github.com/user-attachments/assets/bf0518b2-480b-4966-9e49-6724d5e1f1ea" />
+<img width="1834" height="925" alt="image" src="https://github.com/user-attachments/assets/fd248b11-a415-4853-a239-b4d96d6105dc" />
+
+> [Pagina con la descripción de la certificación con un formulario para dejar reseñas]
 
 #### **AQUÍ AÑADIR EL RESTO DE PÁGINAS**
 
