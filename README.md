@@ -98,13 +98,13 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 
 > [Pagina con la descripción de la certificación con un formulario para dejar reseñas]
 
-#### **4. Shopping cart/checkout**
+#### **6. Shopping cart/checkout**
 
-<img width="1421" height="950" alt="image" src=" />
+<img width="1366" height="612" alt="image" src="https://github.com/user-attachments/assets/70897c10-7dd0-494f-8ced-0f73b74ce905" />
 
 > [En esta Página el usuario elige las certificaciones que quiere obtener]
 
-<img width="1421" height="950" alt="image" src=" />
+<img width="1353" height="613" alt="image" src="https://github.com/user-attachments/assets/847937e4-b8e9-4c0c-be9f-06f732f30f2a" />
 
 > [En esta Página el usuario realiza el pago]
 
