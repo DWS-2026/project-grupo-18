@@ -1,0 +1,9 @@
+.table-neon th,
+.table-neon td {
+  color: #00ff00;
+}
+
+.table-neon td {
+  background-color: transparent;
+  border: 1px solid #00ff00;
+}
