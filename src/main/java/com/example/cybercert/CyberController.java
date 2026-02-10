@@ -36,7 +36,7 @@ public class CyberController {
     public String certification() {
         return "certification"; // renderiza certification.html
     }
-    @GetMapping("/chekout")
+    @GetMapping("/checkout")
     public String checkout() {
         return "checkout"; // renderiza certification.html
     }
