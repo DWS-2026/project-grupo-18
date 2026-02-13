@@ -3,6 +3,7 @@ package com.example.cybercert;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
@@ -13,6 +14,9 @@ public class User {
     private String username;
 
     private String password;
+    
+    @Column(unique = true)
+    private String email;
 
     public User() {}
 
@@ -38,5 +42,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {     
+        return email;
+    }
+
+    public void setEmail(String email) {  
+        this.email = email;
     }
 }

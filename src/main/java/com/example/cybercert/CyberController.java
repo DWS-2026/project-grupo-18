@@ -3,11 +3,14 @@ package com.example.cybercert;
 
 import org.springframework.ui.Model;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class CyberController {
@@ -20,9 +23,33 @@ public class CyberController {
         return "index"; // Spring busca index.html en templates
     }
     @GetMapping("/login")
-public String login() {
+    public String login() {
     return "login";
 }
+@PostMapping("/login") // Login DB
+public String loginUser(@RequestParam String username, 
+                        @RequestParam String password, 
+                        Model model) {
+    
+    Optional<User> optionalUser = userRepository.findByUsername(username);
+   
+    if (optionalUser.isPresent()) {
+        User user = optionalUser.get();
+        if (user.getPassword().equals(password)) {
+        
+            return "redirect:/profile"; 
+        } else {
+            
+            model.addAttribute("error", "Invalid Credentials");
+            return "login";
+        }
+
+    }else{
+        model.addAttribute("error", "Invalid Credentials");
+            return "login";
+    }
+}
+
 
 @GetMapping("/register")
 public String showRegisterForm(Model model) {
@@ -30,12 +57,12 @@ public String showRegisterForm(Model model) {
     return "register";
 }
 
-@PostMapping("/register")
+@PostMapping("/register") //Registration DB 
 public String registerUser(@ModelAttribute User user) {
 
     userRepository.save(user);
 
-    return "redirect:/login";
+    return "redirect:/";
 }
 
 
