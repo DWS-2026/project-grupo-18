@@ -70,9 +70,14 @@
     </header>
 
     <main class="flex-fill">
+      {{#error}}
+        <div class="alert alert-danger text-center mt-3" role="alert">
+                {{error}}
+        </div>
+      {{/error}}
       <form
-        action=""
-        method="GET"
+        action="/login"
+        method="POST"
         class="d-flex justify-content-center align-items-center vh-100"
       >
         <div class="card p-4 shadow card1" style="width: 350px">
