@@ -25,7 +25,8 @@ public class CyberController {
         return "index"; 
     }
     @GetMapping("/login")
-    public String login() {
+    public String login(Model model) {
+    model.addAttribute("pageCss", "auth");
     return "login";
 }
 @PostMapping("/login") // Login DB
@@ -55,7 +56,7 @@ public String loginUser(@RequestParam String username,
 
 @GetMapping("/register")
 public String showRegisterForm(Model model) {
-    model.addAttribute("user", new User());
+    model.addAttribute("pageCss", "auth");
     return "register";
 }
 
