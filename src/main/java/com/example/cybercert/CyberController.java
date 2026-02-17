@@ -91,8 +91,16 @@ public String registerUser(@ModelAttribute User user, Model model, HttpSession s
     }
 
     @GetMapping("/profile")
-    public String profile(Model model) {
+    public String profile(Model model, HttpSession session) {
         model.addAttribute("pageCss", "profile");
+
+        User user = (User) session.getAttribute("user");
+
+        if (user == null){
+            return "redirect:/";
+        }
+        model.addAttribute(user);
+
         return "profile"; 
     }
 
