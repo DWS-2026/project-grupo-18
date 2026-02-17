@@ -115,7 +115,9 @@ public String registerUser(@ModelAttribute User user, Model model, HttpSession s
     public String profile(Model model, HttpSession session) {
         model.addAttribute("pageCss", "profile");
          if (session.getAttribute("user") != null) {
-        model.addAttribute("logged", true);}
+            model.addAttribute("logged", true);
+            model.addAttribute("user", session.getAttribute("user"));
+        }
         return "profile"; 
     }
 
