@@ -35,6 +35,7 @@ public String loginUser(@RequestParam String username,
                         @RequestParam String password, 
                         Model model, HttpSession session) {
     
+    model.addAttribute("pageCss", "auth");
     Optional<User> optionalUser = userRepository.findByUsername(username);
    
     if (optionalUser.isPresent()) {
@@ -65,7 +66,7 @@ public String showRegisterForm(Model model) {
 
 @PostMapping("/register") //Registration DB 
 public String registerUser(@ModelAttribute User user, Model model, HttpSession session ) {
-
+    model.addAttribute("pageCss", "auth");
     Optional<User> optionalUser = userRepository.findByUsername(user.getUsername());
 
     if(!optionalUser.isPresent()){
@@ -76,7 +77,7 @@ public String registerUser(@ModelAttribute User user, Model model, HttpSession s
     }else{
 
         model.addAttribute("error", "Username alredy exists");
-        return "register";
+        return "register";  
     }
 
 
