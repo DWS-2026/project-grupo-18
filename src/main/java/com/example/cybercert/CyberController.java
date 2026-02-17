@@ -16,18 +16,31 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class CyberController {
+
+    private final CyberCertApplication cyberCertApplication;
     @Autowired
     private UserRepository userRepository;
 
 
+    CyberController(CyberCertApplication cyberCertApplication) {
+        this.cyberCertApplication = cyberCertApplication;
+    }
+
+
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model, HttpSession session) {
         model.addAttribute("pageCss", "index");
+          if (session.getAttribute("user") != null) {
+        model.addAttribute("logged", true);
+    }
         return "index"; 
     }
     @GetMapping("/login")
-    public String login(Model model) {
+    public String login(Model model,HttpSession session) {
         model.addAttribute("pageCss", "auth");
+        if(session.getAttribute("user") != null){
+            model.addAttribute("logged", true);
+        }
         return "login";
     }
 @PostMapping("/login") // Login DB
@@ -58,9 +71,13 @@ public String loginUser(@RequestParam String username,
 
 
 @GetMapping("/register")
-public String showRegisterForm(Model model) {
+public String showRegisterForm(Model model, HttpSession session) {
     model.addAttribute("user", new User());
     model.addAttribute("pageCss", "auth");
+    if (session.getAttribute("user") != null) {
+    model.addAttribute("logged", true);
+}
+
     return "register";
 }
 
@@ -85,39 +102,49 @@ public String registerUser(@ModelAttribute User user, Model model, HttpSession s
 
 
     @GetMapping("/admin")
-    public String admin(Model model) {
+    public String admin(Model model, HttpSession session) {
         model.addAttribute("pageCss", "admin");
+         if (session.getAttribute("user") != null) {
+        model.addAttribute("logged", true);
+        }
+
         return "admin"; 
     }
 
     @GetMapping("/profile")
     public String profile(Model model, HttpSession session) {
         model.addAttribute("pageCss", "profile");
-
-        User user = (User) session.getAttribute("user");
-
-        if (user == null){
-            return "redirect:/";
-        }
-        model.addAttribute(user);
-
+         if (session.getAttribute("user") != null) {
+        model.addAttribute("logged", true);}
         return "profile"; 
     }
 
     @GetMapping("/certification")
-    public String certification(Model model) {
+    public String certification(Model model, HttpSession session) {
         model.addAttribute("pageCss", "certification");
+         if (session.getAttribute("user") != null) {
+        model.addAttribute("logged", true);}
         return "certification";
     }
     @GetMapping("/checkout")
-    public String checkout(Model model) {
+    public String checkout(Model model, HttpSession session) {
         model.addAttribute("pageCss", "checkout");
+         if (session.getAttribute("user") != null) {
+        model.addAttribute("logged", true);}
         return "checkout"; 
     }
     @GetMapping("/shoppingcart")
-    public String shoppingcart(Model model) {
+    public String shoppingcart(Model model, HttpSession session) {
         model.addAttribute("pageCss", "shoping-cart");
+         if (session.getAttribute("user") != null) {
+        model.addAttribute("logged", true);}
         return "shopping-cart"; 
     }
+    @GetMapping("/logout")
+public String logout(HttpSession session) {
+    session.invalidate();
+    return "redirect:/";
+}
+
 }
 
