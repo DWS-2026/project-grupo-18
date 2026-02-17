@@ -58,9 +58,18 @@ public String showRegisterForm(Model model) {
 }
 
 @PostMapping("/register") //Registration DB 
-public String registerUser(@ModelAttribute User user) {
+public String registerUser(@ModelAttribute User user, Model model ) {
 
-    userRepository.save(user);
+    Optional<User> optionalUser = userRepository.findByUsername(user.getUsername());
+
+    if(!optionalUser.isPresent()){
+
+        userRepository.save(user);
+        
+    }else{
+
+        model.addAttribute("error", "Username alredy exists");
+    }
 
     return "redirect:/";
 }
