@@ -1,6 +1,9 @@
 {{>header}}
 
 <main class="flex-fill">
+  {{#error}}
+  <div class="alert alert-danger text-center mt-3" role="alert">{{error}}</div>
+  {{/error}}
   <form
     action=""
     method="GET"
