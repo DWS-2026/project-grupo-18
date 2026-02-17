@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class CyberController {
     @Autowired
@@ -29,13 +31,14 @@ public class CyberController {
 @PostMapping("/login") // Login DB
 public String loginUser(@RequestParam String username, 
                         @RequestParam String password, 
-                        Model model) {
+                        Model model, HttpSession session) {
     
     Optional<User> optionalUser = userRepository.findByUsername(username);
    
     if (optionalUser.isPresent()) {
         User user = optionalUser.get();
         if (user.getPassword().equals(password)) {
+            session.setAttribute("user", user);
         
             return "redirect:/profile"; 
         } else {
@@ -58,20 +61,22 @@ public String showRegisterForm(Model model) {
 }
 
 @PostMapping("/register") //Registration DB 
-public String registerUser(@ModelAttribute User user, Model model ) {
+public String registerUser(@ModelAttribute User user, Model model, HttpSession session ) {
 
     Optional<User> optionalUser = userRepository.findByUsername(user.getUsername());
 
     if(!optionalUser.isPresent()){
 
         userRepository.save(user);
-        
+        session.setAttribute("user", user);
+        return "redirect:/";
     }else{
 
         model.addAttribute("error", "Username alredy exists");
+        return "register";
     }
 
-    return "redirect:/";
+
 }
 
 
