@@ -21,13 +21,15 @@ public class CyberController {
 
 
     @GetMapping("/")
-    public String index() {
-        return "index"; // Spring busca index.html en templates
+    public String index(Model model) {
+        model.addAttribute("pageCss", "index");
+        return "index"; 
     }
     @GetMapping("/login")
-    public String login() {
-    return "login";
-}
+    public String login(Model model) {
+        model.addAttribute("pageCss", "auth");
+        return "login";
+    }
 @PostMapping("/login") // Login DB
 public String loginUser(@RequestParam String username, 
                         @RequestParam String password, 
@@ -57,6 +59,7 @@ public String loginUser(@RequestParam String username,
 @GetMapping("/register")
 public String showRegisterForm(Model model) {
     model.addAttribute("user", new User());
+    model.addAttribute("pageCss", "auth");
     return "register";
 }
 
@@ -81,26 +84,31 @@ public String registerUser(@ModelAttribute User user, Model model, HttpSession s
 
 
     @GetMapping("/admin")
-    public String admin() {
-        return "admin"; // renderiza admin.html
+    public String admin(Model model) {
+        model.addAttribute("pageCss", "admin");
+        return "admin"; 
     }
 
     @GetMapping("/profile")
-    public String profile() {
-        return "profile"; // renderiza profile.html
+    public String profile(Model model) {
+        model.addAttribute("pageCss", "profile");
+        return "profile"; 
     }
 
     @GetMapping("/certification")
-    public String certification() {
-        return "certification"; // renderiza certification.html
+    public String certification(Model model) {
+        model.addAttribute("pageCss", "certification");
+        return "certification";
     }
     @GetMapping("/checkout")
-    public String checkout() {
-        return "checkout"; // renderiza certification.html
+    public String checkout(Model model) {
+        model.addAttribute("pageCss", "checkout");
+        return "checkout"; 
     }
     @GetMapping("/shoppingcart")
-    public String shoppingcart() {
-        return "shopping-cart"; // renderiza certification.html
+    public String shoppingcart(Model model) {
+        model.addAttribute("pageCss", "shoping-cart");
+        return "shopping-cart"; 
     }
 }
 
