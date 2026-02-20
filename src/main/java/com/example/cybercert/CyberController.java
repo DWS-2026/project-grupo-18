@@ -163,9 +163,9 @@ public String editPage(Model model, HttpSession session) {
 }
 
     @PostMapping("/edit")
-    public String edit(Model model, HttpSession session,@RequestParam String username,
-                   @RequestParam String email,
-                   @RequestParam String password) {
+    public String edit(Model model, HttpSession session,@RequestParam(required = false) String username,
+                   @RequestParam(required = false) String email,
+                   @RequestParam(required = false) String password) {
         model.addAttribute("pageCss", "profile");
 
             User user = (User) session.getAttribute("user");
@@ -173,7 +173,6 @@ public String editPage(Model model, HttpSession session) {
             if(user!=null){
 
                 if(username!=null){
-
                     user.setUsername(username);
                 }else if (email != null) {
                     user.setEmail(email);
