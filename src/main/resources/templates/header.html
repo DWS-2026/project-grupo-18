@@ -63,10 +63,12 @@
               </a>
               {{/logged}}
 
-              {{#logged}}
+              {{#isAdmin}}
               <a href="/admin" class="btn btn-outline nav-btn">
                 <i class="fa-solid fa-user-shield me-1"></i> Admin Panel
               </a>
+              {{/isAdmin}}
+              {{#logged}}
               <a href="/profile" class="btn btn-outline nav-btn">
                 <i class="fa-solid fa-user me-1"></i> Profile
               </a>

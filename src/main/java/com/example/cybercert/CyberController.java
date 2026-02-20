@@ -30,8 +30,10 @@ public class CyberController {
     @GetMapping("/")
     public String index(Model model, HttpSession session) {
         model.addAttribute("pageCss", "index");
+            User user = (User) session.getAttribute("user");
           if (session.getAttribute("user") != null) {
         model.addAttribute("logged", true);
+        model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
     }
         return "index"; 
     }
@@ -87,7 +89,7 @@ public String registerUser(@ModelAttribute User user, Model model, HttpSession s
     Optional<User> optionalUser = userRepository.findByUsername(user.getUsername());
 
     if(!optionalUser.isPresent()){
-
+        user.setRole(Role.USER);
         userRepository.save(user);
         session.setAttribute("user", user);
         return "redirect:/";
@@ -106,6 +108,7 @@ public String registerUser(@ModelAttribute User user, Model model, HttpSession s
         model.addAttribute("pageCss", "admin");
          if (session.getAttribute("user") != null) {
         model.addAttribute("logged", true);
+        
         }
 
         return "admin"; 
