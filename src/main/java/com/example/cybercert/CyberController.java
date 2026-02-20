@@ -147,6 +147,46 @@ public String logout(HttpSession session) {
     session.invalidate();
     return "redirect:/";
 }
+    @GetMapping("/edit")
+public String editPage(Model model, HttpSession session) {
+    User user = (User) session.getAttribute("user");
+    if(user == null){
+        return "redirect:/login"; // redirige si no hay usuario logueado
+    }
+
+    model.addAttribute("user", user);      
+    model.addAttribute("pageCss", "profile");
+    return "edit";
+}
+
+    @PostMapping("/edit")
+    public String edit(Model model, HttpSession session,@RequestParam String username,
+                   @RequestParam String email,
+                   @RequestParam String password) {
+        model.addAttribute("pageCss", "profile");
+
+            User user = (User) session.getAttribute("user");
+            
+            if(user!=null){
+
+                if(username!=null){
+
+                    user.setUsername(username);
+                }else if (email != null) {
+                    user.setEmail(email);
+                }else if (password!=null) {
+                    user.setPassword(password);
+                }
+                userRepository.save(user);
+                session.setAttribute("user", user);
+
+                return "redirect:/profile";
+            }else{
+
+                return "redirect:/error";
+            }
+        
+    }
 
 }
 

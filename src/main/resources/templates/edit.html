@@ -1,0 +1,37 @@
+{{>header}}
+<main class="flex-fill">
+  <div class="container mt-5 mb-5">
+    <div class="mx-auto form-control" style="width: 500px; height: 700px">
+      <div class="text-center mb-4">
+        <i class="fa-solid fa-user-circle fa-5x mb-3"></i>
+        <h2 class="main-title">Editor</h2>
+      </div>
+
+      <div class="mb-4">
+        <h4 class="mb-3">Profile Information</h4>
+
+        <form method="post" action="/edit">
+
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <label for="username" class="form-label">New Username</label>
+            <input type="text" class="form-control input-neon" id="username" name="username" value="{{user.username}}" />
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <label for="email" class="form-label">New Email</label>
+            <input type="email" class="form-control input-neon" id="email" name="email" value="{{user.email}}" />
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <label for="password" class="form-label">New Password</label>
+            <input type="password" class="form-control input-neon" id="password" name="password" />
+          </div>
+
+          <button type="submit" class="btn btn-sm neon-button">Save</button>
+        </form>
+      
+      </div>
+    </div>
+  </div>
+</main>
+{{>footer}}
