@@ -1,4 +1,3 @@
-
 package com.example.cybercert;
 
 import org.springframework.boot.CommandLineRunner;
