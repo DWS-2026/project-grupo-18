@@ -45,7 +45,7 @@ public class Certification {
     public Certification() {}
 
     public Certification(String name, String level, Integer duration, String format, String language,
-                         String description, List<String> requirements, byte[] image, Boolean active) {
+                         String description, List<String> requirements, Blob imageFile, Boolean active) {
         this.name = name;
         this.level = level;
         this.duration = duration;
