@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class CyberController {
@@ -195,9 +197,46 @@ public String editPage(Model model, HttpSession session) {
 
     @GetMapping("/reset") // For password change
     public String reset(Model model, HttpSession session) {
-        model.addAttribute("pageCss", "profile");
+        model.addAttribute("pageCss", "reset");
+        User user = (User) session.getAttribute("user");
+        if(user!=null){
+        return "reset";
+        }else{
+
+            return "redirect:/error";
+        }
+    }
+
+
+    @PostMapping("/reset")
+public String resetPassword(
+        Model model,
+        HttpSession session,
+        @RequestParam String actual_password,
+        @RequestParam String new_password) {
+
+    User user = (User) session.getAttribute("user");
+
+    if (user == null) {
+        return "redirect:/login";
+    }
+
+    if (user.getPassword().equals(actual_password)) {
+
+        user.setPassword(new_password);
+        userRepository.save(user);
+
+        
+        session.setAttribute("user", user);
+
+        return "redirect:/reset?success";
+
+    } else {
+        //model.addAttribute("error", "Actual password is incorrect");
         return "reset";
     }
+}
+    
     
 
 }
