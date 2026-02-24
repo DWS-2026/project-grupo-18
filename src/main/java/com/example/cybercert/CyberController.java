@@ -190,5 +190,15 @@ public String editPage(Model model, HttpSession session) {
         
     }
 
+
+
+
+    @GetMapping("/reset") // For password change
+    public String reset(Model model, HttpSession session) {
+        model.addAttribute("pageCss", "profile");
+        return "reset";
+    }
+    
+
 }
 
