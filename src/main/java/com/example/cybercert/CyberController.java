@@ -5,13 +5,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.transaction.Transactional;
+
 
 @Controller
 public class CyberController {
@@ -94,6 +99,10 @@ public class CyberController {
     // ADMIN PAGE
     @GetMapping("/admin")
     public String admin(Model model, Principal principal) {
+        
+        List<User> users = userRepository.findAll();
+
+        model.addAttribute("users", users);
 
         model.addAttribute("pageCss", "admin");
 
@@ -229,4 +238,18 @@ public class CyberController {
 
         return "reset";
     }
+
+    @PostMapping("/admin/delete")
+    @Transactional
+    public String deleteUser(@RequestParam String username) {
+        
+        if(!"admin".equals(username)){
+
+            userRepository.deleteByUsername(username);
+        
+        }
+
+        return "redirect:/admin";
+    }
+    
 }

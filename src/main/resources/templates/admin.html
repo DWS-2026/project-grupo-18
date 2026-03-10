@@ -23,36 +23,21 @@
           </tr>
         </thead>
         <tbody>
+          {{#users}}
           <tr>
-            <td>1</td>
-            <td>alice</td>
-            <td>alice@example.com</td>
+            <td>{{id}}</td>
+            <td>{{username}}</td>
+            <td>{{email}}</td>
             <td>
-              <button class="btn btn-danger btn-sm delete-button">
-                <i class="fa-solid fa-trash"></i> Delete
-              </button>
+              <form action="/admin/delete" method="post" style="display:inline;">
+                    <input type="hidden" name="username" value="{{username}}">
+                  <button type="submit" class="btn btn-danger btn-sm delete-button">
+                    <i class="fa-solid fa-trash"></i> Delete
+                  </button>
+              </form>
             </td>
           </tr>
-          <tr>
-            <td>2</td>
-            <td>bob</td>
-            <td>bob@example.com</td>
-            <td>
-              <button class="btn btn-danger btn-sm delete-button">
-                <i class="fa-solid fa-trash"></i> Delete
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>charlie</td>
-            <td>charlie@example.com</td>
-            <td>
-              <button class="btn btn-danger btn-sm delete-button">
-                <i class="fa-solid fa-trash"></i> Delete
-              </button>
-            </td>
-          </tr>
+          {{/users}}
         </tbody>
       </table>
     </div>
