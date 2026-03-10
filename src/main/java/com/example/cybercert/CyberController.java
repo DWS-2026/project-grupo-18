@@ -1,204 +1,232 @@
 package com.example.cybercert;
 
-
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
-import java.util.Optional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import jakarta.servlet.http.HttpSession;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.security.Principal;
+import java.util.Optional;
 
 @Controller
 public class CyberController {
 
-    private final CyberCertApplication cyberCertApplication;
     @Autowired
     private UserRepository userRepository;
 
-
-    CyberController(CyberCertApplication cyberCertApplication) {
-        this.cyberCertApplication = cyberCertApplication;
-    }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
+    // HOME
     @GetMapping("/")
-    public String index(Model model, HttpSession session) {
+    public String index(Model model, Principal principal) {
+
         model.addAttribute("pageCss", "index");
-            User user = (User) session.getAttribute("user");
-          if (session.getAttribute("user") != null) {
-        model.addAttribute("logged", true);
-        model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
-    }
-        return "index"; 
-    }
-    @GetMapping("/login")
-    public String login(Model model,HttpSession session) {
-        model.addAttribute("pageCss", "auth");
-        if(session.getAttribute("user") != null){
+
+        if (principal != null) {
             model.addAttribute("logged", true);
+
+            User user = userRepository.findByUsername(principal.getName()).orElse(null);
+
+            if (user != null) {
+                model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
+            }
         }
+
+        return "index";
+    }
+
+
+    // LOGIN PAGE
+    @GetMapping("/login")
+    public String login(Model model) {
+
+        model.addAttribute("pageCss", "auth");
+
         return "login";
     }
-@PostMapping("/login") // Login DB
-public String loginUser(@RequestParam String username, 
-                        @RequestParam String password, 
-                        Model model, HttpSession session) {
-    
-    model.addAttribute("pageCss", "auth");
-    Optional<User> optionalUser = userRepository.findByUsername(username);
-   
-    if (optionalUser.isPresent()) {
-        User user = optionalUser.get();
-        if (user.getPassword().equals(password)) {
-            session.setAttribute("user", user);
-        
-            return "redirect:/profile"; 
+
+
+    // REGISTER PAGE
+    @GetMapping("/register")
+    public String showRegisterForm(Model model) {
+
+        model.addAttribute("user", new User());
+        model.addAttribute("pageCss", "auth");
+
+        return "register";
+    }
+
+
+    // REGISTER USER
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute User user, Model model) {
+
+        model.addAttribute("pageCss", "auth");
+
+        Optional<User> optionalUser = userRepository.findByUsername(user.getUsername());
+
+        if (optionalUser.isEmpty()) {
+
+            user.setRole(Role.USER);
+
+            // CIFRAR PASSWORD
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+            userRepository.save(user);
+
+            return "redirect:/login";
+
         } else {
-            
-            model.addAttribute("error", "Invalid Credentials");
-            return "login";
+
+            model.addAttribute("error", "Username already exists");
+            return "register";
         }
-
-    }else{
-        model.addAttribute("error", "Invalid Credentials");
-            return "login";
-    }
-}
-
-
-@GetMapping("/register")
-public String showRegisterForm(Model model, HttpSession session) {
-    model.addAttribute("user", new User());
-    model.addAttribute("pageCss", "auth");
-    if (session.getAttribute("user") != null) {
-    model.addAttribute("logged", true);
-}
-
-    return "register";
-}
-
-@PostMapping("/register") //Registration DB 
-public String registerUser(@ModelAttribute User user, Model model, HttpSession session ) {
-    model.addAttribute("pageCss", "auth");
-    Optional<User> optionalUser = userRepository.findByUsername(user.getUsername());
-
-    if(!optionalUser.isPresent()){
-        user.setRole(Role.USER);
-        userRepository.save(user);
-        session.setAttribute("user", user);
-        return "redirect:/";
-    }else{
-
-        model.addAttribute("error", "Username alredy exists");
-        return "register";  
     }
 
 
-}
-
-
+    // ADMIN PAGE
     @GetMapping("/admin")
-    public String admin(Model model, HttpSession session) {
+    public String admin(Model model, Principal principal) {
+
         model.addAttribute("pageCss", "admin");
-         if (session.getAttribute("user") != null) {
-        model.addAttribute("logged", true);
-        
-        }
 
-        return "admin"; 
-    }
-
-    @GetMapping("/profile")
-    public String profile(Model model, HttpSession session) {
-        model.addAttribute("pageCss", "profile");
-         if (session.getAttribute("user") != null) {
+        if (principal != null) {
             model.addAttribute("logged", true);
-            model.addAttribute("user", session.getAttribute("user"));
         }
-        return "profile"; 
+
+        return "admin";
     }
 
+
+    // PROFILE PAGE
+    @GetMapping("/profile")
+    public String profile(Model model, Principal principal) {
+
+        model.addAttribute("pageCss", "profile");
+
+        if (principal != null) {
+
+            User user = userRepository.findByUsername(principal.getName()).orElse(null);
+
+            model.addAttribute("logged", true);
+            model.addAttribute("user", user);
+        }
+
+        return "profile";
+    }
+
+
+    // CERTIFICATION PAGE
     @GetMapping("/certification")
-    public String certification(Model model, HttpSession session) {
+    public String certification(Model model, Principal principal) {
+
         model.addAttribute("pageCss", "certification");
-         if (session.getAttribute("user") != null) {
-        model.addAttribute("logged", true);}
+
+        if (principal != null) {
+            model.addAttribute("logged", true);
+        }
+
         return "certification";
     }
+
+
+    // CHECKOUT
     @GetMapping("/checkout")
-    public String checkout(Model model, HttpSession session) {
+    public String checkout(Model model, Principal principal) {
+
         model.addAttribute("pageCss", "checkout");
-         if (session.getAttribute("user") != null) {
-        model.addAttribute("logged", true);}
-        return "checkout"; 
+
+        if (principal != null) {
+            model.addAttribute("logged", true);
+        }
+
+        return "checkout";
     }
+
+
+    // SHOPPING CART
     @GetMapping("/shoppingcart")
-    public String shoppingcart(Model model, HttpSession session) {
+    public String shoppingcart(Model model, Principal principal) {
+
         model.addAttribute("pageCss", "shoping-cart");
-         if (session.getAttribute("user") != null) {
-        model.addAttribute("logged", true);}
-        return "shopping-cart"; 
+
+        if (principal != null) {
+            model.addAttribute("logged", true);
+        }
+
+        return "shopping-cart";
     }
-    @GetMapping("/logout")
-public String logout(HttpSession session) {
-    session.invalidate();
-    return "redirect:/";
-}
+
+
+    // EDIT PROFILE PAGE
     @GetMapping("/edit")
-public String editPage(Model model, HttpSession session) {
-    User user = (User) session.getAttribute("user");
-    if(user == null){
-        return "redirect:/login"; // redirige si no hay usuario logueado
+    public String editPage(Model model, Principal principal) {
+
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
+
+        model.addAttribute("user", user);
+        model.addAttribute("pageCss", "profile");
+
+        return "edit";
     }
 
-    model.addAttribute("user", user);      
-    model.addAttribute("pageCss", "profile");
-    return "edit";
-}
 
+    // EDIT USER DATA
     @PostMapping("/edit")
-    public String edit(Model model, HttpSession session,@RequestParam(required = false) String username,
-                   @RequestParam(required = false) String email,
-                   @RequestParam(required = false) String password) {
+    public String editUser(Model model,
+                           Principal principal,
+                           String username,
+                           String email,
+                           String password) {
+
         model.addAttribute("pageCss", "profile");
 
-            User user = (User) session.getAttribute("user");
-            
-            if(user!=null){
+        if (principal == null) {
+            return "redirect:/login";
+        }
 
-                if(username!=null){
-                    user.setUsername(username);
-                }else if (email != null) {
-                    user.setEmail(email);
-                }else if (password!=null) {
-                    user.setPassword(password);
-                }
-                userRepository.save(user);
-                session.setAttribute("user", user);
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
 
-                return "redirect:/profile";
-            }else{
+        if (user != null) {
 
-                return "redirect:/error";
+            if (username != null && !username.isEmpty()) {
+                user.setUsername(username);
             }
-        
+
+            if (email != null && !email.isEmpty()) {
+                user.setEmail(email);
+            }
+
+            if (password != null && !password.isEmpty()) {
+
+                // CIFRAR PASSWORD NUEVA
+                user.setPassword(passwordEncoder.encode(password));
+            }
+
+            userRepository.save(user);
+        }
+
+        return "redirect:/profile";
     }
 
 
+    // RESET PAGE
+    @GetMapping("/reset")
+    public String reset(Model model) {
 
-
-    @GetMapping("/reset") // For password change
-    public String reset(Model model, HttpSession session) {
         model.addAttribute("pageCss", "profile");
+
         return "reset";
     }
-    
-
 }
-
