@@ -3,7 +3,7 @@
 | Nombre y Apellidos | Correo URJC | Usuario GitHub |
 |:--- |:--- |:--- |
 | Ricardo de Francisco Alfonso | r.defrancisco.2024@alumnos.urjc.es | rikydefco20 |
-| Jaime Bonafé Macedo | j.bonafe.2024@alumnos.urjc.es | Bonapona |
+| Jaime Bonafé Macedo | j.bonafe.2024@alumnos.urjc.es | k1di3 |
 | Erik Halasz | e.halasz.2024@alumnos.urjc.es | qixfnqu |
 | Pablo Dominguez | p.dominguezg.2024@alumnos.urjc.es | dmngz |
 
