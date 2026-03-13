@@ -46,6 +46,7 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
             // recursos estáticos
             .requestMatchers("/css/**").permitAll()
+            .requestMatchers("/403", "/404", "/error").permitAll()
             .requestMatchers("/js/**").permitAll()
             .requestMatchers("/images/**").permitAll()
             .requestMatchers("/assets/**").permitAll()
@@ -66,11 +67,7 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             .logoutUrl("/logout")
             .logoutSuccessUrl("/")
     );
-    http.exceptionHandling(exception -> exception
-            .accessDeniedPage("/403")
-    );
-
-    http.csrf(csrf -> csrf.disable());
+    
 
     return http.build();
 }
