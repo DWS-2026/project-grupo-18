@@ -252,4 +252,17 @@ public class CyberController {
         return "redirect:/admin";
     }
     
+    @GetMapping("/admin/add_certi")
+    public String showAddCertificateForm(Model model) {
+        model.addAttribute("pageCss", "auth");
+        return "add_certi";
+    }
+    
+    @PostMapping("/admin/add_certi")
+    @Transactional
+    public String addCertificate(@RequestParam String username, @RequestParam String description) {
+  
+        
+        return "redirect:/admin";
+    }
 }
