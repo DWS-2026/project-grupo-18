@@ -127,6 +127,16 @@ public class CyberController {
     @GetMapping("/admin")
     public String admin(Model model, Principal principal) {
         
+        if (principal != null) {
+            model.addAttribute("logged", true);
+
+            User user = userRepository.findByUsername(principal.getName()).orElse(null);
+
+            if (user != null) {
+                model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
+            }
+        }
+
         List<User> users = userRepository.findAll();
 
         model.addAttribute("users", users);
@@ -148,6 +158,16 @@ public class CyberController {
         model.addAttribute("pageCss", "profile");
 
         if (principal != null) {
+            model.addAttribute("logged", true);
+
+            User user = userRepository.findByUsername(principal.getName()).orElse(null);
+
+            if (user != null) {
+                model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
+            }
+        }
+
+        if (principal != null) {
 
             User user = userRepository.findByUsername(principal.getName()).orElse(null);
 
@@ -161,7 +181,17 @@ public class CyberController {
 
     // CERTIFICATION PAGE
     @GetMapping("/certification/{id}")
-    public String certification(@PathVariable Long id, Model model) {
+    public String certification(@PathVariable Long id, Model model, Principal principal) {
+
+        if (principal != null) {
+            model.addAttribute("logged", true);
+
+            User user = userRepository.findByUsername(principal.getName()).orElse(null);
+
+            if (user != null) {
+                model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
+            }
+        }
 
         model.addAttribute("pageCss", "certification");
         Certification cert = certificationRepository.findById(id)
@@ -178,6 +208,7 @@ public class CyberController {
     public String checkout(Model model, Principal principal) {
 
         model.addAttribute("pageCss", "checkout");
+        
 
         if (principal != null) {
             model.addAttribute("logged", true);
@@ -195,6 +226,16 @@ public class CyberController {
 
         if (principal != null) {
             model.addAttribute("logged", true);
+
+            User user = userRepository.findByUsername(principal.getName()).orElse(null);
+
+            if (user != null) {
+                model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
+            }
+        }
+
+        if (principal != null) {
+            model.addAttribute("logged", true);
         }
 
         return "shopping-cart";
@@ -204,6 +245,17 @@ public class CyberController {
     // EDIT PROFILE PAGE
     @GetMapping("/edit")
     public String editPage(Model model, Principal principal) {
+
+
+        if (principal != null) {
+            model.addAttribute("logged", true);
+
+            User user = userRepository.findByUsername(principal.getName()).orElse(null);
+
+            if (user != null) {
+                model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
+            }
+        }
 
         if (principal == null) {
             return "redirect:/login";
@@ -259,7 +311,17 @@ public class CyberController {
 
     // RESET PAGE
     @GetMapping("/reset")
-    public String reset(Model model) {
+    public String reset(Model model, Principal principal) {
+
+        if (principal != null) {
+            model.addAttribute("logged", true);
+
+            User user = userRepository.findByUsername(principal.getName()).orElse(null);
+
+            if (user != null) {
+                model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
+            }
+        }
 
         model.addAttribute("pageCss", "profile");
 
@@ -284,8 +346,18 @@ public String error403(){
 }
     
     @GetMapping("/admin/add_certi")
-    public String showAddCertificateForm(Model model) {
+    public String showAddCertificateForm(Model model, Principal principal) {
         model.addAttribute("pageCss", "auth");
+
+        if (principal != null) {
+            model.addAttribute("logged", true);
+
+            User user = userRepository.findByUsername(principal.getName()).orElse(null);
+
+            if (user != null) {
+                model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
+            }
+        }
         return "add_certi";
     }
     
