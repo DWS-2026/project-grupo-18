@@ -29,11 +29,18 @@
             <td>{{username}}</td>
             <td>{{email}}</td>
             <td>
-              <form action="/admin/delete" method="post" style="display:inline;">
-                    <input type="hidden" name="username" value="{{username}}">
-                  <button type="submit" class="btn btn-danger btn-sm delete-button">
-                    <i class="fa-solid fa-trash"></i> Delete
-                  </button>
+              <form
+                action="/admin/delete"
+                method="post"
+                style="display: inline"
+              >
+                <input type="hidden" name="username" value="{{username}}" />
+                <button
+                  type="submit"
+                  class="btn btn-danger btn-sm delete-button"
+                >
+                  <i class="fa-solid fa-trash"></i> Delete
+                </button>
               </form>
             </td>
           </tr>
@@ -61,42 +68,24 @@
           </tr>
         </thead>
         <tbody>
+          {{#certifications}}
           <tr>
-            <td>1</td>
-            <td>Pentesting Certification</td>
+            <td>{{id}}</td>
+            <td>{{name}}</td>
             <td>
-              <button class="btn btn-danger btn-sm delete-button">
-                <i class="fa-solid fa-trash"></i> Delete
-              </button>
+              <form
+                action="/admin/delete-certi"
+                method="POST"
+                style="display: inline"
+              >
+                <input type="hidden" name="certId" value="{{id}}" />
+                <button type="submit" class="btn btn-danger btn-sm">
+                  <i class="fa-solid fa-trash"></i> Delete
+                </button>
+              </form>
             </td>
           </tr>
-          <tr>
-            <td>2</td>
-            <td>Pwn Fundamentals</td>
-            <td>
-              <button class="btn btn-danger btn-sm delete-button">
-                <i class="fa-solid fa-trash"></i> Delete
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Hacking Web</td>
-            <td>
-              <button class="btn btn-danger btn-sm delete-button">
-                <i class="fa-solid fa-trash"></i> Delete
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>OSINT cert</td>
-            <td>
-              <button class="btn btn-danger btn-sm delete-button">
-                <i class="fa-solid fa-trash"></i> Delete
-              </button>
-            </td>
-          </tr>
+          {{/certifications}}
         </tbody>
       </table>
     </div>

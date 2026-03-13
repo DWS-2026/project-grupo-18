@@ -61,8 +61,7 @@ public class CyberCertApplication {
                                                                 "ROP chains and bypassing protections",
                                                                 "Reverse engineering simple binaries",
                                                                 "Practical exploitation labs"),
-                                                "assets/img/pwn.jpg",
-                                                true);
+                                                "assets/img/pwn.jpg");
 
                                 Certification osint = new Certification(
                                                 "OSINT",
@@ -83,8 +82,7 @@ public class CyberCertApplication {
                                                                 "Domain and IP reconnaissance",
                                                                 "Understanding online footprints",
                                                                 "Reporting and documenting findings"),
-                                                "assets/img/OSINT.jpg",
-                                                true);
+                                                "assets/img/OSINT.jpg");
 
                                 Certification web = new Certification(
                                                 "Web",
@@ -105,8 +103,7 @@ public class CyberCertApplication {
                                                                 "Cross-Site Request Forgery (CSRF)",
                                                                 "Authentication and session attacks",
                                                                 "Practical lab exercises on web targets"),
-                                                "assets/img/web.jpg",
-                                                true);
+                                                "assets/img/web.jpg");
 
                                 Certification pentester = new Certification(
                                                 "Pentester",
@@ -127,10 +124,29 @@ public class CyberCertApplication {
                                                                 "Exploitation techniques",
                                                                 "Post-exploitation and persistence",
                                                                 "Professional reporting and documentation"),
-                                                "assets/img/Pentest.png",
-                                                true);
+                                                "assets/img/Pentest.png");
+                                Certification redTeam = new Certification(
+                                                "Red Team",
+                                                "Advanced",
+                                                80,
+                                                "Online / Labs",
+                                                "English",
+                                                "This course focuses on full-scope Red Team operations, simulating real-world adversaries. You will learn offensive strategies, covert exploitation, lateral movement, and evasion techniques to assess organizational security in depth.",
+                                                List.of(
+                                                                "Advanced networking knowledge",
+                                                                "Windows and Linux administration",
+                                                                "Understanding of Active Directory environments",
+                                                                "Familiarity with penetration testing tools and frameworks",
+                                                                "Analytical thinking and problem-solving mindset"),
+                                                List.of(
+                                                                "Covert reconnaissance and social engineering",
+                                                                "Lateral movement and privilege escalation",
+                                                                "Persistence and evasion techniques",
+                                                                "Simulated attack campaigns on complex environments",
+                                                                "Reporting and recommendations for defensive measures"),
+                                                "assets/img/redteam.png");
                                 List<Certification> certs = certificationRepository.saveAll(
-                                                List.of(pwn, osint, web, pentester));
+                                                List.of(pwn, osint, web, pentester, redTeam));
 
                                 System.out.println("CERTIFICACIONES CREADAS:");
 

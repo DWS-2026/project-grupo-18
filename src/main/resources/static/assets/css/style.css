@@ -81,9 +81,23 @@ input:focus {
   color: #00ff00 !important;
 }
 
+.input-neon:focus {
+  color: #00ff00 !important;
+}
+
 .input-neon {
   background-color: transparent;
   border: 1px solid #00ff00;
   color: #00ff00;
   border-radius: 5px;
+}
+
+.input-neon::placeholder {
+  color: #00ff00;
+  opacity: 0.7;
+}
+
+.input-neon option {
+  background-color: #1c1c1c;
+  color: #00ff00;
 }
