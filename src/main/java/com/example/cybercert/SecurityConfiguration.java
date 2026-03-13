@@ -66,8 +66,6 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             .logoutSuccessUrl("/")
     );
 
-    http.csrf(csrf -> csrf.disable());
-
     return http.build();
 }
 }
