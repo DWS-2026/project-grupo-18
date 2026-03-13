@@ -11,8 +11,17 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaTypeFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.io.IOException;
+import org.springframework.web.multipart.MultipartFile;
+import java.security.Principal;
 
 import java.io.InputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.sql.Blob;
 import java.sql.SQLException;
@@ -20,6 +29,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import org.springframework.core.io.Resource;
@@ -286,4 +296,24 @@ public String error403(){
         
         return "redirect:/admin";
     }
+    @PostMapping("/uploadProfileImage")
+public String uploadProfileImage(@RequestParam("image") MultipartFile file,
+                                 Principal principal) throws IOException {
+
+    User user = userRepository.findByUsername(principal.getName()).get();
+
+    String uploadDir = "src/main/resources/static/uploads/";
+
+    String fileName = user.getId() + ".png";
+
+    Path path = Paths.get(uploadDir + fileName);
+
+    Files.write(path, file.getBytes());
+
+    user.setProfileImage("/uploads/" + fileName);
+
+    userRepository.save(user);
+
+    return "redirect:/profile";
+}
 }

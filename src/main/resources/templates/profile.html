@@ -3,9 +3,22 @@
   <div class="container mt-5 mb-5">
     <div class="mx-auto form-control" style="width: 500px; height: 700px">
       <div class="text-center mb-4">
+        {{#user.profileImage}}
+        <img src="{{user.profileImage}}" width="120" class="profile-image">
+        {{/user.profileImage}}
+
+        {{^user.profileImage}}
         <i class="fa-solid fa-user-circle fa-5x mb-3"></i>
+        {{/user.profileImage}}
         <h2 class="main-title">{{user.username}}</h2>
         <p class="text-secondary">User profile overview</p>
+        <form action="/uploadProfileImage" method="POST" enctype="multipart/form-data">
+
+   <input type="file" name="image" accept="image/*" class="form-control mb-2">
+
+  <button class="btn btn-sm neon-button">Upload Photo</button>
+
+</form>
       </div>
 
       <div class="mb-4">
