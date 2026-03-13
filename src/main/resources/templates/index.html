@@ -69,80 +69,25 @@
 
     <div class="row">
       <!-- Course 1 -->
-
+      {{#certifications}}
       <div class="col-md-4 mb-4">
-        <a href="/certification">
+        <a href="/certification/{{id}}">
           <div class="card h-100">
             <div class="text-center">
               <img
-                src="assets/img/Pentest.png"
+                src="{{imagePath}}"
                 class="img-fluid"
                 alt="Pentesting Certification"
                 style="height: 200px; object-fit: cover"
               />
             </div>
             <div class="card-body text-center">
-              <h5 class="card-title ct">Pentesting Certification</h5>
+              <h5 class="card-title ct">{{name}}</h5>
             </div>
           </div>
         </a>
       </div>
-
-      <!-- Course 2 -->
-      <div class="col-md-4 mb-4">
-        <a href="/certification">
-          <div class="card h-100">
-            <div class="text-center">
-              <img
-                src="assets/img/pwn.jpg"
-                class="img-fluid"
-                alt="Pwn Fundamentals"
-                style="height: 200px; object-fit: cover"
-              />
-            </div>
-            <div class="card-body text-center">
-              <h5 class="card-title ct">Pwn Fundamentals</h5>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <!-- Course 3 -->
-      <div class="col-md-4 mb-4">
-        <a href="/certification">
-          <div class="card h-100">
-            <div class="text-center">
-              <img
-                src="assets/img/web.jpg"
-                class="img-fluid"
-                alt="Hacking Web"
-                style="height: 200px; object-fit: cover"
-              />
-            </div>
-            <div class="card-body text-center">
-              <h5 class="card-title ct">Hacking Web</h5>
-            </div>
-          </div>
-        </a>
-      </div>
-      <!-- Course 4 -->
-      <div class="col-md-4 mb-4">
-        <a href="/certification">
-          <div class="card h-100">
-            <div class="text-center">
-              <img
-                src="assets/img/OSINT.jpg"
-                class="img-fluid"
-                alt="OSINT cert"
-                style="height: 200px; object-fit: cover"
-              />
-            </div>
-            <div class="card-body text-center">
-              <h5 class="card-title ct">OSINT cert</h5>
-            </div>
-          </div>
-        </a>
-      </div>
+      {{/certifications}}
     </div>
   </div>
 

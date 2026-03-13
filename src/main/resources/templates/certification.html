@@ -6,19 +6,19 @@
       <div class="row text-center">
         <div class="col-md-3">
           <strong>Level</strong>
-          <p>Intermediate</p>
+          <p>{{certification.level}}</p>
         </div>
         <div class="col-md-3">
           <strong>Duration</strong>
-          <p>60 hours</p>
+          <p>{{certification.duration}} hours</p>
         </div>
         <div class="col-md-3">
           <strong>Format</strong>
-          <p>Online / Labs</p>
+          <p>{{certification.format}}</p>
         </div>
         <div class="col-md-3">
           <strong>Language</strong>
-          <p>English</p>
+          <p>{{certification.language}}</p>
         </div>
       </div>
     </div>
@@ -31,24 +31,16 @@
         <!-- Imagen -->
         <div class="col-md-6 mb-4 mb-md-0 text-center">
           <img
-            src="/assets/img/Pentest.png"
+            src="/{{certification.imagePath}}"
             class="img-fluid rounded shadow"
-            alt="Pentesting Lab"
+            alt="{{certification.name}}"
           />
         </div>
 
         <!-- Texto -->
         <div class="col-md-6">
           <h2 class="mb-4">Description</h2>
-          <p>
-            This certification is designed for professionals who want to acquire
-            practical skills in ethical hacking, vulnerability assessment, and
-            system exploitation in real-world environments.
-          </p>
-          <p>
-            Throughout the course, you will work with guided labs, real-world
-            scenarios, and tools used in the cybersecurity industry.
-          </p>
+          <p>{{certification.description}}</p>
         </div>
       </div>
     </div>
@@ -62,11 +54,9 @@
         <div class="col-md-6 mb-4 mb-md-0">
           <h2 class="mb-4">Contents</h2>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item neon-li">Pentesting Fundamentals</li>
-            <li class="list-group-item neon-li">Recon and Enumeration</li>
-            <li class="list-group-item neon-li">Vulnerability exploitation</li>
-            <li class="list-group-item neon-li">Post exploitation</li>
-            <li class="list-group-item neon-li">Professional reporting</li>
+            {{#certification.contents}}
+            <li class="list-group-item neon-li">{{.}}</li>
+            {{/certification.contents}}
           </ul>
         </div>
 
@@ -74,13 +64,9 @@
         <div class="col-md-6">
           <h2 class="mb-4">Requisites</h2>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item neon-li">
-              Basic understanding of networking
-            </li>
-            <li class="list-group-item neon-li">
-              Basic usage of Linux and Windows
-            </li>
-            <li class="list-group-item neon-li">Security fundamentals</li>
+            {{#certification.requirements}}
+            <li class="list-group-item neon-li">{{.}}</li>
+            {{/certification.requirements}}
           </ul>
         </div>
       </div>

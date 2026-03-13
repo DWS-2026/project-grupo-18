@@ -42,6 +42,7 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
     http.authorizeHttpRequests(auth -> auth
             .requestMatchers("/", "/login", "/register").permitAll()
+            .requestMatchers("/certification/**").permitAll()
 
             // recursos estáticos
             .requestMatchers("/css/**").permitAll()
