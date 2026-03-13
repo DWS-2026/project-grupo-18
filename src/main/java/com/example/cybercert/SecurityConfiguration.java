@@ -65,6 +65,9 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             .logoutUrl("/logout")
             .logoutSuccessUrl("/")
     );
+    http.exceptionHandling(exception -> exception
+            .accessDeniedPage("/403")
+    );
 
     http.csrf(csrf -> csrf.disable());
 

@@ -251,5 +251,9 @@ public class CyberController {
 
         return "redirect:/admin";
     }
+    @GetMapping("/403")
+public String error403(){
+    return "error403";
+}
     
 }
