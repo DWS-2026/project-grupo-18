@@ -36,8 +36,13 @@ public class Certification {
     @Column(name = "requirement")
     private List<String> requirements;
 
-    @Lob
-    private Blob imageFile;
+    @ElementCollection
+    @CollectionTable(name = "certification_contents", joinColumns = @JoinColumn(name = "certification_id"))
+    @Column(name = "content")
+    private List<String> contents;
+
+    @Column(nullable = false)
+    private String imagePath;
 
     @Column(nullable = false)
     private Boolean active = true;
@@ -45,7 +50,7 @@ public class Certification {
     public Certification() {}
 
     public Certification(String name, String level, Integer duration, String format, String language,
-                         String description, List<String> requirements, Blob imageFile, Boolean active) {
+                         String description, List<String> requirements, List<String> contents, String imagePath, Boolean active) {
         this.name = name;
         this.level = level;
         this.duration = duration;
@@ -53,7 +58,8 @@ public class Certification {
         this.language = language;
         this.description = description;
         this.requirements = requirements;
-        this.imageFile = imageFile;
+        this.contents = contents;
+        this.imagePath = imagePath;
         this.active = active;
     }
 
@@ -81,8 +87,11 @@ public class Certification {
     public List<String> getRequirements() { return requirements; }
     public void setRequirements(List<String> requirements) { this.requirements = requirements; }
 
-    public Blob getImageFile() { return imageFile; }
-    public void setImageFile(Blob imageFile) { this.imageFile = imageFile; }
+    public List<String> getContents() { return contents; }
+    public void setContents(List<String> contents) { this.contents = contents; }
+
+    public String getImagePath() { return imagePath; }
+    public void setImagePath(String imagePath) { this.imagePath = imagePath; }
 
     public Boolean getActive() { return active; }
     public void setActive(Boolean active) { this.active = active; }
