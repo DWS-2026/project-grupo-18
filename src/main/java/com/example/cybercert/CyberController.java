@@ -31,14 +31,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 
-
-
 import jakarta.transaction.Transactional;
-
 
 @Controller
 public class CyberController {
@@ -51,7 +47,6 @@ public class CyberController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
 
     // HOME
     @GetMapping("/")
@@ -74,7 +69,6 @@ public class CyberController {
         return "index";
     }
 
-
     // LOGIN PAGE
     @GetMapping("/login")
     public String login(Model model) {
@@ -83,7 +77,6 @@ public class CyberController {
 
         return "login";
     }
-
 
     // REGISTER PAGE
     @GetMapping("/register")
@@ -94,7 +87,6 @@ public class CyberController {
 
         return "register";
     }
-
 
     // REGISTER USER
     @PostMapping("/register")
@@ -122,24 +114,15 @@ public class CyberController {
         }
     }
 
-
     // ADMIN PAGE
     @GetMapping("/admin")
     public String admin(Model model, Principal principal) {
-        
-        if (principal != null) {
-            model.addAttribute("logged", true);
-
-            User user = userRepository.findByUsername(principal.getName()).orElse(null);
-
-            if (user != null) {
-                model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
-            }
-        }
 
         List<User> users = userRepository.findAll();
+        List<Certification> certifications = certificationRepository.findAll();
 
         model.addAttribute("users", users);
+        model.addAttribute("certifications", certifications);
 
         model.addAttribute("pageCss", "admin");
 
@@ -149,7 +132,6 @@ public class CyberController {
 
         return "admin";
     }
-
 
     // PROFILE PAGE
     @GetMapping("/profile")
@@ -178,7 +160,6 @@ public class CyberController {
         return "profile";
     }
 
-
     // CERTIFICATION PAGE
     @GetMapping("/certification/{id}")
     public String certification(@PathVariable Long id, Model model, Principal principal) {
@@ -195,13 +176,11 @@ public class CyberController {
 
         model.addAttribute("pageCss", "certification");
         Certification cert = certificationRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Certification not found"));
+                .orElseThrow(() -> new RuntimeException("Certification not found"));
 
         model.addAttribute("certification", cert);
         return "certification";
     }
-
-    
 
     // CHECKOUT
     @GetMapping("/checkout")
@@ -216,7 +195,6 @@ public class CyberController {
 
         return "checkout";
     }
-
 
     // SHOPPING CART
     @GetMapping("/shoppingcart")
@@ -240,7 +218,6 @@ public class CyberController {
 
         return "shopping-cart";
     }
-
 
     // EDIT PROFILE PAGE
     @GetMapping("/edit")
@@ -269,14 +246,13 @@ public class CyberController {
         return "edit";
     }
 
-
     // EDIT USER DATA
     @PostMapping("/edit")
     public String editUser(Model model,
-                           Principal principal,
-                           String username,
-                           String email,
-                           String password) {
+            Principal principal,
+            String username,
+            String email,
+            String password) {
 
         model.addAttribute("pageCss", "profile");
 
@@ -308,7 +284,6 @@ public class CyberController {
         return "redirect:/profile";
     }
 
-
     // RESET PAGE
     @GetMapping("/reset")
     public String reset(Model model, Principal principal) {
@@ -331,20 +306,21 @@ public class CyberController {
     @PostMapping("/admin/delete")
     @Transactional
     public String deleteUser(@RequestParam String username) {
-        
-        if(!"admin".equals(username)){
+
+        if (!"admin".equals(username)) {
 
             userRepository.deleteByUsername(username);
-        
+
         }
 
         return "redirect:/admin";
     }
+
     @GetMapping("/403")
-public String error403(){
-    return "error403";
-}
-    
+    public String error403() {
+        return "error403";
+    }
+
     @GetMapping("/admin/add_certi")
     public String showAddCertificateForm(Model model, Principal principal) {
         model.addAttribute("pageCss", "auth");
@@ -360,32 +336,73 @@ public String error403(){
         }
         return "add_certi";
     }
-    
+
     @PostMapping("/admin/add_certi")
     @Transactional
-    public String addCertificate(@RequestParam String username, @RequestParam String description) {
-  
-        
+    public String addCertificate(
+            @RequestParam String name,
+            @RequestParam String level,
+            @RequestParam int duration,
+            @RequestParam String format,
+            @RequestParam String language,
+            @RequestParam String description,
+            @RequestParam String requirements,
+            @RequestParam String contents,
+            @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+
+        if (imageFile != null && !imageFile.isEmpty()) {
+            String uploadDir = "src/main/resources/static/assets/img/";
+            String fileName = imageFile.getOriginalFilename();
+            Path path = Paths.get(uploadDir + fileName);
+            Files.write(path, imageFile.getBytes());
+        }
+
+        List<String> reqList = List.of(requirements.split(","));
+        List<String> contList = List.of(contents.split(","));
+
+        Certification cert = new Certification(
+                name,
+                level,
+                duration,
+                format,
+                language,
+                description,
+                reqList,
+                contList,
+                "assets/img/" + imageFile.getOriginalFilename());
+
+        certificationRepository.save(cert);
+
         return "redirect:/admin";
     }
+
+    @PostMapping("/admin/delete-certi")
+    @Transactional
+    public String deleteCerti(@RequestParam("certId") Long certId) {
+        if (certificationRepository.existsById(certId)) {
+            certificationRepository.deleteById(certId);
+        }
+        return "redirect:/admin";
+    }
+
     @PostMapping("/uploadProfileImage")
-public String uploadProfileImage(@RequestParam("image") MultipartFile file,
-                                 Principal principal) throws IOException {
+    public String uploadProfileImage(@RequestParam("image") MultipartFile file,
+            Principal principal) throws IOException {
 
-    User user = userRepository.findByUsername(principal.getName()).get();
+        User user = userRepository.findByUsername(principal.getName()).get();
 
-    String uploadDir = "src/main/resources/static/uploads/";
+        String uploadDir = "src/main/resources/static/uploads/";
 
-    String fileName = user.getId() + ".png";
+        String fileName = user.getId() + ".png";
 
-    Path path = Paths.get(uploadDir + fileName);
+        Path path = Paths.get(uploadDir + fileName);
 
-    Files.write(path, file.getBytes());
+        Files.write(path, file.getBytes());
 
-    user.setProfileImage("/uploads/" + fileName);
+        user.setProfileImage("/uploads/" + fileName);
 
-    userRepository.save(user);
+        userRepository.save(user);
 
-    return "redirect:/profile";
-}
+        return "redirect:/profile";
+    }
 }

@@ -44,13 +44,11 @@ public class Certification {
     @Column(nullable = false)
     private String imagePath;
 
-    @Column(nullable = false)
-    private Boolean active = true;
-
-    public Certification() {}
+    public Certification() {
+    }
 
     public Certification(String name, String level, Integer duration, String format, String language,
-                         String description, List<String> requirements, List<String> contents, String imagePath, Boolean active) {
+            String description, List<String> requirements, List<String> contents, String imagePath) {
         this.name = name;
         this.level = level;
         this.duration = duration;
@@ -60,39 +58,86 @@ public class Certification {
         this.requirements = requirements;
         this.contents = contents;
         this.imagePath = imagePath;
-        this.active = active;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getLevel() { return level; }
-    public void setLevel(String level) { this.level = level; }
+    public String getName() {
+        return name;
+    }
 
-    public Integer getDuration() { return duration; }
-    public void setDuration(Integer duration) { this.duration = duration; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public String getFormat() { return format; }
-    public void setFormat(String format) { this.format = format; }
+    public String getLevel() {
+        return level;
+    }
 
-    public String getLanguage() { return language; }
-    public void setLanguage(String language) { this.language = language; }
+    public void setLevel(String level) {
+        this.level = level;
+    }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public Integer getDuration() {
+        return duration;
+    }
 
-    public List<String> getRequirements() { return requirements; }
-    public void setRequirements(List<String> requirements) { this.requirements = requirements; }
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
 
-    public List<String> getContents() { return contents; }
-    public void setContents(List<String> contents) { this.contents = contents; }
+    public String getFormat() {
+        return format;
+    }
 
-    public String getImagePath() { return imagePath; }
-    public void setImagePath(String imagePath) { this.imagePath = imagePath; }
+    public void setFormat(String format) {
+        this.format = format;
+    }
 
-    public Boolean getActive() { return active; }
-    public void setActive(Boolean active) { this.active = active; }
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<String> getRequirements() {
+        return requirements;
+    }
+
+    public void setRequirements(List<String> requirements) {
+        this.requirements = requirements;
+    }
+
+    public List<String> getContents() {
+        return contents;
+    }
+
+    public void setContents(List<String> contents) {
+        this.contents = contents;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
 }
