@@ -9,6 +9,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "profile_image")
+    private String profileImage;
+
+
 
     @Column(unique = true)
     private String username;
@@ -58,5 +62,11 @@ public class User {
 
     public void setEmail(String email) {  
         this.email = email;
+    }
+    public String getProfileImage() {
+        return profileImage;
+    }
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 }
