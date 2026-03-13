@@ -70,8 +70,6 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             .accessDeniedPage("/403")
     );
 
-    http.csrf(csrf -> csrf.disable());
-
     return http.build();
 }
 }
