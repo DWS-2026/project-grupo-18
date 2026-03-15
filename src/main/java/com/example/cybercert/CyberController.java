@@ -97,7 +97,11 @@ public class CyberController {
         Optional<User> optionalUser = userRepository.findByUsername(user.getUsername());
 
         if (optionalUser.isEmpty()) {
-
+            Optional<User> optionalUser1 = userRepository.findByEmail(user.getEmail());
+            if (optionalUser1.isPresent()) {
+                model.addAttribute("error", "Email already exists");
+                return "register";
+            }
             user.setRole(Role.USER);
 
             // CIFRAR PASSWORD
@@ -301,6 +305,45 @@ public class CyberController {
         model.addAttribute("pageCss", "profile");
 
         return "reset";
+    }
+
+    @PostMapping("/reset")
+    public String resetPassword(Model model,
+                                Principal principal,
+                                @RequestParam String actual_password,
+                                @RequestParam String new_password) {
+
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
+        model.addAttribute("pageCss", "profile");
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        if (!passwordEncoder.matches(actual_password, user.getPassword())) {
+            model.addAttribute("error", "Current password is incorrect.");
+            model.addAttribute("logged", true);
+            model.addAttribute("user", user);
+            model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
+            return "reset";
+        }
+
+        if (new_password == null || new_password.isEmpty()) {
+            model.addAttribute("error", "New password cannot be empty.");
+            model.addAttribute("logged", true);
+            model.addAttribute("user", user);
+            model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
+            return "reset";
+        }
+
+        user.setPassword(passwordEncoder.encode(new_password));
+        userRepository.save(user);
+
+        return "redirect:/profile";
     }
 
     @PostMapping("/admin/delete")
