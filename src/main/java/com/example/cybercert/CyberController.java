@@ -44,10 +44,13 @@ import jakarta.transaction.Transactional;
 public class CyberController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
-    private CertificationRepository certificationRepository;
+    private CertificationService certificationService;
+
+    @Autowired
+    private CommentService commentService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -62,13 +65,13 @@ public class CyberController {
         if (principal != null) {
             model.addAttribute("logged", true);
 
-            User user = userRepository.findByUsername(principal.getName()).orElse(null);
+            User user = userService.findByUsername(principal.getName()).orElse(null);
 
             if (user != null) {
                 model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
             }
         }
-        List<Certification> certifications = certificationRepository.findAll();
+        List<Certification> certifications = certificationService.findAll();
         model.addAttribute("certifications", certifications);
 
         return "index";
@@ -102,10 +105,10 @@ public class CyberController {
 
         model.addAttribute("pageCss", "auth");
 
-        Optional<User> optionalUser = userRepository.findByUsername(user.getUsername());
+        Optional<User> optionalUser = userService.findByUsername(user.getUsername());
 
         if (optionalUser.isEmpty()) {
-            Optional<User> optionalUser1 = userRepository.findByEmail(user.getEmail());
+            Optional<User> optionalUser1 = userService.findByEmail(user.getEmail());
             if (optionalUser1.isPresent()) {
                 model.addAttribute("error", "Email already exists");
                 return "register";
@@ -115,7 +118,7 @@ public class CyberController {
             // CIFRAR PASSWORD
             user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-            userRepository.save(user);
+            userService.save(user);
 
             return "redirect:/login";
 
@@ -134,14 +137,14 @@ public class CyberController {
         if (principal != null) {
             model.addAttribute("logged", true);
 
-            User user = userRepository.findByUsername(principal.getName()).orElse(null);
+            User user = userService.findByUsername(principal.getName()).orElse(null);
 
             if (user != null) {
                 model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
             }
         }
 
-        List<User> users = userRepository.findAll();
+        List<User> users = userService.findAll();
 
         model.addAttribute("users", users);
 
@@ -164,7 +167,7 @@ public class CyberController {
         if (principal != null) {
             model.addAttribute("logged", true);
 
-            User user = userRepository.findByUsername(principal.getName()).orElse(null);
+            User user = userService.findByUsername(principal.getName()).orElse(null);
 
             if (user != null) {
                 model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
@@ -173,7 +176,7 @@ public class CyberController {
 
         if (principal != null) {
 
-            User user = userRepository.findByUsername(principal.getName()).orElse(null);
+            User user = userService.findByUsername(principal.getName()).orElse(null);
 
             model.addAttribute("logged", true);
             model.addAttribute("user", user);
@@ -190,7 +193,7 @@ public class CyberController {
         if (principal != null) {
             model.addAttribute("logged", true);
 
-            User user = userRepository.findByUsername(principal.getName()).orElse(null);
+            User user = userService.findByUsername(principal.getName()).orElse(null);
 
             if (user != null) {
                 model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
@@ -198,11 +201,34 @@ public class CyberController {
         }
 
         model.addAttribute("pageCss", "certification");
-        Certification cert = certificationRepository.findById(id)
+        Certification cert = certificationService.findById(id)
             .orElseThrow(() -> new RuntimeException("Certification not found"));
 
         model.addAttribute("certification", cert);
+        model.addAttribute("comments", commentService.getCommentsByCertification(id));
         return "certification";
+    }
+
+    @PostMapping("/certification/{id}/comment")
+    public String addComment(@PathVariable Long id,
+                             Model model,
+                             Principal principal,
+                             @RequestParam("text") String text) {
+
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        User user = userService.findByUsername(principal.getName()).orElse(null);
+        Certification certification = certificationService.findById(id).orElse(null);
+
+        if (user == null || certification == null || text == null || text.trim().isEmpty()) {
+            return "redirect:/certification/" + id;
+        }
+
+        commentService.addComment(user, certification, text.trim());
+
+        return "redirect:/certification/" + id;
     }
 
     
@@ -231,7 +257,7 @@ public class CyberController {
         if (principal != null) {
             model.addAttribute("logged", true);
 
-            User user = userRepository.findByUsername(principal.getName()).orElse(null);
+            User user = userService.findByUsername(principal.getName()).orElse(null);
 
             if (user != null) {
                 model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
@@ -254,7 +280,7 @@ public class CyberController {
         if (principal != null) {
             model.addAttribute("logged", true);
 
-            User user = userRepository.findByUsername(principal.getName()).orElse(null);
+            User user = userService.findByUsername(principal.getName()).orElse(null);
 
             if (user != null) {
                 model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
@@ -265,7 +291,7 @@ public class CyberController {
             return "redirect:/login";
         }
 
-        User user = userRepository.findByUsername(principal.getName()).orElse(null);
+        User user = userService.findByUsername(principal.getName()).orElse(null);
 
         model.addAttribute("user", user);
         model.addAttribute("pageCss", "profile");
@@ -288,7 +314,7 @@ public class CyberController {
             return "redirect:/login";
         }
 
-        User user = userRepository.findByUsername(principal.getName()).orElse(null);
+        User user = userService.findByUsername(principal.getName()).orElse(null);
 
         if (user != null) {
 
@@ -306,7 +332,7 @@ public class CyberController {
                 user.setPassword(passwordEncoder.encode(password));
             }
 
-            userRepository.save(user);
+            userService.save(user);
         }
 
         return "redirect:/profile";
@@ -320,7 +346,7 @@ public class CyberController {
         if (principal != null) {
             model.addAttribute("logged", true);
 
-            User user = userRepository.findByUsername(principal.getName()).orElse(null);
+            User user = userService.findByUsername(principal.getName()).orElse(null);
 
             if (user != null) {
                 model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
@@ -342,7 +368,7 @@ public class CyberController {
             return "redirect:/login";
         }
 
-        User user = userRepository.findByUsername(principal.getName()).orElse(null);
+        User user = userService.findByUsername(principal.getName()).orElse(null);
         model.addAttribute("pageCss", "profile");
 
         if (user == null) {
@@ -366,7 +392,7 @@ public class CyberController {
         }
 
         user.setPassword(passwordEncoder.encode(new_password));
-        userRepository.save(user);
+        userService.save(user);
 
         return "redirect:/profile";
     }
@@ -377,7 +403,7 @@ public class CyberController {
         
         if(!"admin".equals(username)){
 
-            userRepository.deleteByUsername(username);
+            userService.deleteByUsername(username);
         
         }
 
@@ -395,7 +421,7 @@ public String error403(){
         if (principal != null) {
             model.addAttribute("logged", true);
 
-            User user = userRepository.findByUsername(principal.getName()).orElse(null);
+            User user = userService.findByUsername(principal.getName()).orElse(null);
 
             if (user != null) {
                 model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
@@ -415,7 +441,7 @@ public String error403(){
 public String uploadProfileImage(@RequestParam("image") MultipartFile file,
                                  Principal principal) throws IOException {
 
-    User user = userRepository.findByUsername(principal.getName()).get();
+    User user = userService.findByUsername(principal.getName()).get();
 
     String uploadDir = "src/main/resources/static/uploads/";
 
@@ -427,7 +453,7 @@ public String uploadProfileImage(@RequestParam("image") MultipartFile file,
 
     user.setProfileImage("/uploads/" + fileName);
 
-    userRepository.save(user);
+    userService.save(user);
 
     return "redirect:/profile";
 }
