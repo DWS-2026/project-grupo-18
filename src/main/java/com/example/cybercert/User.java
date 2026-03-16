@@ -1,5 +1,7 @@
 package com.example.cybercert;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -9,29 +11,34 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "profile_image")
     private String profileImage;
-
-
 
     @Column(unique = true)
     private String username;
 
     private String password;
-    
+
     @Column(unique = true)
     private String email;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
+
     public User() {}
+
     public Role getRole() {
         return role;
     }
+
     public void setRole(Role role) {
         this.role = role;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -63,9 +70,11 @@ public class User {
     public void setEmail(String email) {  
         this.email = email;
     }
+
     public String getProfileImage() {
         return profileImage;
     }
+
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
     }
