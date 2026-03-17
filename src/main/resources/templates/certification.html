@@ -31,7 +31,7 @@
         <!-- Imagen -->
         <div class="col-md-6 mb-4 mb-md-0 text-center">
           <img
-            src="/{{certification.imagePath}}"
+            src="/images/{{certification.image.id}}"
             class="img-fluid rounded shadow"
             alt="{{certification.name}}"
           />
@@ -78,7 +78,28 @@
     <div class="container">
       <h2 class="mb-3">¿Ready to get your certificate?</h2>
       <p class="mb-4">Make the next step in your cybersecurity carrer.</p>
-      <button class="btn neon-button">Sign up</button>
+      {{^logged}}
+      <a href="/login" class="btn neon-button">Login to buy</a>
+      {{/logged}}
+      {{#logged}}
+      {{#alreadyOwned}}
+      <button class="btn neon-button" disabled>Already purchased</button>
+      {{/alreadyOwned}}
+      {{^alreadyOwned}}
+      {{#alreadyInCart}}
+      <form method="post" action="/shoppingcart/remove/{{certification.id}}">
+        <input type="hidden" name="_csrf" value="{{token}}" />
+        <button type="submit" class="btn neon-button">Remove from cart</button>
+      </form>
+      {{/alreadyInCart}}
+      {{^alreadyInCart}}
+      <form method="post" action="/shoppingcart/add/{{certification.id}}">
+        <input type="hidden" name="_csrf" value="{{token}}" />
+        <button type="submit" class="btn neon-button">Add to cart</button>
+      </form>
+      {{/alreadyInCart}}
+      {{/alreadyOwned}}
+      {{/logged}}
     </div>
   </section>
 
@@ -91,7 +112,7 @@
 
           {{#comments}}
           <div class="mt-4 card neon-card">
-            <div class="card-body">
+            <div class="card-body comment-card">
               <h5 class="card-title">{{user.username}}</h5>
               <p class="card-text">{{text}}</p>
             </div>
@@ -99,7 +120,10 @@
           {{/comments}}
 
           <h3 class="mt-4">Add your review</h3>
-          <form method="post" action="/certification/{{certification.id}}/comment">
+          <form
+            method="post"
+            action="/certification/{{certification.id}}/comment"
+          >
             <input type="hidden" name="_csrf" value="{{token}}" />
             <div class="mb-3">
               <label class="form-label">Rating</label>
@@ -123,7 +147,9 @@
               ></textarea>
             </div>
             <div class="text-center">
-              <button type="submit" class="btn neon-button">Submit review</button>
+              <button type="submit" class="btn neon-button">
+                Submit review
+              </button>
             </div>
           </form>
         </div>

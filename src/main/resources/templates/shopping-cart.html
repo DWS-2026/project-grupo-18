@@ -17,14 +17,28 @@
                     <th class="text-neon">ID</th>
                     <th class="text-neon">Course</th>
                     <th class="text-neon">Price</th>
+                    <th class="text-neon text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody id="cart-body">
+                  {{#cartItems}}
                   <tr>
-                    <td class="text-neon">0</td>
-                    <td class="text-neon">Pentesting Certification</td>
-                    <td class="text-neon">89.99$</td>
+                    <td class="text-neon">{{id}}</td>
+                    <td class="text-neon">{{name}}</td>
+                    <td class="text-neon">${{price}}</td>
+                    <td class="text-center">
+                      <form method="post" action="/shoppingcart/remove/{{id}}" class="m-0">
+                        <input type="hidden" name="_csrf" value="{{token}}" />
+                        <button type="submit" class="btn btn-sm neon-button text-neon">Remove</button>
+                      </form>
+                    </td>
                   </tr>
+                  {{/cartItems}}
+                  {{^cartItems}}
+                  <tr>
+                    <td class="text-neon text-center" colspan="4">Your cart is empty.</td>
+                  </tr>
+                  {{/cartItems}}
                 </tbody>
               </table>
             </div>
@@ -40,28 +54,31 @@
                 class="list-group-item bg-transparent text-neon d-flex justify-content-between align-items-center"
               >
                 Subtotal
-                <span id="summary-subtotal" class="text-neon">$0.00</span>
+                <span id="summary-subtotal" class="text-neon">${{subtotal}}</span>
               </li>
               <li
                 class="list-group-item bg-transparent text-neon d-flex justify-content-between align-items-center"
               >
                 Discount
-                <span id="summary-discount" class="text-neon">-$0.00</span>
+                <span id="summary-discount" class="text-neon">-${{discount}}</span>
               </li>
               <li
                 class="list-group-item bg-transparent text-neon d-flex justify-content-between align-items-center fw-bold"
               >
                 Total
-                <span id="summary-total" class="text-neon">$0.00</span>
+                <span id="summary-total" class="text-neon">${{total}}</span>
               </li>
             </ul>
-            <a
-              href="/checkout"
-              class="btn neon-button w-100 text-neon"
-              id="checkout-btn"
-            >
+            {{#hasCartItems}}
+            <a href="/checkout" class="btn neon-button w-100 text-neon" id="checkout-btn">
               <i class="fa fa-credit-card me-2"></i>Checkout
             </a>
+            {{/hasCartItems}}
+            {{^hasCartItems}}
+            <button class="btn neon-button w-100 text-neon" id="checkout-btn" disabled>
+              <i class="fa fa-credit-card me-2"></i>Checkout
+            </button>
+            {{/hasCartItems}}
           </div>
         </div>
       </div>

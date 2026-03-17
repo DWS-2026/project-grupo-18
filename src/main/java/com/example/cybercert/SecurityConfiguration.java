@@ -27,48 +27,43 @@ public class SecurityConfiguration {
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider =
-                new DaoAuthenticationProvider(userDetailsService);
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService);
 
         authProvider.setPasswordEncoder(passwordEncoder());
 
         return authProvider;
     }
 
-@Bean
-public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-    http.authenticationProvider(authenticationProvider());
+        http.authenticationProvider(authenticationProvider());
 
-    http.authorizeHttpRequests(auth -> auth
-            .requestMatchers("/", "/login", "/register").permitAll()
-            .requestMatchers("/certification/**").permitAll()
+        http.authorizeHttpRequests(auth -> auth
+                .requestMatchers("/", "/login", "/register").permitAll()
+                .requestMatchers("/certification/**").permitAll()
 
-            // recursos estáticos
-            .requestMatchers("/css/**").permitAll()
-            .requestMatchers("/403", "/404", "/error").permitAll()
-            .requestMatchers("/js/**").permitAll()
-            .requestMatchers("/images/**").permitAll()
-            .requestMatchers("/assets/**").permitAll()
+                // recursos estáticos
+                .requestMatchers("/css/**").permitAll()
+                .requestMatchers("/403", "/404", "/error").permitAll()
+                .requestMatchers("/js/**").permitAll()
+                .requestMatchers("/images/**").permitAll()
+                .requestMatchers("/assets/**").permitAll()
 
-            // rutas protegidas
-            .requestMatchers("/admin").hasRole("ADMIN")
+                // rutas protegidas
+                .requestMatchers("/admin/**").hasRole("ADMIN")
 
-            .anyRequest().authenticated()
-    );
+                .anyRequest().authenticated());
 
-    http.formLogin(login -> login
-            .loginPage("/login")
-            .defaultSuccessUrl("/")
-            .permitAll()
-    );
+        http.formLogin(login -> login
+                .loginPage("/login")
+                .defaultSuccessUrl("/")
+                .permitAll());
 
-    http.logout(logout -> logout
-            .logoutUrl("/logout")
-            .logoutSuccessUrl("/")
-    );
-    
+        http.logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/"));
 
-    return http.build();
-}
+        return http.build();
+    }
 }

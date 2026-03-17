@@ -29,13 +29,19 @@
             <td>{{username}}</td>
             <td>{{email}}</td>
             <td>
-
-              <form action="/admin/delete" method="post" style="display:inline;">
-                <input type="hidden" name="_csrf" value="{{token}}">
-                    <input type="hidden" name="username" value="{{username}}">
-                  <button type="submit" class="btn btn-danger btn-sm delete-button">
-                    <i class="fa-solid fa-trash"></i> Delete
-                  </button>
+              <form
+                action="/admin/delete"
+                method="post"
+                style="display: inline"
+              >
+                <input type="hidden" name="_csrf" value="{{token}}" />
+                <input type="hidden" name="username" value="{{username}}" />
+                <button
+                  type="submit"
+                  class="btn btn-danger btn-sm delete-button"
+                >
+                  <i class="fa-solid fa-trash"></i> Delete
+                </button>
               </form>
             </td>
           </tr>
@@ -73,6 +79,7 @@
                 method="POST"
                 style="display: inline"
               >
+                <input type="hidden" name="_csrf" value="{{token}}" />
                 <input type="hidden" name="certId" value="{{id}}" />
                 <button type="submit" class="btn btn-danger btn-sm">
                   <i class="fa-solid fa-trash"></i> Delete

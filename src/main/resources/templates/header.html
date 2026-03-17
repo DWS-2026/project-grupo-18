@@ -44,12 +44,13 @@
                 class="btn btn-outline nav-btn position-relative"
               >
                 <i class="fa-solid fa-cart-shopping"></i>
-
+                {{#hasCartItems}}
                 <span
                   class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
                 >
-                  2
+                  {{cartSize}}
                 </span>
+                {{/hasCartItems}}
               </a>
               {{/logged}}
               

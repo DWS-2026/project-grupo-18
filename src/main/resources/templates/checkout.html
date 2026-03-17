@@ -2,7 +2,25 @@
 
 <main class="flex-fill">
   <section class="checkout-section">
-    <form class="payment-form">
+    <form class="payment-form" method="post" action="/checkout">
+      <input type="hidden" name="_csrf" value="{{token}}" />
+      <div id="card-details">
+        <h3>Resumen de compra</h3>
+        <ul class="list-group list-group-flush mb-3">
+          {{#cartItems}}
+          <li
+            class="list-group-item bg-transparent text-neon d-flex justify-content-between align-items-center"
+          >
+            <span>{{name}}</span>
+            <span>${{price}}</span>
+          </li>
+          {{/cartItems}}
+        </ul>
+        <p class="text-neon mb-1">Subtotal: ${{subtotal}}</p>
+        <p class="text-neon mb-1">Discount: -${{discount}}</p>
+        <p class="text-neon fw-bold">Total: ${{total}}</p>
+      </div>
+
       <div id="card-details">
         <h3>Datos de la tarjeta</h3>
         <label for="card-number">Número de tarjeta</label>
@@ -48,7 +66,7 @@
         </div>
       </div>
 
-      <button type="submit" class="checkout-btn">Pagar</button>
+      <button type="submit" class="checkout-btn">Pagar y completar compra</button>
     </form>
   </section>
 </main>
