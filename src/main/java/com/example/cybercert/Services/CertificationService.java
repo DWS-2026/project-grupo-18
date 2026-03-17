@@ -1,7 +1,10 @@
-package com.example.cybercert;
+package com.example.cybercert.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.cybercert.Models.Certification;
+import com.example.cybercert.Repositories.CertificationRepository;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,6 +1,12 @@
-package com.example.cybercert;
+package com.example.cybercert.Services;
 
 import org.springframework.stereotype.Service;
+
+import com.example.cybercert.Models.Certification;
+import com.example.cybercert.Models.Comment;
+import com.example.cybercert.Models.User;
+import com.example.cybercert.Repositories.CommentsRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 

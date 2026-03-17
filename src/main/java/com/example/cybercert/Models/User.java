@@ -1,6 +1,8 @@
-package com.example.cybercert;
+package com.example.cybercert.Models;
 
 import java.util.List;
+
+import com.example.cybercert.Role;
 
 import jakarta.persistence.*;
 
