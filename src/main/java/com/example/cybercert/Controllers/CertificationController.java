@@ -1,4 +1,5 @@
 package com.example.cybercert.Controllers;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,7 +44,6 @@ import org.springframework.http.MediaType;
 
 import jakarta.transaction.Transactional;
 
-
 @Controller
 public class CertificationController {
 
@@ -58,8 +58,6 @@ public class CertificationController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-
 
     // CERTIFICATION PAGE
     @GetMapping("/certification/{id}")
@@ -77,7 +75,7 @@ public class CertificationController {
 
         model.addAttribute("pageCss", "certification");
         Certification cert = certificationService.findById(id)
-            .orElseThrow(() -> new RuntimeException("Certification not found"));
+                .orElseThrow(() -> new RuntimeException("Certification not found"));
 
         model.addAttribute("certification", cert);
         model.addAttribute("comments", commentService.getCommentsByCertification(id));
@@ -86,9 +84,9 @@ public class CertificationController {
 
     @PostMapping("/certification/{id}/comment")
     public String addComment(@PathVariable Long id,
-                             Model model,
-                             Principal principal,
-                             @RequestParam("text") String text) {
+            Model model,
+            Principal principal,
+            @RequestParam("text") String text) {
 
         if (principal == null) {
             return "redirect:/login";
@@ -106,6 +104,9 @@ public class CertificationController {
         return "redirect:/certification/" + id;
     }
 
-
+    @PostMapping("/certification/{id}/remove-comment")
+    public String removeComment(@PathVariable Long id) {
+        return "redirect:/certification/" + id;
+    }
 
 }

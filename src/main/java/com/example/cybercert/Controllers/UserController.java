@@ -20,22 +20,17 @@ import com.example.cybercert.Services.UserService;
 
 import java.security.Principal;
 
-
 import java.util.Optional;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @Controller
 public class UserController {
-    
 
     @Autowired
     private UserService userService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-
 
     // LOGIN PAGE
     @GetMapping("/login")
@@ -86,9 +81,6 @@ public class UserController {
         }
     }
 
-
-
-
     // PROFILE PAGE
     @GetMapping("/profile")
     public String profile(Model model, Principal principal) {
@@ -113,7 +105,6 @@ public class UserController {
     // EDIT PROFILE PAGE
     @GetMapping("/edit")
     public String editPage(Model model, Principal principal) {
-
 
         if (principal != null) {
             model.addAttribute("logged", true);
@@ -175,9 +166,6 @@ public class UserController {
         return "redirect:/profile";
     }
 
-
-
-
     // RESET PAGE
     @GetMapping("/reset")
     public String reset(Model model, Principal principal) {
@@ -199,9 +187,9 @@ public class UserController {
 
     @PostMapping("/reset")
     public String resetPassword(Model model,
-                                Principal principal,
-                                @RequestParam String actual_password,
-                                @RequestParam String new_password) {
+            Principal principal,
+            @RequestParam String actual_password,
+            @RequestParam String new_password) {
 
         if (principal == null) {
             return "redirect:/login";
@@ -236,13 +224,11 @@ public class UserController {
         return "redirect:/profile";
     }
 
-
-
     @PostMapping("/uploadProfileImage")
     public String uploadProfileImage(@RequestParam("image") MultipartFile file,
             Principal principal) throws IOException {
 
-    User user = userService.findByUsername(principal.getName()).get();
+        User user = userService.findByUsername(principal.getName()).get();
 
         String uploadDir = "src/main/resources/static/uploads/";
 
@@ -254,12 +240,9 @@ public class UserController {
 
         user.setProfileImage("/uploads/" + fileName);
 
-    userService.save(user);
+        userService.save(user);
 
         return "redirect:/profile";
     }
 
-
-
 }
-

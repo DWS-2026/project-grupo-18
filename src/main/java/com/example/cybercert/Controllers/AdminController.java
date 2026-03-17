@@ -47,8 +47,6 @@ import jakarta.transaction.Transactional;
 @Controller
 public class AdminController {
 
-
-
     @Autowired
     private UserService userService;
 
@@ -61,11 +59,10 @@ public class AdminController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
     // ADMIN PAGE
     @GetMapping("/admin")
     public String admin(Model model, Principal principal) {
-        
+
         if (principal != null) {
             model.addAttribute("logged", true);
 
@@ -90,16 +87,11 @@ public class AdminController {
         return "admin";
     }
 
-
-
-     @PostMapping("/admin/delete")
+    @PostMapping("/admin/delete")
     @Transactional
     public String deleteUser(@RequestParam String username) {
-
         if (!"admin".equals(username)) {
-
             userService.deleteByUsername(username);
-        
         }
 
         return "redirect:/admin";
@@ -162,6 +154,12 @@ public class AdminController {
 
         certificationService.save(cert);
 
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/admin/delete-certi")
+    public String deleteCertification(@RequestParam Long certId) {
+        certificationService.deleteById(certId);
         return "redirect:/admin";
     }
 
