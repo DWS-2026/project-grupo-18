@@ -76,7 +76,19 @@
 
       <div>
         <h4 class="mb-3">Certs Owned</h4>
+        {{#hasOwnedCertifications}}
+        <ul class="list-group list-group-flush">
+          {{#ownedCertifications}}
+          <li class="list-group-item bg-transparent text-neon d-flex justify-content-between align-items-center">
+            <a href="/certification/{{id}}" class="text-neon cert-link">{{name}}</a>
+            <small class="text-secondary">{{purchasedAt}}</small>
+          </li>
+          {{/ownedCertifications}}
+        </ul>
+        {{/hasOwnedCertifications}}
+        {{^hasOwnedCertifications}}
         <strong>None</strong>
+        {{/hasOwnedCertifications}}
       </div>
     </div>
   </div>

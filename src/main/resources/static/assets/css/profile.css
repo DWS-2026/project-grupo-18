@@ -17,3 +17,11 @@
     border: 3px solid #00ff00;
     box-shadow: 0 0 15px #00ff00;
 }
+
+.cert-link {
+  text-decoration: none;
+}
+
+.cert-link:hover {
+  text-shadow: 0 0 8px #00ff00;
+}

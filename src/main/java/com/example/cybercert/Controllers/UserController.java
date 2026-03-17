@@ -11,11 +11,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 import com.example.cybercert.Role;
 import com.example.cybercert.Models.User;
-import com.example.cybercert.Services.CertificationService;
-import com.example.cybercert.Services.CommentService;
+import com.example.cybercert.Models.UserCertification;
+import com.example.cybercert.Repositories.UserCertificationRepository;
+import com.example.cybercert.Services.ShoppingCartService;
 import com.example.cybercert.Services.UserService;
 
 import java.security.Principal;
@@ -31,6 +35,12 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserCertificationRepository userCertificationRepository;
+
+    @Autowired
+    private ShoppingCartService shoppingCartService;
 
     // LOGIN PAGE
     @GetMapping("/login")
@@ -98,6 +108,30 @@ public class UserController {
         model.addAttribute("logged", true);
         model.addAttribute("user", user);
         model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
+        model.addAttribute("cartSize", shoppingCartService.getVisibleCartSize(user.getId()));
+        model.addAttribute("hasCartItems", shoppingCartService.getVisibleCartSize(user.getId()) > 0);
+
+        List<UserCertification> ownedCertifications = userCertificationRepository
+                .findByUserIdOrderByPurchasedAtDesc(user.getId());
+        List<OwnedCertificationView> ownedCertificationViews = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+        for (UserCertification ownedCertification : ownedCertifications) {
+            if (ownedCertification.getCertification() != null) {
+                String purchasedAt = "";
+                if (ownedCertification.getPurchasedAt() != null) {
+                    purchasedAt = ownedCertification.getPurchasedAt().format(formatter);
+                }
+
+                ownedCertificationViews.add(new OwnedCertificationView(
+                        ownedCertification.getCertification().getId(),
+                        ownedCertification.getCertification().getName(),
+                        purchasedAt));
+            }
+        }
+
+        model.addAttribute("ownedCertifications", ownedCertificationViews);
+        model.addAttribute("hasOwnedCertifications", !ownedCertificationViews.isEmpty());
 
         return "profile";
     }
@@ -243,6 +277,9 @@ public class UserController {
         userService.save(user);
 
         return "redirect:/profile";
+    }
+
+    public record OwnedCertificationView(Long id, String name, String purchasedAt) {
     }
 
 }

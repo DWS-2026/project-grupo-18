@@ -1,46 +1,133 @@
 package com.example.cybercert.Services;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jakarta.servlet.http.HttpSession;
+import com.example.cybercert.Models.Certification;
+import com.example.cybercert.Models.ShoppingCartItem;
+import com.example.cybercert.Models.User;
+import com.example.cybercert.Models.UserCertification;
+import com.example.cybercert.Repositories.ShoppingCartItemRepository;
+import com.example.cybercert.Repositories.UserCertificationRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class ShoppingCartService {
 
-    private static final String CART_SESSION_KEY = "shoppingCartCertificationIds";
+    public static final double CERTIFICATION_PRICE = 89.99;
 
-    public Set<Long> getCartIds(HttpSession session) {
-        Object value = session.getAttribute(CART_SESSION_KEY);
-        if (value instanceof Set<?>) {
-            Set<Long> safeIds = new LinkedHashSet<>();
-            for (Object item : (Set<?>) value) {
-                if (item instanceof Long id) {
-                    safeIds.add(id);
-                } else if (item instanceof Integer number) {
-                    safeIds.add(number.longValue());
-                }
-            }
-            return safeIds;
+    @Autowired
+    private ShoppingCartItemRepository shoppingCartItemRepository;
+
+    @Autowired
+    private UserCertificationRepository userCertificationRepository;
+
+    public boolean hasPurchasedCertification(Long userId, Long certificationId) {
+        if (userId == null || certificationId == null) {
+            return false;
         }
-        return new LinkedHashSet<>();
+        return userCertificationRepository.existsByUserIdAndCertificationId(userId, certificationId);
     }
 
-    public void addToCart(HttpSession session, Long certificationId) {
-        Set<Long> cartIds = getCartIds(session);
-        cartIds.add(certificationId);
-        session.setAttribute(CART_SESSION_KEY, cartIds);
+    public boolean isCertificationInCart(Long userId, Long certificationId) {
+        if (userId == null || certificationId == null) {
+            return false;
+        }
+        return shoppingCartItemRepository.existsByUserIdAndCertificationId(userId, certificationId);
     }
 
-    public void removeFromCart(HttpSession session, Long certificationId) {
-        Set<Long> cartIds = getCartIds(session);
-        cartIds.remove(certificationId);
-        session.setAttribute(CART_SESSION_KEY, cartIds);
+    public List<Certification> getCartCertifications(Long userId) {
+        List<Certification> certifications = new ArrayList<>();
+        if (userId == null) {
+            return certifications;
+        }
+
+        List<ShoppingCartItem> items = shoppingCartItemRepository.findByUserId(userId);
+        for (ShoppingCartItem item : items) {
+            if (item.getCertification() != null) {
+                certifications.add(item.getCertification());
+            }
+        }
+        return certifications;
     }
 
-    public void clear(HttpSession session) {
-        session.setAttribute(CART_SESSION_KEY, new LinkedHashSet<Long>());
+    public int getVisibleCartSize(Long userId) {
+        return getCartCertifications(userId).size();
+    }
+
+    @Transactional
+    public void addToCart(User user, Certification certification) {
+        if (user == null || certification == null) {
+            return;
+        }
+
+        if (hasPurchasedCertification(user.getId(), certification.getId())) {
+            return;
+        }
+
+        if (isCertificationInCart(user.getId(), certification.getId())) {
+            return;
+        }
+
+        ShoppingCartItem item = new ShoppingCartItem(user, certification, CERTIFICATION_PRICE);
+        shoppingCartItemRepository.save(item);
+    }
+
+    @Transactional
+    public void removeFromCart(Long userId, Long certificationId) {
+        if (userId == null || certificationId == null) {
+            return;
+        }
+        shoppingCartItemRepository.deleteByUserIdAndCertificationId(userId, certificationId);
+    }
+
+    @Transactional
+    public void completeCheckout(User user) {
+        if (user == null) {
+            return;
+        }
+
+        List<ShoppingCartItem> items = shoppingCartItemRepository.findByUserId(user.getId());
+        for (ShoppingCartItem item : items) {
+            Certification certification = item.getCertification();
+            if (certification == null) {
+                continue;
+            }
+
+            boolean alreadyOwned = userCertificationRepository.existsByUserIdAndCertificationId(user.getId(),
+                    certification.getId());
+
+            if (!alreadyOwned) {
+                userCertificationRepository.save(new UserCertification(user, certification));
+            }
+        }
+
+        shoppingCartItemRepository.deleteByUserId(user.getId());
+    }
+
+    @Transactional
+    public void removeOwnedCertificationsFromCart(Long userId) {
+        if (userId == null) {
+            return;
+        }
+
+        List<ShoppingCartItem> items = shoppingCartItemRepository.findByUserId(userId);
+        for (ShoppingCartItem item : items) {
+            Certification certification = item.getCertification();
+            if (certification == null) {
+                shoppingCartItemRepository.deleteById(item.getId());
+                continue;
+            }
+
+            boolean alreadyOwned = userCertificationRepository.existsByUserIdAndCertificationId(userId,
+                    certification.getId());
+            if (alreadyOwned) {
+                shoppingCartItemRepository.deleteById(item.getId());
+            }
+        }
     }
 }
