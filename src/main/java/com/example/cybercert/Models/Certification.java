@@ -41,14 +41,14 @@ public class Certification {
     @Column(name = "content")
     private List<String> contents;
 
-    @Column(nullable = false)
-    private String imagePath;
+    @OneToOne
+    private Image image;
 
     public Certification() {
     }
 
     public Certification(String name, String level, Integer duration, String format, String language,
-            String description, List<String> requirements, List<String> contents, String imagePath) {
+            String description, List<String> requirements, List<String> contents, Image image) {
         this.name = name;
         this.level = level;
         this.duration = duration;
@@ -57,7 +57,7 @@ public class Certification {
         this.description = description;
         this.requirements = requirements;
         this.contents = contents;
-        this.imagePath = imagePath;
+        this.image = image;
     }
 
     public Long getId() {
@@ -132,12 +132,12 @@ public class Certification {
         this.contents = contents;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public Image getImage() {
+        return image;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImage(Image image) {
+        this.image = image;
     }
 
 }

@@ -19,9 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.cybercert.Role;
 import com.example.cybercert.Models.Certification;
+import com.example.cybercert.Models.Image;
 import com.example.cybercert.Models.User;
 import com.example.cybercert.Services.CertificationService;
 import com.example.cybercert.Services.CommentService;
+import com.example.cybercert.Services.ImageService;
 import com.example.cybercert.Services.UserService;
 
 import java.security.Principal;
@@ -54,7 +56,7 @@ public class AdminController {
     private CertificationService certificationService;
 
     @Autowired
-    private CommentService commentService;
+    private ImageService imageService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -150,9 +152,13 @@ public class AdminController {
                 description,
                 reqList,
                 contList,
-                "assets/img/" + imageFile.getOriginalFilename());
+                null);
 
-        certificationService.save(cert);
+        if (!imageFile.isEmpty()) {
+            Image image = imageService.createImage(imageFile.getInputStream());
+            cert.setImage(image);
+            certificationService.save(cert);
+        }
 
         return "redirect:/admin";
     }

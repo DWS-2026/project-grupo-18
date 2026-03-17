@@ -30,5 +30,8 @@ public class CertificationService {
     public void deleteById(Long id) {
         certificationRepository.deleteById(id);
     }
+
+    public int count() {
+        return (int) certificationRepository.count();
+    }
 }
-   

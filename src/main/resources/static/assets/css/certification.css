@@ -74,3 +74,10 @@ i:hover {
     0 0 30px #00ff00;
   transform: rotate(60deg);
 }
+
+.comment-card {
+  background-color: #111;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  box-shadow: #00ff00 0px 0px 10px;
+}
