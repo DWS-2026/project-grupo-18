@@ -1,48 +1,25 @@
 package com.example.cybercert.Controllers;
 
+import java.security.Principal;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.MediaTypeFactory;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.Files;
-import java.io.IOException;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.cybercert.Role;
 import com.example.cybercert.Models.Certification;
 import com.example.cybercert.Models.User;
+import com.example.cybercert.Role;
 import com.example.cybercert.Services.CertificationService;
 import com.example.cybercert.Services.CommentService;
+import com.example.cybercert.Services.ShoppingCartService;
 import com.example.cybercert.Services.UserService;
 
-import java.security.Principal;
-
-import java.io.InputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.security.Principal;
-import java.sql.Blob;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-
-import org.springframework.core.io.Resource;
-import org.springframework.http.MediaType;
-
-import jakarta.transaction.Transactional;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class CertificationController {
@@ -57,34 +34,35 @@ public class CertificationController {
     private CommentService commentService;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private ShoppingCartService shoppingCartService;
 
-    // CERTIFICATION PAGE
     @GetMapping("/certification/{id}")
-    public String certification(@PathVariable Long id, Model model, Principal principal) {
-
-        if (principal != null) {
-            model.addAttribute("logged", true);
-
-            User user = userService.findByUsername(principal.getName()).orElse(null);
-
-            if (user != null) {
-                model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
-            }
-        }
-
+    public String certification(@PathVariable Long id, Model model, Principal principal, HttpSession session) {
         model.addAttribute("pageCss", "certification");
+
+        User user = getAuthenticatedUser(principal, model);
         Certification cert = certificationService.findById(id)
                 .orElseThrow(() -> new RuntimeException("Certification not found"));
 
+        Set<Long> cartIds = shoppingCartService.getCartIds(session);
+        boolean alreadyOwned = user != null && user.hasCertification(id);
+        boolean alreadyInCart = cartIds.contains(id);
+        long visibleCartItems = cartIds.stream()
+            .filter(certificationId -> user == null || !user.hasCertification(certificationId))
+            .count();
+
         model.addAttribute("certification", cert);
         model.addAttribute("comments", commentService.getCommentsByCertification(id));
+        model.addAttribute("alreadyOwned", alreadyOwned);
+        model.addAttribute("alreadyInCart", alreadyInCart);
+        model.addAttribute("cartSize", visibleCartItems);
+        model.addAttribute("hasCartItems", visibleCartItems > 0);
+
         return "certification";
     }
 
     @PostMapping("/certification/{id}/comment")
     public String addComment(@PathVariable Long id,
-            Model model,
             Principal principal,
             @RequestParam("text") String text) {
 
@@ -109,4 +87,17 @@ public class CertificationController {
         return "redirect:/certification/" + id;
     }
 
+    private User getAuthenticatedUser(Principal principal, Model model) {
+        if (principal == null) {
+            return null;
+        }
+
+        User user = userService.findByUsername(principal.getName()).orElse(null);
+        if (user != null) {
+            model.addAttribute("logged", true);
+            model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
+        }
+
+        return user;
+    }
 }

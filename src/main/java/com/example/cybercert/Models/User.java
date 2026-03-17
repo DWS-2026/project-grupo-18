@@ -1,6 +1,8 @@
 package com.example.cybercert.Models;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.example.cybercert.Role;
 
@@ -30,6 +32,14 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
+
+    @ManyToMany
+    @JoinTable(
+        name = "user_certifications",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "certification_id")
+    )
+    private Set<Certification> purchasedCertifications = new HashSet<>();
 
     public User() {}
 
@@ -79,5 +89,28 @@ public class User {
 
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
+    }
+
+    public Set<Certification> getPurchasedCertifications() {
+        return purchasedCertifications;
+    }
+
+    public void setPurchasedCertifications(Set<Certification> purchasedCertifications) {
+        this.purchasedCertifications = purchasedCertifications;
+    }
+
+    public boolean hasCertification(Long certificationId) {
+        if (certificationId == null) {
+            return false;
+        }
+
+        return purchasedCertifications.stream()
+                .anyMatch(certification -> certification != null && certificationId.equals(certification.getId()));
+    }
+
+    public void addCertification(Certification certification) {
+        if (certification != null) {
+            purchasedCertifications.add(certification);
+        }
     }
 }

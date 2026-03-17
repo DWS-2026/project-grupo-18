@@ -78,7 +78,28 @@
     <div class="container">
       <h2 class="mb-3">¿Ready to get your certificate?</h2>
       <p class="mb-4">Make the next step in your cybersecurity carrer.</p>
-      <button class="btn neon-button">Sign up</button>
+      {{^logged}}
+      <a href="/login" class="btn neon-button">Login to buy</a>
+      {{/logged}}
+      {{#logged}}
+      {{#alreadyOwned}}
+      <button class="btn neon-button" disabled>Already purchased</button>
+      {{/alreadyOwned}}
+      {{^alreadyOwned}}
+      {{#alreadyInCart}}
+      <form method="post" action="/shoppingcart/remove/{{certification.id}}">
+        <input type="hidden" name="_csrf" value="{{token}}" />
+        <button type="submit" class="btn neon-button">Remove from cart</button>
+      </form>
+      {{/alreadyInCart}}
+      {{^alreadyInCart}}
+      <form method="post" action="/shoppingcart/add/{{certification.id}}">
+        <input type="hidden" name="_csrf" value="{{token}}" />
+        <button type="submit" class="btn neon-button">Add to cart</button>
+      </form>
+      {{/alreadyInCart}}
+      {{/alreadyOwned}}
+      {{/logged}}
     </div>
   </section>
 
