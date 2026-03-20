@@ -75,6 +75,7 @@ public class CyberController {
             }
         }
         List<Certification> certifications = certificationService.findAll();
+        certifications.removeIf(certification -> certification.getImage() == null || certification.getImage().getId() == null);
         model.addAttribute("certifications", certifications);
 
         return "index";
