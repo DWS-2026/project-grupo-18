@@ -12,6 +12,8 @@ import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.io.IOException;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.example.cybercert.Role;
 import com.example.cybercert.Models.User;
 import com.example.cybercert.Services.CertificationService;
@@ -98,6 +100,13 @@ public class UserController {
         model.addAttribute("logged", true);
         model.addAttribute("user", user);
         model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
+
+        if (!model.containsAttribute("error")) {
+            model.addAttribute("error", null);
+        }
+        if (!model.containsAttribute("success")) {
+            model.addAttribute("success", null);
+        }
 
         return "profile";
     }
@@ -226,22 +235,62 @@ public class UserController {
 
     @PostMapping("/uploadProfileImage")
     public String uploadProfileImage(@RequestParam("image") MultipartFile file,
-            Principal principal) throws IOException {
+            Principal principal, Model model) throws IOException {
 
-        User user = userService.findByUsername(principal.getName()).get();
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        User user = userService.findByUsername(principal.getName()).orElse(null);
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        if (file.isEmpty()) {
+            model.addAttribute("error", "Debes seleccionar una imagen");
+            model.addAttribute("user", user);
+            model.addAttribute("logged", true);
+            model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
+            model.addAttribute("pageCss", "profile");
+            return "profile";
+        }
+
+        String contentType = file.getContentType();
+
+        if (contentType == null || 
+            !(contentType.equals("image/jpeg") || 
+            contentType.equals("image/png") || 
+            contentType.equals("image/webp"))) {
+
+            model.addAttribute("error", "Formato no permitido. Usa JPG, PNG o WEBP");
+            model.addAttribute("user", user);
+            model.addAttribute("logged", true);
+            model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
+            model.addAttribute("pageCss", "profile");
+            return "profile";
+        }
+
+        if (file.getSize() > 10 * 1024 * 1024) {
+            model.addAttribute("error", "La imagen no puede superar 10MB");
+            model.addAttribute("user", user);
+            model.addAttribute("logged", true);
+            model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
+            model.addAttribute("pageCss", "profile");
+            return "profile";
+        }
 
         String uploadDir = "src/main/resources/static/uploads/";
 
         String fileName = user.getId() + ".png";
 
         Path path = Paths.get(uploadDir + fileName);
-
         Files.write(path, file.getBytes());
 
         user.setProfileImage("/uploads/" + fileName);
-
         userService.save(user);
 
+        model.addAttribute("success", "Imagen de perfil actualizada");
         return "redirect:/profile";
     }
 

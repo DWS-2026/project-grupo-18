@@ -12,11 +12,15 @@
         {{/user.profileImage}}
         <h2 class="main-title">{{user.username}}</h2>
         <p class="text-secondary">User profile overview</p>
-        <form action="/uploadProfileImage" method="POST" enctype="multipart/form-data">
+        <form action="/uploadProfileImage" method="POST" enctype="multipart/form-data" id="uploadForm">
           <input type="hidden" name="_csrf" value="{{token}}">
-   <input type="file" name="image" accept="image/*" class="form-control mb-2 input-neon form-control">
-
-  <button class="btn btn-sm neon-button">Upload Photo</button>
+          <input type="file" id="imageInput" name="image" accept="image/*" class="form-control mb-2 input-neon form-control">
+  
+          <button class="btn btn-sm neon-button">Upload Photo</button>
+          <div>
+            {{#error}}<p class="text-danger">{{error}}</p>{{/error}}
+            {{#success}}<p class="text-success">{{success}}</p>{{/success}}
+          </div>
 
 </form>
       </div>
@@ -82,30 +86,27 @@
   </div>
 </main>
 {{>footer}}
-<script>
-  let inputs = document.querySelectorAll(".edit-input");
-  let confirmBtn = document.querySelector(".confirm-btn");
-  let editBtn = document.querySelector(".edit-btn");
+<!-- <script>
+  document.getElementById("uploadForm").addEventListener("submit", function(e) {
+  const fileInput = document.getElementById("imageInput");
+  const file = fileInput.files[0];
 
-  let isEditing = false;
-
-  editBtn.addEventListener("click", function (e) {
+  if (!file) {
     e.preventDefault();
-    isEditing = !isEditing;
-    if (isEditing) {
-      editBtn.textContent = "Cancel";
-      confirmBtn.hidden = false;
-      for (input of inputs) {
-        input.removeAttribute("readonly");
-        input.style.border = "1px solid #00ff00";
-      }
-    } else {
-      editBtn.textContent = "Edit";
-      confirmBtn.hidden = true;
-      for (input of inputs) {
-        input.setAttribute("readonly", "readonly");
-        input.style.border = "none";
-      }
-    }
-  });
-</script>
+    alert("Debes seleccionar una imagen");
+    return;
+  }
+
+  if (!file.type.startsWith("image/")) {
+    e.preventDefault();
+    alert("El archivo debe ser una imagen");
+    return;
+  }
+
+  if (file.size > 2 * 1024 * 1024) {
+    e.preventDefault();
+    alert("La imagen no puede superar 2MB");
+    return;
+  }
+});
+</script>-->
