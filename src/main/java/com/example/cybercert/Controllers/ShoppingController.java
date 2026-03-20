@@ -5,7 +5,6 @@ import java.math.RoundingMode;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,12 +20,8 @@ import com.example.cybercert.Services.CertificationService;
 import com.example.cybercert.Services.ShoppingCartService;
 import com.example.cybercert.Services.UserService;
 
-import jakarta.servlet.http.HttpSession;
-
 @Controller
 public class ShoppingController {
-
-    private static final BigDecimal CERTIFICATION_PRICE = new BigDecimal("89.99");
 
     @Autowired
     private UserService userService;
@@ -38,136 +33,145 @@ public class ShoppingController {
     private ShoppingCartService shoppingCartService;
 
     @GetMapping("/shoppingcart")
-    public String shoppingcart(Model model, Principal principal, HttpSession session) {
-        model.addAttribute("pageCss", "shoping-cart");
+    public String shoppingcart(Model model, Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
 
-        User user = getAuthenticatedUser(principal, model);
-        List<CartItemView> cartItems = buildCartItems(user, session);
-        fillCartSummary(model, cartItems.size());
+        User user = userService.findByUsername(principal.getName()).orElse(null);
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        model.addAttribute("pageCss", "shoping-cart");
+        model.addAttribute("logged", true);
+        model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
+
+        shoppingCartService.removeOwnedCertificationsFromCart(user.getId());
+
+        List<Certification> certifications = shoppingCartService.getCartCertifications(user.getId());
+        List<CartItemView> cartItems = new ArrayList<>();
+        for (Certification certification : certifications) {
+            cartItems.add(new CartItemView(
+                    certification.getId(),
+                    certification.getName(),
+                    BigDecimal.valueOf(ShoppingCartService.CERTIFICATION_PRICE).setScale(2, RoundingMode.HALF_UP)));
+        }
+
+        BigDecimal subtotal = BigDecimal.valueOf(ShoppingCartService.CERTIFICATION_PRICE)
+                .multiply(BigDecimal.valueOf(cartItems.size()))
+                .setScale(2, RoundingMode.HALF_UP);
+        BigDecimal discount = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
+        BigDecimal total = subtotal.subtract(discount).setScale(2, RoundingMode.HALF_UP);
+
         model.addAttribute("cartItems", cartItems);
+        model.addAttribute("subtotal", subtotal);
+        model.addAttribute("discount", discount);
+        model.addAttribute("total", total);
+        model.addAttribute("cartSize", cartItems.size());
         model.addAttribute("hasCartItems", !cartItems.isEmpty());
 
         return "shopping-cart";
     }
 
     @PostMapping("/shoppingcart/add/{id}")
-    public String addToCart(@PathVariable Long id, Principal principal, HttpSession session) {
-        User user = getAuthenticatedUser(principal, null);
+    public String addToCart(@PathVariable Long id, Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        User user = userService.findByUsername(principal.getName()).orElse(null);
         if (user == null) {
             return "redirect:/login";
         }
 
         Certification certification = certificationService.findById(id).orElse(null);
-        if (certification == null || user.hasCertification(id)) {
+        if (certification == null) {
+            return "redirect:/";
+        }
+
+        if (shoppingCartService.hasPurchasedCertification(user.getId(), id)) {
             return "redirect:/certification/" + id;
         }
 
-        shoppingCartService.addToCart(session, id);
+        shoppingCartService.addToCart(user, certification);
         return "redirect:/shoppingcart";
     }
 
     @PostMapping("/shoppingcart/remove/{id}")
-    public String removeFromCart(@PathVariable Long id, HttpSession session) {
-        shoppingCartService.removeFromCart(session, id);
+    public String removeFromCart(@PathVariable Long id, Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        User user = userService.findByUsername(principal.getName()).orElse(null);
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        shoppingCartService.removeFromCart(user.getId(), id);
         return "redirect:/shoppingcart";
     }
 
     @GetMapping("/checkout")
-    public String checkout(Model model, Principal principal, HttpSession session) {
+    public String checkout(Model model, Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        User user = userService.findByUsername(principal.getName()).orElse(null);
+        if (user == null) {
+            return "redirect:/login";
+        }
+
         model.addAttribute("pageCss", "checkout");
+        model.addAttribute("logged", true);
+        model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
 
-        User user = getAuthenticatedUser(principal, model);
-        List<CartItemView> cartItems = buildCartItems(user, session);
+        shoppingCartService.removeOwnedCertificationsFromCart(user.getId());
 
-        if (cartItems.isEmpty()) {
+        List<Certification> certifications = shoppingCartService.getCartCertifications(user.getId());
+        if (certifications.isEmpty()) {
             return "redirect:/shoppingcart";
         }
 
-        fillCartSummary(model, cartItems.size());
+        List<CartItemView> cartItems = new ArrayList<>();
+        for (Certification certification : certifications) {
+            cartItems.add(new CartItemView(
+                    certification.getId(),
+                    certification.getName(),
+                    BigDecimal.valueOf(ShoppingCartService.CERTIFICATION_PRICE).setScale(2, RoundingMode.HALF_UP)));
+        }
+
+        BigDecimal subtotal = BigDecimal.valueOf(ShoppingCartService.CERTIFICATION_PRICE)
+                .multiply(BigDecimal.valueOf(cartItems.size()))
+                .setScale(2, RoundingMode.HALF_UP);
+        BigDecimal discount = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
+        BigDecimal total = subtotal.subtract(discount).setScale(2, RoundingMode.HALF_UP);
+
         model.addAttribute("cartItems", cartItems);
+        model.addAttribute("subtotal", subtotal);
+        model.addAttribute("discount", discount);
+        model.addAttribute("total", total);
+        model.addAttribute("cartSize", cartItems.size());
+        model.addAttribute("hasCartItems", !cartItems.isEmpty());
 
         return "checkout";
     }
 
     @PostMapping("/checkout")
-    public String completeCheckout(Principal principal, HttpSession session) {
-        User user = getAuthenticatedUser(principal, null);
+    public String completeCheckout(Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        User user = userService.findByUsername(principal.getName()).orElse(null);
         if (user == null) {
             return "redirect:/login";
         }
 
-        Set<Long> cartIds = shoppingCartService.getCartIds(session);
-        if (cartIds.isEmpty()) {
-            return "redirect:/shoppingcart";
-        }
-
-        boolean updated = false;
-        for (Long certificationId : cartIds) {
-            Certification certification = certificationService.findById(certificationId).orElse(null);
-            if (certification != null && !user.hasCertification(certificationId)) {
-                user.addCertification(certification);
-                updated = true;
-            }
-        }
-
-        if (updated) {
-            userService.save(user);
-        }
-
-        shoppingCartService.clear(session);
+        shoppingCartService.completeCheckout(user);
         return "redirect:/profile";
-    }
-
-    private User getAuthenticatedUser(Principal principal, Model model) {
-        if (principal == null) {
-            return null;
-        }
-
-        User user = userService.findByUsername(principal.getName()).orElse(null);
-        if (user != null && model != null) {
-            model.addAttribute("logged", true);
-            model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
-        }
-
-        return user;
-    }
-
-    private List<CartItemView> buildCartItems(User user, HttpSession session) {
-        Set<Long> cartIds = shoppingCartService.getCartIds(session);
-        List<CartItemView> cartItems = new ArrayList<>();
-        List<Long> idsToRemove = new ArrayList<>();
-
-        for (Long certificationId : cartIds) {
-            if (user != null && user.hasCertification(certificationId)) {
-                idsToRemove.add(certificationId);
-                continue;
-            }
-
-            Certification certification = certificationService.findById(certificationId).orElse(null);
-            if (certification != null) {
-                cartItems.add(new CartItemView(certification.getId(), certification.getName(), CERTIFICATION_PRICE));
-            } else {
-                idsToRemove.add(certificationId);
-            }
-        }
-
-        for (Long certificationId : idsToRemove) {
-            shoppingCartService.removeFromCart(session, certificationId);
-        }
-
-        return cartItems;
-    }
-
-    private void fillCartSummary(Model model, int itemsCount) {
-        BigDecimal subtotal = CERTIFICATION_PRICE.multiply(BigDecimal.valueOf(itemsCount));
-        BigDecimal discount = BigDecimal.ZERO;
-        BigDecimal total = subtotal.subtract(discount);
-
-        model.addAttribute("subtotal", subtotal.setScale(2, RoundingMode.HALF_UP));
-        model.addAttribute("discount", discount.setScale(2, RoundingMode.HALF_UP));
-        model.addAttribute("total", total.setScale(2, RoundingMode.HALF_UP));
-        model.addAttribute("cartSize", itemsCount);
-        model.addAttribute("hasCartItems", itemsCount > 0);
     }
 
     public record CartItemView(Long id, String name, BigDecimal price) {
