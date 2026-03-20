@@ -40,7 +40,7 @@
         <!-- Texto -->
         <div class="col-md-6">
           <h2 class="mb-4">Description</h2>
-          <p>{{certification.description}}</p>
+          <p class="description">{{certification.description}}</p>
         </div>
       </div>
     </div>
@@ -80,26 +80,19 @@
       <p class="mb-4">Make the next step in your cybersecurity carrer.</p>
       {{^logged}}
       <a href="/login" class="btn neon-button">Login to buy</a>
-      {{/logged}}
-      {{#logged}}
-      {{#alreadyOwned}}
+      {{/logged}} {{#logged}} {{#alreadyOwned}}
       <button class="btn neon-button" disabled>Already purchased</button>
-      {{/alreadyOwned}}
-      {{^alreadyOwned}}
-      {{#alreadyInCart}}
+      {{/alreadyOwned}} {{^alreadyOwned}} {{#alreadyInCart}}
       <form method="post" action="/shoppingcart/remove/{{certification.id}}">
         <input type="hidden" name="_csrf" value="{{token}}" />
         <button type="submit" class="btn neon-button">Remove from cart</button>
       </form>
-      {{/alreadyInCart}}
-      {{^alreadyInCart}}
+      {{/alreadyInCart}} {{^alreadyInCart}}
       <form method="post" action="/shoppingcart/add/{{certification.id}}">
         <input type="hidden" name="_csrf" value="{{token}}" />
         <button type="submit" class="btn neon-button">Add to cart</button>
       </form>
-      {{/alreadyInCart}}
-      {{/alreadyOwned}}
-      {{/logged}}
+      {{/alreadyInCart}} {{/alreadyOwned}} {{/logged}}
     </div>
   </section>
 

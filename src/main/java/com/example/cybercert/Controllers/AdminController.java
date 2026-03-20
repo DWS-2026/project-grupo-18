@@ -35,6 +35,8 @@ import java.nio.file.Paths;
 import java.security.Principal;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -133,13 +135,6 @@ public class AdminController {
             @RequestParam String contents,
             @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
 
-        if (imageFile != null && !imageFile.isEmpty()) {
-            String uploadDir = "src/main/resources/static/assets/img/";
-            String fileName = imageFile.getOriginalFilename();
-            Path path = Paths.get(uploadDir + fileName);
-            Files.write(path, imageFile.getBytes());
-        }
-
         List<String> reqList = List.of(requirements.split(","));
         List<String> contList = List.of(contents.split(","));
 
@@ -153,6 +148,101 @@ public class AdminController {
                 reqList,
                 contList,
                 null);
+
+        if (!imageFile.isEmpty()) {
+            Image image = imageService.createImage(imageFile.getInputStream());
+            cert.setImage(image);
+            certificationService.save(cert);
+        }
+
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/admin/edit-certi/{id}")
+    public String showEditCertificateForm(@PathVariable Long id, Model model, Principal principal) {
+        Certification cert = certificationService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Certification not found"));
+
+        System.out.println("Editing certification: " + cert.getName());
+        System.out.println("Certification ID: " + cert.getId());
+        System.out.println("Certification Contents: " + cert.getContents());
+
+        model.addAttribute("certification", cert);
+        String contentsString = String.join(",", cert.getContents());
+        String requirementsString = String.join(",", cert.getRequirements());
+        model.addAttribute("contents", contentsString);
+        model.addAttribute("requirements", requirementsString);
+
+        switch (cert.getLevel()) {
+            case "Beginner":
+                model.addAttribute("beginnerSelected", true);
+                break;
+            case "Intermediate":
+                model.addAttribute("intermediateSelected", true);
+                break;
+            case "Advanced":
+                model.addAttribute("advancedSelected", true);
+                break;
+            default:
+                break;
+        }
+
+        model.addAttribute("pageCss", "auth");
+
+        if (principal != null) {
+            model.addAttribute("logged", true);
+
+            User user = userService.findByUsername(principal.getName()).orElse(null);
+
+            if (user != null) {
+                model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
+            }
+        }
+        return "edit_certi";
+    }
+
+    @PostMapping("/admin/edit-certi")
+    public String editCertification(
+            Principal principal,
+            Model model,
+            @RequestParam(required = false) Long id,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String level,
+            @RequestParam(required = false) int duration,
+            @RequestParam(required = false) String format,
+            @RequestParam(required = false) String language,
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) String requirements,
+            @RequestParam(required = false) String contents,
+            @RequestParam(required = false, value = "imageFile") MultipartFile imageFile) throws IOException {
+
+        if (principal != null) {
+            model.addAttribute("logged", true);
+
+            User user = userService.findByUsername(principal.getName()).orElse(null);
+
+            if (user != null) {
+                model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
+            }
+        }
+
+        Certification cert = certificationService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Certification not found"));
+        cert.setName(name);
+        cert.setLevel(level);
+        cert.setDuration(duration);
+        cert.setFormat(format);
+        cert.setLanguage(language);
+        cert.setDescription(description);
+
+        if (requirements != null) {
+            cert.setRequirements(new ArrayList<>(Arrays.asList(requirements.split(","))));
+        }
+
+        if (contents != null) {
+            cert.setContents(new ArrayList<>(Arrays.asList(contents.split(","))));
+        }
+        certificationService.save(cert);
 
         if (!imageFile.isEmpty()) {
             Image image = imageService.createImage(imageFile.getInputStream());
