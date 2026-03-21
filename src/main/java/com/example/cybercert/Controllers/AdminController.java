@@ -4,13 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.MediaTypeFactory;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
@@ -22,7 +17,6 @@ import com.example.cybercert.Models.Certification;
 import com.example.cybercert.Models.Image;
 import com.example.cybercert.Models.User;
 import com.example.cybercert.Services.CertificationService;
-import com.example.cybercert.Services.CommentService;
 import com.example.cybercert.Services.ImageService;
 import com.example.cybercert.Services.UserService;
 
@@ -37,14 +31,10 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import java.util.List;
 import java.util.Optional;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-
-import org.springframework.core.io.Resource;
-import org.springframework.http.MediaType;
 
 import jakarta.transaction.Transactional;
 
@@ -59,9 +49,6 @@ public class AdminController {
 
     @Autowired
     private ImageService imageService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     // ADMIN PAGE
     @GetMapping("/admin")
@@ -259,4 +246,32 @@ public class AdminController {
         return "redirect:/admin";
     }
 
+    @GetMapping("/admin/view/{id}")
+    public String getViewUserById(@PathVariable long id, Model model, Principal principal) {
+        model.addAttribute("pageCss", "profile");
+
+        if (principal != null) {
+            model.addAttribute("logged", true);
+
+            User loggedUser = userService.findByUsername(principal.getName()).orElse(null);
+
+            if (loggedUser != null) {
+                model.addAttribute("isAdmin", loggedUser.getRole() == Role.ADMIN);
+            }
+        }
+
+        Optional<User> userOptional = userService.findById(id);
+        if (userOptional.isEmpty()) {
+            return "redirect:/admin";
+        }
+
+        User user = userOptional.get();
+        model.addAttribute("user", user);
+        return "view";
+    }
+
+    @GetMapping("/admin/view_user")
+    public String getViewUser(Model model, Principal principal) {
+        return "redirect:/admin";
+    }
 }

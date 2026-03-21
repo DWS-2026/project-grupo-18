@@ -50,6 +50,9 @@ public class SecurityConfiguration {
                 .requestMatchers("/images/**").permitAll()
                 .requestMatchers("/assets/**").permitAll()
 
+                // upload de imagen de perfil (logged in)
+                .requestMatchers("/uploadProfileImage").authenticated()
+
                 // rutas protegidas
                 .requestMatchers("/admin/**").hasRole("ADMIN")
 

@@ -1,7 +1,6 @@
 package com.example.cybercert.Controllers;
 
 import java.security.Principal;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,8 +18,6 @@ import com.example.cybercert.Services.CommentService;
 import com.example.cybercert.Services.ShoppingCartService;
 import com.example.cybercert.Services.UserService;
 
-import jakarta.servlet.http.HttpSession;
-
 @Controller
 public class CertificationController {
 
@@ -37,19 +34,27 @@ public class CertificationController {
     private ShoppingCartService shoppingCartService;
 
     @GetMapping("/certification/{id}")
-    public String certification(@PathVariable Long id, Model model, Principal principal, HttpSession session) {
+    public String certification(@PathVariable Long id, Model model, Principal principal) {
         model.addAttribute("pageCss", "certification");
 
-        User user = getAuthenticatedUser(principal, model);
         Certification cert = certificationService.findById(id)
                 .orElseThrow(() -> new RuntimeException("Certification not found"));
 
-        Set<Long> cartIds = shoppingCartService.getCartIds(session);
-        boolean alreadyOwned = user != null && user.hasCertification(id);
-        boolean alreadyInCart = cartIds.contains(id);
-        long visibleCartItems = cartIds.stream()
-            .filter(certificationId -> user == null || !user.hasCertification(certificationId))
-            .count();
+        boolean alreadyOwned = false;
+        boolean alreadyInCart = false;
+        int visibleCartItems = 0;
+
+        if (principal != null) {
+            User user = userService.findByUsername(principal.getName()).orElse(null);
+            if (user != null) {
+                model.addAttribute("logged", true);
+                model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
+
+                alreadyOwned = shoppingCartService.hasPurchasedCertification(user.getId(), id);
+                alreadyInCart = shoppingCartService.isCertificationInCart(user.getId(), id);
+                visibleCartItems = shoppingCartService.getVisibleCartSize(user.getId());
+            }
+        }
 
         model.addAttribute("certification", cert);
         model.addAttribute("comments", commentService.getCommentsByCertification(id));
@@ -85,19 +90,5 @@ public class CertificationController {
     @PostMapping("/certification/{id}/remove-comment")
     public String removeComment(@PathVariable Long id) {
         return "redirect:/certification/" + id;
-    }
-
-    private User getAuthenticatedUser(Principal principal, Model model) {
-        if (principal == null) {
-            return null;
-        }
-
-        User user = userService.findByUsername(principal.getName()).orElse(null);
-        if (user != null) {
-            model.addAttribute("logged", true);
-            model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
-        }
-
-        return user;
     }
 }
