@@ -81,3 +81,9 @@ i:hover {
   border: 1px solid #00ff00;
   box-shadow: #00ff00 0px 0px 10px;
 }
+
+.description {
+  max-width: 100%;
+  word-wrap: break-word;
+  white-space: normal;
+}

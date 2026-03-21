@@ -5,14 +5,14 @@
     <div class="row justify-content-center">
       <div class="col-md-6 col-lg-5">
         <div class="card p-4 shadow card1">
-          <h3 class="card1-title mb-4 text-center">Add Certification</h3>
+          <h3 class="card1-title mb-4 text-center">Edit Certification</h3>
 
           <form
-            action="/admin/add_certi"
+            action="/admin/edit-certi"
             method="POST"
-            enctype="multipart/form-data"
           >
             <input type="hidden" name="_csrf" value="{{token}}" />
+            <input type="hidden" name="id", value="{{certification.id}}">
             <!-- Name -->
             <div class="mb-3">
               <label for="name" class="form-label">Name</label>
@@ -23,6 +23,7 @@
                 name="name"
                 placeholder="Certification name"
                 required
+                value="{{certification.name}}"
               />
             </div>
 
@@ -35,10 +36,9 @@
                 name="level"
                 required
               >
-                <option value="" selected disabled>Select Level</option>
-                <option value="Beginner">Beginner</option>
-                <option value="Intermediate">Intermediate</option>
-                <option value="Advanced">Advanced</option>
+                <option value="Beginner" {{#beginnerSelected}}selected{{/beginnerSelected}}>Beginner</option>
+                <option value="Intermediate" {{#intermediateSelected}}selected{{/intermediateSelected}}>Intermediate</option>
+                <option value="Advanced" {{#advancedSelected}}selected{{/advancedSelected}}>Advanced</option>
               </select>
             </div>
 
@@ -52,6 +52,7 @@
                 name="duration"
                 placeholder="40"
                 required
+                value="{{certification.duration}}"
               />
             </div>
 
@@ -65,6 +66,7 @@
                 name="format"
                 placeholder="Online / Labs"
                 required
+                value="{{certification.format}}"
               />
             </div>
 
@@ -78,6 +80,7 @@
                 name="language"
                 placeholder="English"
                 required
+                value="{{certification.language}}"
               />
             </div>
 
@@ -91,7 +94,7 @@
                 rows="4"
                 required
                 placeholder="Certification desciption"
-              ></textarea>
+              >{{certification.description}}</textarea>
             </div>
 
             <!-- Requirements -->
@@ -104,6 +107,7 @@
                 pattern="^([^,]+)(,[^,]+){0,4}$"
                 placeholder="Linux knowledge, Basic C programming, ... (up to 5)"
                 required
+                value="{{requirements}}"
               />
             </div>
 
@@ -117,15 +121,26 @@
                 pattern="^([^,]+)(,[^,]+){0,4}$"
                 placeholder="Module 1, Module 2, ... (up to 5)"
                 required
+                value="{{contents}}"
               />
             </div>
-
-            <!-- Image Path -->
-            <div class="mb-3">
-              <label
-                id="imageLabel"
-                for="imageFile"
-                class="form-label custom-file-upload"
+            <button type="submit" class="btn w-100 btn-green mt-3">
+              Edit Certification Info
+            </button>
+          </form>
+          <form
+            action="/admin/edit-certi-image"
+            method="POST"
+            enctype="multipart/form-data"
+          >
+          <div class="mt-3 mb-3">
+            <p class="text-neon mb-3" style="color: #00ff00">Current Image:</p>
+            <img src="/images/{{certification.image.id}}" alt="">
+          </div>
+          <div class="mb-3">
+            <input type="hidden" name="_csrf" value="{{token}}" />
+            <input type="hidden" name="id", value="{{certification.id}}">
+              <label for="imageFile" id="imageLabel" class="form-label custom-file-upload"
                 >Select Image to upload...
               </label>
               <input
@@ -137,9 +152,8 @@
                 required
               />
             </div>
-
             <button type="submit" class="btn w-100 btn-green mt-3">
-              Create Certification
+              Edit Certification Image
             </button>
           </form>
         </div>
@@ -149,7 +163,6 @@
 </main>
 
 {{>footer}}
-
 <script>
   const imageInput = document.getElementById("imageFile");
   const imageLabel = document.getElementById("imageLabel");
