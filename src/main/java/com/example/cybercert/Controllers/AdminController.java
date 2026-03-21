@@ -37,6 +37,7 @@ import java.util.Optional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.transaction.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class AdminController {
@@ -200,8 +201,7 @@ public class AdminController {
             @RequestParam(required = false) String language,
             @RequestParam(required = false) String description,
             @RequestParam(required = false) String requirements,
-            @RequestParam(required = false) String contents,
-            @RequestParam(required = false, value = "imageFile") MultipartFile imageFile) throws IOException {
+            @RequestParam(required = false) String contents) {
 
         if (principal != null) {
             model.addAttribute("logged", true);
@@ -230,6 +230,27 @@ public class AdminController {
             cert.setContents(new ArrayList<>(Arrays.asList(contents.split(","))));
         }
         certificationService.save(cert);
+
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/admin/edit-certi-image")
+    public String postMethodName(Model model, Principal principal, @RequestParam("id") Long id,
+            @RequestParam("imageFile") MultipartFile imageFile)
+            throws IOException {
+
+        if (principal != null) {
+            model.addAttribute("logged", true);
+
+            User user = userService.findByUsername(principal.getName()).orElse(null);
+
+            if (user != null) {
+                model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
+            }
+        }
+
+        Certification cert = certificationService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Certification not found"));
 
         if (!imageFile.isEmpty()) {
             Image image = imageService.createImage(imageFile.getInputStream());
