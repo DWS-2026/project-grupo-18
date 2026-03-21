@@ -1,9 +1,162 @@
-.table-neon th,
-.table-neon td {
+/* Shopping Cart Styles */
+
+/* Card Styles */
+.card {
+  background-color: #0d1117;
+  border: 2px solid #00ff00;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+  border-color: #00ff00;
+  transform: translateY(-5px);
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+/* Card Title */
+.card-title {
   color: #00ff00;
+  font-size: 1.3rem;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #00ff00;
+  padding-bottom: 0.75rem;
+}
+
+/* Table Neon Styles */
+.table-neon {
+  color: #00ff00;
+  border-collapse: collapse;
+}
+
+.table-neon th {
+  color: #00ff00;
+  background-color: rgba(0, 255, 0, 0.1);
+  border: 1px solid #00ff00;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  font-weight: 600;
 }
 
 .table-neon td {
+  color: #00ff00;
   background-color: transparent;
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.table-neon tbody tr:hover {
+  background-color: rgba(0, 255, 0, 0.05);
+  border-color: #00ff00;
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.2) inset;
+}
+
+.table-dark {
+  background-color: #0a0a0a;
   border: 1px solid #00ff00;
+}
+
+.table-dark th {
+  background-color: rgba(0, 255, 0, 0.1);
+  border-color: #00ff00;
+}
+
+/* List Group Styles */
+.list-group-item {
+  background-color: transparent !important;
+  border: 1px solid rgba(0, 255, 0, 0.2);
+  color: #00ff00;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.list-group-item:hover {
+  background-color: rgba(0, 255, 0, 0.05) !important;
+  border-color: #00ff00;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+}
+
+/* Summary Section */
+.list-group {
+  background-color: transparent;
+}
+
+.list-group .fw-bold {
+  font-size: 1.1rem;
+  color: #00ff00;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+/* Button Styles */
+.neon-button {
+  color: #00ff00 !important;
+  border: 2px solid #00ff00;
+  background-color: transparent;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+.neon-button:hover {
+  background-color: #00ff00;
+  color: #000000 !important;
+  box-shadow: 0 0 20px #00ff00, 0 0 40px rgba(0, 255, 0, 0.5);
+  text-shadow: none;
+}
+
+.neon-button:disabled {
+  color: rgba(0, 255, 0, 0.3);
+  border-color: rgba(0, 255, 0, 0.3);
+  cursor: not-allowed;
+}
+
+/* Text Neon */
+.text-neon {
+  color: #00ff00;
+}
+
+/* Main Container */
+.container {
+  background-color: transparent;
+}
+
+/* Page Title */
+.courses-title {
+  color: #00ff00;
+  text-shadow: 0 0 10px #00ff00, 0 0 20px rgba(0, 255, 0, 0.5);
+  font-family: "Orbitron", sans-serif;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Empty cart message */
+.text-center.text-neon {
+  font-style: italic;
+  opacity: 0.8;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card {
+    margin-bottom: 1rem;
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+  }
+
+  .neon-button {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.9rem;
+  }
 }
