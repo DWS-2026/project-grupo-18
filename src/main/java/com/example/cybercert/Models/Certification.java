@@ -3,6 +3,7 @@ package com.example.cybercert.Models;
 import jakarta.persistence.*;
 
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -44,6 +45,9 @@ public class Certification {
     @OneToOne
     private Image image;
 
+    @OneToMany(mappedBy = "certification", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;;
+
     public Certification() {
     }
 
@@ -58,6 +62,7 @@ public class Certification {
         this.requirements = requirements;
         this.contents = contents;
         this.image = image;
+        this.comments = new ArrayList<>();
     }
 
     public Long getId() {
@@ -138,6 +143,14 @@ public class Certification {
 
     public void setImage(Image image) {
         this.image = image;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
 }
