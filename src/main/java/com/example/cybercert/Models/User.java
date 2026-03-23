@@ -14,8 +14,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "profile_image")
-    private String profileImage;
+    @OneToOne
+    private Image profileImage;
 
     @Column(unique = true)
     private String username;
@@ -31,7 +31,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
 
-    public User() {}
+    public User() {
+    }
 
     public Role getRole() {
         return role;
@@ -65,19 +66,19 @@ public class User {
         this.password = password;
     }
 
-    public String getEmail() {     
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {  
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getProfileImage() {
+    public Image getProfileImage() {
         return profileImage;
     }
 
-    public void setProfileImage(String profileImage) {
+    public void setProfileImage(Image profileImage) {
         this.profileImage = profileImage;
     }
 
