@@ -17,9 +17,11 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.cybercert.Role;
+import com.example.cybercert.Models.Image;
 import com.example.cybercert.Models.User;
 import com.example.cybercert.Models.UserCertification;
 import com.example.cybercert.Repositories.UserCertificationRepository;
+import com.example.cybercert.Services.ImageService;
 import com.example.cybercert.Services.ShoppingCartService;
 import com.example.cybercert.Services.UserService;
 
@@ -42,6 +44,9 @@ public class UserController {
 
     @Autowired
     private ShoppingCartService shoppingCartService;
+
+    @Autowired
+    private ImageService imageService;
 
     // LOGIN PAGE
     @GetMapping("/login")
@@ -297,10 +302,10 @@ public class UserController {
 
         String contentType = file.getContentType();
 
-        if (contentType == null || 
-            !(contentType.equals("image/jpeg") || 
-            contentType.equals("image/png") || 
-            contentType.equals("image/webp"))) {
+        if (contentType == null ||
+                !(contentType.equals("image/jpeg") ||
+                        contentType.equals("image/png") ||
+                        contentType.equals("image/webp"))) {
 
             model.addAttribute("error", "Formato no permitido. Usa JPG, PNG o WEBP");
             model.addAttribute("user", user);
@@ -319,15 +324,18 @@ public class UserController {
             return "profile";
         }
 
-        String uploadDir = "src/main/resources/static/uploads/";
+        if (!file.isEmpty()) {
+            Image image = imageService.createImage(file.getInputStream());
+            user.setProfileImage(image);
+            userService.save(user);
+        }
 
-        String fileName = user.getId() + ".png";
+        // String uploadDir = "src/main/resources/static/uploads/";
 
-        Path path = Paths.get(uploadDir + fileName);
-        Files.write(path, file.getBytes());
+        // String fileName = user.getId() + ".png";
 
-        user.setProfileImage("/uploads/" + fileName);
-        userService.save(user);
+        // Path path = Paths.get(uploadDir + fileName);
+        // Files.write(path, file.getBytes());
 
         model.addAttribute("success", "Imagen de perfil actualizada");
         return "redirect:/profile";

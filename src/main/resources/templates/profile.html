@@ -4,32 +4,47 @@
     <div class="mx-auto form-control" style="width: 500px; height: 700px">
       <div class="text-center mb-4">
         {{#user.profileImage}}
-        <img src="{{user.profileImage}}" width="120" class="profile-image">
-        {{/user.profileImage}}
-
-        {{^user.profileImage}}
+        <img
+          src="/images/{{user.profileImage.id}}"
+          width="120"
+          class="profile-image"
+        />
+        {{/user.profileImage}} {{^user.profileImage}}
         <i class="fa-solid fa-user-circle fa-5x mb-3"></i>
         {{/user.profileImage}}
         <h2 class="main-title">{{user.username}}</h2>
         <p class="text-secondary">User profile overview</p>
-        <form action="/uploadProfileImage" method="POST" enctype="multipart/form-data" id="uploadForm">
-          <input type="hidden" name="_csrf" value="{{token}}">
-          <input type="file" id="imageInput" name="image" accept="image/*" class="form-control mb-2 input-neon form-control">
-  
+        <form
+          action="/uploadProfileImage"
+          method="POST"
+          enctype="multipart/form-data"
+          id="uploadForm"
+        >
+          <input type="hidden" name="_csrf" value="{{token}}" />
+          <input
+            type="file"
+            id="imageInput"
+            name="image"
+            accept="image/*"
+            class="form-control mb-2 input-neon form-control"
+          />
+
           <button class="btn btn-sm neon-button">Upload Photo</button>
           <div>
-            {{#error}}<p class="text-danger">{{error}}</p>{{/error}}
-            {{#success}}<p class="text-success">{{success}}</p>{{/success}}
+            {{#error}}
+            <p class="text-danger">{{error}}</p>
+            {{/error}} {{#success}}
+            <p class="text-success">{{success}}</p>
+            {{/success}}
           </div>
-
-</form>
+        </form>
       </div>
 
       <div class="mb-4">
         <h4 class="mb-3">Profile Information</h4>
         <form action="/edit" method="POST">
-          <input type="hidden" name="_csrf" value="{{token}}">
-          <div class="d-flex justify-content-between align-items-center mb-2 ">
+          <input type="hidden" name="_csrf" value="{{token}}" />
+          <div class="d-flex justify-content-between align-items-center mb-2">
             <span
               ><strong style="margin-right: 5px">Username:</strong>
               <input
@@ -62,16 +77,15 @@
             >
               Confirm
             </button>
-            
           </div>
 
           <hr />
 
           <h4>Password</h4>
           <div class="edit-div text-center">
-            
-            <a href="/reset" class="btn btn-sm neon-button edit-btn">Reset Password</a>
-            
+            <a href="/reset" class="btn btn-sm neon-button edit-btn"
+              >Reset Password</a
+            >
           </div>
         </form>
       </div>
@@ -83,14 +97,17 @@
         {{#hasOwnedCertifications}}
         <ul class="list-group list-group-flush">
           {{#ownedCertifications}}
-          <li class="list-group-item bg-transparent text-neon d-flex justify-content-between align-items-center">
-            <a href="/certification/{{id}}" class="text-neon cert-link">{{name}}</a>
+          <li
+            class="list-group-item bg-transparent text-neon d-flex justify-content-between align-items-center"
+          >
+            <a href="/certification/{{id}}" class="text-neon cert-link"
+              >{{name}}</a
+            >
             <small class="text-secondary">{{purchasedAt}}</small>
           </li>
           {{/ownedCertifications}}
         </ul>
-        {{/hasOwnedCertifications}}
-        {{^hasOwnedCertifications}}
+        {{/hasOwnedCertifications}} {{^hasOwnedCertifications}}
         <strong>None</strong>
         {{/hasOwnedCertifications}}
       </div>
