@@ -15,7 +15,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.cybercert.Role;
 import com.example.cybercert.Models.User;
@@ -65,7 +64,7 @@ public class UserController {
 
     // REGISTER USER
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute User user, Model model) {
+    public String registerUser(@ModelAttribute User user, Model model, Principal principal) {
 
         model.addAttribute("pageCss", "auth");
 
@@ -79,11 +78,17 @@ public class UserController {
             }
             user.setRole(Role.USER);
 
-            // CIFRAR PASSWORD
+            // ENCRYPT PASSWORD
             user.setPassword(passwordEncoder.encode(user.getPassword()));
 
             userService.save(user);
 
+            if (principal != null) {
+                User loggedUser = userService.findByUsername(principal.getName()).orElse(null);
+                if (loggedUser != null && loggedUser.getRole() == Role.ADMIN) {
+                    return "redirect:/admin";
+                }
+            }
             return "redirect:/login";
 
         } else {
