@@ -20,8 +20,8 @@ public class CommentService {
         return commentsRepository.findByCertificationIdOrderByCreatedAtDesc(certificationId);
     }
 
-    public Comment addComment(User user, Certification certification, String text) {
-        Comment comment = new Comment(user, certification, text);
+    public Comment addComment(User user, Certification certification, String text, int rating) {
+        Comment comment = new Comment(user, certification, text, rating);
         return commentsRepository.save(comment);
     }
 }

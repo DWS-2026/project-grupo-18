@@ -23,14 +23,19 @@ public class Comment {
     private String text;
 
     @Column(nullable = false)
+    private int rating;
+
+    @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    public Comment() {}
+    public Comment() {
+    }
 
-    public Comment(User user, Certification certification, String text) {
+    public Comment(User user, Certification certification, String text, int rating) {
         this.user = user;
         this.certification = certification;
         this.text = text;
+        this.rating = rating;
     }
 
     public Long getId() {
@@ -71,5 +76,13 @@ public class Comment {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 }
