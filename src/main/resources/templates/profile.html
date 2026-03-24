@@ -1,7 +1,7 @@
 {{>header}}
 <main class="flex-fill">
   <div class="container mt-5 mb-5">
-    <div class="mx-auto form-control" style="width: 500px; height: 700px">
+    <div class="mx-auto form-control profile-card">
       <div class="text-center mb-4">
         {{#user.profileImage}}
         <img
@@ -95,19 +95,18 @@
       <div>
         <h4 class="mb-3">Certs Owned</h4>
         {{#hasOwnedCertifications}}
-        <ul class="list-group list-group-flush">
-          {{#ownedCertifications}}
-          <li
-            class="list-group-item bg-transparent text-neon d-flex justify-content-between align-items-center"
-          >
-            <a href="/certification/{{id}}" class="text-neon cert-link"
-              >{{name}}</a
-            >
-            <small class="text-secondary">{{purchasedAt}}</small>
-          </li>
-          {{/ownedCertifications}}
-        </ul>
-        {{/hasOwnedCertifications}} {{^hasOwnedCertifications}}
+        <div class="owned-certs-list">
+          <ul class="list-group list-group-flush">
+            {{#ownedCertifications}}
+            <li class="list-group-item bg-transparent text-neon d-flex justify-content-between align-items-center cert-item">
+              <a href="/certification/{{id}}" class="text-neon cert-link">{{name}}</a>
+              <small class="text-secondary cert-date">{{purchasedAt}}</small>
+            </li>
+            {{/ownedCertifications}}
+          </ul>
+        </div>
+        {{/hasOwnedCertifications}}
+        {{^hasOwnedCertifications}}
         <strong>None</strong>
         {{/hasOwnedCertifications}}
       </div>
