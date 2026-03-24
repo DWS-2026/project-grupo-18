@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.cybercert.Models.Certification;
 import com.example.cybercert.Models.User;
@@ -68,8 +69,10 @@ public class CertificationController {
 
     @PostMapping("/certification/{id}/comment")
     public String addComment(@PathVariable Long id,
+            RedirectAttributes redirectAttributes,
             Principal principal,
-            @RequestParam("text") String text) {
+            @RequestParam("text") String text,
+            @RequestParam("rating") int rating) {
 
         if (principal == null) {
             return "redirect:/login";
@@ -79,10 +82,16 @@ public class CertificationController {
         Certification certification = certificationService.findById(id).orElse(null);
 
         if (user == null || certification == null || text == null || text.trim().isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Error submitting comment.");
             return "redirect:/certification/" + id;
         }
 
-        commentService.addComment(user, certification, text.trim());
+        if (rating < 1 || rating > 5) {
+            redirectAttributes.addFlashAttribute("error", "Rating must be between 1 and 5");
+            return "redirect:/certification/" + id;
+        }
+
+        commentService.addComment(user, certification, text.trim(), rating);
 
         return "redirect:/certification/" + id;
     }
