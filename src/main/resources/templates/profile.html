@@ -98,15 +98,18 @@
         <div class="owned-certs-list">
           <ul class="list-group list-group-flush">
             {{#ownedCertifications}}
-            <li class="list-group-item bg-transparent text-neon d-flex justify-content-between align-items-center cert-item">
-              <a href="/certification/{{id}}" class="text-neon cert-link">{{name}}</a>
+            <li
+              class="list-group-item bg-transparent text-neon d-flex justify-content-between align-items-center cert-item"
+            >
+              <a href="/certification/{{id}}" class="text-neon cert-link"
+                >{{name}}</a
+              >
               <small class="text-secondary cert-date">{{purchasedAt}}</small>
             </li>
             {{/ownedCertifications}}
           </ul>
         </div>
-        {{/hasOwnedCertifications}}
-        {{^hasOwnedCertifications}}
+        {{/hasOwnedCertifications}} {{^hasOwnedCertifications}}
         <strong>None</strong>
         {{/hasOwnedCertifications}}
       </div>
@@ -114,6 +117,22 @@
   </div>
 </main>
 {{>footer}}
+<script>
+  const editBtn = document.querySelector(".edit-btn");
+  const confirmBtn = document.querySelector(".confirm-btn");
+  const editInputs = document.querySelectorAll(".edit-input");
+
+  editBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    editInputs.forEach((input) => {
+      input.readOnly = false;
+      input.style.border = "1px solid #00ff00";
+    });
+    editBtn.hidden = true;
+    confirmBtn.hidden = false;
+  });
+</script>
+
 <!-- <script>
   document.getElementById("uploadForm").addEventListener("submit", function(e) {
   const fileInput = document.getElementById("imageInput");

@@ -113,10 +113,12 @@ input[type="file"] {
   border: none;
   color: #00ff00 !important;
   background-color: transparent;
+  outline: none;
 }
 
 .edit-input:focus {
   color: #00ff00 !important;
+  outline: none;
 }
 
 .edit-input::placeholder {
