@@ -244,17 +244,17 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 ---
 
-#### **Alumno 3 - [Nombre Completo]**
+#### **Alumno 3 - Erik Halasz**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Me he encargado de gestionar toda la parte de manipulacion de la entidad certificación, gestión de las imágenes en la web, y detalles varios, como scripts básicos en el frontend y ajustes en el html]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Added dynamic implementation of the certification page and integration to the database](https://github.com/DWS-2026/project-grupo-18/commit/f801751a2926666c48bcbc8276399850e1bb553e)  | [Certification.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/Models/Certification.java)   |
+|2| [Added Image handling in database and Image Controller](https://github.com/DWS-2026/project-grupo-18/commit/62b2c848161ce77e398f3ef126d5ab18f503050a) | [ImageController.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/Controllers/ImageController.java)   |
+|3| [Migrate to SQL with Docker](https://github.com/DWS-2026/project-grupo-18/commit/fa906e9d608b57d4ecdbb544e11ffd8b41b05aa1)  | [application.properties](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/resources/application.properties)   |
+|4| [Make dynamic profile render](https://github.com/DWS-2026/project-grupo-18/commit/8512ea865728fb9995bd8402876e66003ca8e184)  | [profile.html](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/resources/templates/profile.html)   |
+|5| [Implemented Add Certification and Delete Certification Functionality in admin panel](https://github.com/DWS-2026/project-grupo-18/commit/15ba1bcdc1459342172e5c857012f4bec6a82ea0)  | [AdminController.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/Controllers/AdminController.java)  |
 
 ---
 
