@@ -231,7 +231,7 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 #### **Alumno 2 - Jaime Bonafé Macedo**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Me he encargado de la reestructuración del proyecto, implementación de tokens csrf, y lógica de backend del perfil,comentarios,admin panel etc.]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
