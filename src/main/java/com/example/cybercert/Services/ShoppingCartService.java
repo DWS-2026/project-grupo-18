@@ -25,6 +25,9 @@ public class ShoppingCartService {
 
     @Autowired
     private UserCertificationRepository userCertificationRepository;
+    public List<UserCertification> findByUserIdOrderByPurchasedAtDesc(Long userId) {
+        return userCertificationRepository.findByUserIdOrderByPurchasedAtDesc(userId);
+    }
 
     public boolean hasPurchasedCertification(Long userId, Long certificationId) {
         if (userId == null || certificationId == null) {

@@ -47,6 +47,7 @@ public class UserController {
 
     @Autowired
     private ImageService imageService;
+   
 
     // LOGIN PAGE
     @GetMapping("/login")
@@ -123,7 +124,7 @@ public class UserController {
         model.addAttribute("cartSize", shoppingCartService.getVisibleCartSize(user.getId()));
         model.addAttribute("hasCartItems", shoppingCartService.getVisibleCartSize(user.getId()) > 0);
 
-        List<UserCertification> ownedCertifications = userCertificationRepository
+        List<UserCertification> ownedCertifications = shoppingCartService
                 .findByUserIdOrderByPurchasedAtDesc(user.getId());
         List<OwnedCertificationView> ownedCertificationViews = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
