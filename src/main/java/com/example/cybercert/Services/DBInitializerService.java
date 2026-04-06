@@ -53,6 +53,19 @@ public class DBInitializerService {
             System.out.println("ADMIN CREADO");
         }
 
+        
+        if (userRepository.findByUsername("user").isEmpty()) {
+
+            User user = new User();
+            user.setUsername("user");
+            user.setPassword(passwordEncoder.encode("user123"));
+            user.setEmail("user@cybercert.com");
+            user.setRole(Role.USER);
+
+            userRepository.save(user);
+            System.out.println("USER CREADO");
+        }
+
         // CERTIFICACIONES
         if (certificationService.count() == 0) {
 
