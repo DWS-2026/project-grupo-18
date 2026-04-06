@@ -63,7 +63,7 @@ Indicar qué entidades tendrán asociadas una o varias imágenes:
 ### **Diagrama de Navegación**
 Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicación:
 
-![Diagrama de Navegación](images/diagrama_cibercert.jpg)
+<img width="1353" height="613" alt="image" src="https://github.com/DWS-2026/project-grupo-18/blob/main/diagrama%20cibercert.jpg" />
 
 > [El usuario puede acceder con normalidad a los distintos certificados y a las paginas de login pero para poder acceder a la pagina del carrito y del perfil necesariamente debe estar registrado. Solo el administrador podra acceder a la pagina especial de Admin Panel ]
 
@@ -170,11 +170,6 @@ s
 📹 **[Enlace al vídeo en YouTube](https://www.youtube.com/watch?v=x91MPoITQ3I)**
 > Vídeo mostrando las principales funcionalidades de la aplicación web.
 
-### **Navegación y Capturas de Pantalla**
-
-#### **Diagrama de Navegación**
-
-Solo si ha cambiado.
 
 #### **Capturas de Pantalla Actualizadas**
 
@@ -206,7 +201,7 @@ Solo si han cambiado.
 
 Diagrama mostrando las entidades, sus campos y relaciones:
 
-![Diagrama Entidad-Relación](images/database-diagram.png)
+<img width="1841" height="916" alt="image" src="https://github.com/DWS-2026/project-grupo-18/blob/main/DiagramaBBDDCybercert.png" />
 
 > [Descripción opcional: Ej: "El diagrama muestra las 4 entidades principales: Usuario, Producto, Pedido y Categoría, con sus respectivos atributos y relaciones 1:N y N:M."]
 
@@ -220,17 +215,17 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 ### **Participación de Miembros en la Práctica 2**
 
-#### **Alumno 1 - [Nombre Completo]**
+#### **Alumno 1 - [Ricardo de Francisco Alfonso]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Mi trabajo generalmente ha consistido en migrar el proyecto a Spring, configurar la seguridad y otros detalles como la entidad User y funcionalidades de páginas específicas.]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Paso del proyecto a springboot, creacion del controlador y configuracion de pom.xml](https://github.com/DWS-2026/project-grupo-18/commit/1b97b32596e6c1d03806c7a7c34c53165920d571)  | [CyberController.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/Controllers/CyberController.java)   |
+|2| [Seguridad de la web con la creacion de SecurityConfig](https://github.com/DWS-2026/project-grupo-18/commit/55f53120b1f9b15e80d410fb6c06f570a8b94957)  | [SecurityConfiguration.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/SecurityConfiguration.java)   |
+|3| [Fotos de perfil de usuarios](https://github.com/DWS-2026/project-grupo-18/commit/4679f3521299412c30f920a3bd08f0a25d821a68)  | [UserController](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/Controllers/UserController.java)   |
+|4| [Creacion de BBDD provisional en h2 y logica de usuarios](https://github.com/DWS-2026/project-grupo-18/commit/d0cf22d9ab56f9decefbcb78850002db9556969d)  | [User.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/Models/User.java)   |
+|5| [Creacion de paginas de error con un estilo concorde a la web](https://github.com/DWS-2026/project-grupo-18/commit/12eaa7d0e530b0e0082ce3a41d6fa24a721cc44e)  | [403.css](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/resources/static/assets/css/403.css)   |
 
 ---
 
