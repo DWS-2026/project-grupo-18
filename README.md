@@ -183,9 +183,56 @@ s
 
 > Vídeo mostrando las principales funcionalidades de la aplicación web.
 
-#### **Capturas de Pantalla Actualizadas**
+## **Capturas de Pantalla Actualizadas**
 
-Solo si han cambiado.
+#### **1. Página de Admin**
+
+<img width="1831" height="920" alt="image" src="https://github.com/user-attachments/assets/c7544ba6-84c2-4af6-8f63-987ac4679efe" />
+
+> [En esta página se han añadido botones para la visualización de los usuarios y edición de certificaciones]
+
+#### **2. Página de visualización de un perfil**
+
+<img width="1844" height="915" alt="image" src="https://github.com/user-attachments/assets/3c6e4522-ad4a-4918-9ccc-16157b49c86a" />
+
+> [Un usuario administrador puede visualizar los perfiles de otros usuarios de esta forma]
+
+#### **3. Página de carrito de compra**
+
+<img width="1849" height="914" alt="image" src="https://github.com/user-attachments/assets/763373a1-daaa-47b1-969f-463668ea3643" />
+
+> [Se ha actualizado el css de esta página]
+
+#### **4. Páginas de error**
+
+<img width="1818" height="906" alt="image" src="https://github.com/user-attachments/assets/c874f006-bac3-492c-99f5-4d57e482674b" />
+
+> [Las páginas de error son de este estilo]
+
+#### **5. Profile page (página de tu perfil)**
+
+<img width="1835" height="909" alt="image" src="https://github.com/user-attachments/assets/5de32597-3012-4130-a767-3fed539a8fa2" />
+
+> [Se ha actualizado con formularios para la edición]
+
+#### **6. Página de reset password**
+
+<img width="1833" height="904" alt="image" src="https://github.com/user-attachments/assets/55ffefe8-bac5-4cfa-bf28-9e2c2fd365d6" />
+
+> [La página a través de la cual se puede cambiar la contraseña de tu usuario]
+
+#### **7. Certification page**
+
+<img width="1838" height="915" alt="image" src="https://github.com/user-attachments/assets/71816b31-e4ce-4678-aa95-2e699496f2d8" />
+
+> [Los comentarios añadidos a cada certificación ahora se renderizan dinámicamente en la parte anterior al footer]
+
+#### **7. Páginas de creación y edición de certificaciones**
+
+<img width="1845" height="918" alt="image" src="https://github.com/user-attachments/assets/b08946f6-3638-48c4-9ea5-b02ca818c72e" />
+<img width="1845" height="927" alt="image" src="https://github.com/user-attachments/assets/029f1afc-2367-4d40-b73c-2cbf63b0694b" />
+
+> [Páginas con formularios para la creación y edición de certificaciones, accesibles solo para usuarios admins]
 
 ### **Instrucciones de Ejecución**
 
