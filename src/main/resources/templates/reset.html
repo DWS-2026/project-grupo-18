@@ -1,0 +1,51 @@
+{{>header}}
+<main class="flex-fill">
+  <div class="container mt-5 mb-5">
+    <div class="mx-auto form-control" style="width: 500px; height: 700px">
+      <div class="text-center mb-4">
+        <i class="fa-solid fa-user-circle fa-5x mb-3"></i>
+        
+      </div>
+      {{#error}}
+      <div class="alert alert-danger text-center" role="alert">
+        {{error}}
+      </div>
+      {{/error}}
+      <div class="mb-4">
+        <h4 class="mb-3">Reset Password</h4>
+        <form action="/reset" method="POST">
+          <input type="hidden" name="_csrf" value="{{token}}">
+
+          <div class="mb-3">
+        <label for="actual_password" class="form-label">Actual Password:</label>
+        <input
+          type="password"
+          class="form-control input-neon"
+          id="actual_password"
+          name="actual_password"
+          required
+        />
+      </div>
+        <div class="mb-3">
+          <label for="new_password" class="form-label">New Password:</label>
+        <input
+          type="password"
+          class="form-control input-neon"
+          id="new_password"
+          name="new_password"
+          required
+        />
+      </div>
+
+          <div class="edit-div">
+            <button class="btn btn-sm neon-button edit-btn">Change</button>
+                
+          </div>
+          <hr />
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+{{>footer}}
+

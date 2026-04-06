@@ -245,12 +245,54 @@ s
 **Gestionar certificaciones**
 
 
+📹 **[Enlace al vídeo en YouTube](https://www.youtube.com/watch?v=x91MPoITQ3I)**
 
 > Vídeo mostrando las principales funcionalidades de la aplicación web.
 
 ## **Capturas de Pantalla Actualizadas**
 
 #### **1. Página de Admin**
+
+<img width="1831" height="920" alt="image" src="https://github.com/user-attachments/assets/c7544ba6-84c2-4af6-8f63-987ac4679efe" />
+
+> [En esta página se han añadido botones para la visualización de los usuarios y edición de certificaciones]
+
+#### **2. Página de visualización de un perfil**
+
+<img width="1844" height="915" alt="image" src="https://github.com/user-attachments/assets/3c6e4522-ad4a-4918-9ccc-16157b49c86a" />
+
+> [Un usuario administrador puede visualizar los perfiles de otros usuarios de esta forma]
+
+#### **3. Página de carrito de compra**
+
+<img width="1849" height="914" alt="image" src="https://github.com/user-attachments/assets/763373a1-daaa-47b1-969f-463668ea3643" />
+
+> [Se ha actualizado el css de esta página]
+
+#### **4. Páginas de error**
+
+<img width="1818" height="906" alt="image" src="https://github.com/user-attachments/assets/c874f006-bac3-492c-99f5-4d57e482674b" />
+
+> [Las páginas de error son de este estilo]
+
+#### **5. Profile page (página de tu perfil)**
+
+<img width="1835" height="909" alt="image" src="https://github.com/user-attachments/assets/5de32597-3012-4130-a767-3fed539a8fa2" />
+
+> [Se ha actualizado con formularios para la edición]
+
+#### **6. Página de reset password**
+
+<img width="1833" height="904" alt="image" src="https://github.com/user-attachments/assets/55ffefe8-bac5-4cfa-bf28-9e2c2fd365d6" />
+
+> [La página a través de la cual se puede cambiar la contraseña de tu usuario]
+
+#### **7. Certification page**
+
+<img width="1838" height="915" alt="image" src="https://github.com/user-attachments/assets/71816b31-e4ce-4678-aa95-2e699496f2d8" />
+
+> [Los comentarios añadidos a cada certificación ahora se renderizan dinámicamente en la parte anterior al footer]
+
 
 <img width="1831" height="920" alt="image" src="https://github.com/user-attachments/assets/c7544ba6-84c2-4af6-8f63-987ac4679efe" />
 
@@ -406,6 +448,11 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 |  3  | [Carrito Final](https://github.com/DWS-2026/project-grupo-18/commit/377d9456de446d91bf8f6c0a9fa468c1c3e1aa44) | [ShoppingController](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/Controllers/ShoppingController.java) |
 |  4  | [Carrito Final](https://github.com/DWS-2026/project-grupo-18/commit/377d9456de446d91bf8f6c0a9fa468c1c3e1aa44) | [ShoppingCartItemRepository](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/Repositories/ShoppingCartItemRepository.java) |
 |  5  |  | [Video youtube](https://youtu.be/WuC8Vk35rrY) |
+|  1  | [Descripción commit 1](URL_commit_1) | [Archivo1](URL_archivo_1) |
+|  2  | [Descripción commit 2](URL_commit_2) | [Archivo2](URL_archivo_2) |
+|  3  | [Descripción commit 3](URL_commit_3) | [Archivo3](URL_archivo_3) |
+|  4  | [Descripción commit 4](URL_commit_4) | [Archivo4](URL_archivo_4) |
+|  5  | [Descripción commit 5](URL_commit_5) | [Archivo5](URL_archivo_5) |
 
 ---
 

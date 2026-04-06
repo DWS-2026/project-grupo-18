@@ -1,0 +1,88 @@
+{{>header}}
+<main class="flex-fill">
+  <div class="container mt-5">
+    <h2 class="text-center mb-4 courses-title text-neon">Shopping Cart</h2>
+    <div class="row">
+      <div class="col-lg-8 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title text-neon">Your Courses</h5>
+            <div class="table-responsive">
+              <table
+                class="table table-striped table-bordered table-neon align-middle"
+                id="cart-table"
+              >
+                <thead class="table-dark table-neon">
+                  <tr>
+                    <th class="text-neon">ID</th>
+                    <th class="text-neon">Course</th>
+                    <th class="text-neon">Price</th>
+                    <th class="text-neon text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="cart-body">
+                  {{#cartItems}}
+                  <tr>
+                    <td class="text-neon">{{id}}</td>
+                    <td class="text-neon">{{name}}</td>
+                    <td class="text-neon">${{price}}</td>
+                    <td class="text-center">
+                      <form method="post" action="/shoppingcart/remove/{{id}}" class="m-0">
+                        <input type="hidden" name="_csrf" value="{{token}}" />
+                        <button type="submit" class="btn btn-sm neon-button text-neon">Remove</button>
+                      </form>
+                    </td>
+                  </tr>
+                  {{/cartItems}}
+                  {{^cartItems}}
+                  <tr>
+                    <td class="text-neon text-center" colspan="4">Your cart is empty.</td>
+                  </tr>
+                  {{/cartItems}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title text-neon">Summary</h5>
+            <ul class="list-group list-group-flush mb-3">
+              <li
+                class="list-group-item bg-transparent text-neon d-flex justify-content-between align-items-center"
+              >
+                Subtotal
+                <span id="summary-subtotal" class="text-neon">${{subtotal}}</span>
+              </li>
+              <li
+                class="list-group-item bg-transparent text-neon d-flex justify-content-between align-items-center"
+              >
+                Discount
+                <span id="summary-discount" class="text-neon">-${{discount}}</span>
+              </li>
+              <li
+                class="list-group-item bg-transparent text-neon d-flex justify-content-between align-items-center fw-bold"
+              >
+                Total
+                <span id="summary-total" class="text-neon">${{total}}</span>
+              </li>
+            </ul>
+            {{#hasCartItems}}
+            <a href="/checkout" class="btn neon-button w-100 text-neon" id="checkout-btn">
+              <i class="fa fa-credit-card me-2"></i>Checkout
+            </a>
+            {{/hasCartItems}}
+            {{^hasCartItems}}
+            <button class="btn neon-button w-100 text-neon" id="checkout-btn" disabled>
+              <i class="fa fa-credit-card me-2"></i>Checkout
+            </button>
+            {{/hasCartItems}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{{>footer}}

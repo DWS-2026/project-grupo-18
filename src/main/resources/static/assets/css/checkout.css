@@ -1,0 +1,156 @@
+.checkout-section {
+  background-color: rgba(22, 27, 34, 0.95);
+  padding: 3rem 0;
+  border-radius: 12px;
+  max-width: 500px;
+  margin: 2rem auto;
+  box-shadow: 0 8px 20px rgba(0, 255, 5, 0.2);
+}
+
+.checkout-section h2,
+.checkout-section h3 {
+  color: #00ff00;
+  text-shadow: 0 0 8px #00ff00;
+  text-align: center;
+}
+
+.payment-form {
+  padding: 20px;
+}
+
+/* Resumen de compra section */
+#card-details:first-of-type {
+  background-color: rgba(0, 255, 0, 0.05);
+  border: 2px solid #00ff00;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.2) inset;
+}
+
+#card-details:first-of-type h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  border-bottom: 2px solid #00ff00;
+  padding-bottom: 0.5rem;
+}
+
+/* List group items styling */
+.list-group-item {
+  background-color: transparent !important;
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  border-radius: 4px;
+  color: #00ff00;
+  padding: 0.75rem !important;
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.list-group-item:hover {
+  background-color: rgba(0, 255, 0, 0.08) !important;
+  border-color: #00ff00;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+}
+
+.list-group-flush {
+  margin-bottom: 1rem !important;
+}
+
+/* Summary text styling */
+#card-details:first-of-type p {
+  color: #00ff00;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border-left: 3px solid rgba(0, 255, 0, 0.5);
+  padding-left: 0.75rem;
+}
+
+#card-details:first-of-type .fw-bold {
+  font-size: 1.2rem;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  color: #00ff00;
+  background-color: rgba(0, 255, 0, 0.1);
+  padding: 0.75rem;
+  border-radius: 4px;
+  border: 2px solid #00ff00;
+  margin-top: 0.5rem;
+}
+
+/* Payment section */
+#card-details:last-of-type {
+  background-color: transparent;
+  padding: 0;
+}
+
+#card-details:last-of-type h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+input {
+  color: #c9d1d9 !important;
+  border: 1px solid #00ff00;
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  box-shadow: 0 0 10px #00ff0033;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  color: #00ff00 !important;
+  box-shadow: 0 0 15px #00ff00, 0 0 25px rgba(0, 255, 0, 0.3);
+  border-color: #00ff00;
+}
+
+input::placeholder {
+  color: rgba(0, 255, 0, 0.5);
+}
+
+label {
+  color: #00ff00;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.3rem;
+  display: block;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+}
+
+.card-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.card-row > div {
+  flex: 1;
+}
+
+.checkout-btn {
+  background: transparent;
+  color: #00ff00;
+  border: 2px solid #00ff00;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  box-shadow: 0 0 10px #00ff0033;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.checkout-btn:hover {
+  background: #00ff00;
+  color: #000;
+  box-shadow: 0 0 20px #00ff00;
+  text-shadow: none;
+}
+
+.checkout-btn:active {
+  transform: scale(0.98);
+}

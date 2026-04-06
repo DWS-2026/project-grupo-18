@@ -1,0 +1,164 @@
+{{>header}}
+
+<main class="flex-fill py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-5">
+        <div class="card p-4 shadow card1">
+          <h3 class="card1-title mb-4 text-center">Add Certification</h3>
+
+          <form
+            action="/admin/add_certi"
+            method="POST"
+            enctype="multipart/form-data"
+          >
+            <input type="hidden" name="_csrf" value="{{token}}" />
+            <!-- Name -->
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input
+                type="text"
+                class="form-control input-neon"
+                id="name"
+                name="name"
+                placeholder="Certification name"
+                required
+              />
+            </div>
+
+            <!-- Level -->
+            <div class="mb-3">
+              <label for="level" class="form-label">Level</label>
+              <select
+                class="form-select input-neon"
+                id="level"
+                name="level"
+                required
+              >
+                <option value="" selected disabled>Select Level</option>
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+              </select>
+            </div>
+
+            <!-- Duration -->
+            <div class="mb-3">
+              <label for="duration" class="form-label">Duration (hours)</label>
+              <input
+                type="number"
+                class="form-control input-neon"
+                id="duration"
+                name="duration"
+                placeholder="40"
+                required
+              />
+            </div>
+
+            <!-- Format -->
+            <div class="mb-3">
+              <label for="format" class="form-label">Format</label>
+              <input
+                type="text"
+                class="form-control input-neon"
+                id="format"
+                name="format"
+                placeholder="Online / Labs"
+                required
+              />
+            </div>
+
+            <!-- Language -->
+            <div class="mb-3">
+              <label for="language" class="form-label">Language</label>
+              <input
+                type="text"
+                class="form-control input-neon"
+                id="language"
+                name="language"
+                placeholder="English"
+                required
+              />
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <textarea
+                class="form-control input-neon"
+                id="description"
+                name="description"
+                rows="4"
+                required
+                placeholder="Certification desciption"
+              ></textarea>
+            </div>
+
+            <!-- Requirements -->
+            <div class="mb-3">
+              <label class="form-label">Requirements (comma separated)</label>
+              <input
+                type="text"
+                class="form-control input-neon"
+                name="requirements"
+                pattern="^([^,]+)(,[^,]+){0,4}$"
+                placeholder="Linux knowledge, Basic C programming, ... (up to 5)"
+                required
+              />
+            </div>
+
+            <!-- Contents -->
+            <div class="mb-3">
+              <label class="form-label">Contents (comma separated)</label>
+              <input
+                type="text"
+                class="form-control input-neon"
+                name="contents"
+                pattern="^([^,]+)(,[^,]+){0,4}$"
+                placeholder="Module 1, Module 2, ... (up to 5)"
+                required
+              />
+            </div>
+
+            <!-- Image Path -->
+            <div class="mb-3">
+              <label
+                id="imageLabel"
+                for="imageFile"
+                class="form-label custom-file-upload"
+                >Select Image to upload...
+              </label>
+              <input
+                type="file"
+                class="form-control input-neon"
+                id="imageFile"
+                name="imageFile"
+                accept="image/*"
+                required
+              />
+            </div>
+
+            <button type="submit" class="btn w-100 btn-green mt-3">
+              Create Certification
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+{{>footer}}
+
+<script>
+  const imageInput = document.getElementById("imageFile");
+  const imageLabel = document.getElementById("imageLabel");
+
+  imageInput.addEventListener("change", function () {
+    if (this.files && this.files.length > 0) {
+      imageLabel.textContent = this.files[0].name;
+    } else {
+      imageLabel.textContent = "Select Image to upload...";
+    }
+  });
+</script>

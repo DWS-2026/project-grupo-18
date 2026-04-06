@@ -1,0 +1,194 @@
+{{>header}}
+
+<main class="flex-fill">
+  <section class="py-4 bg-dark neon-section">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-3">
+          <strong>Level</strong>
+          <p>{{certification.level}}</p>
+        </div>
+        <div class="col-md-3">
+          <strong>Duration</strong>
+          <p>{{certification.duration}} hours</p>
+        </div>
+        <div class="col-md-3">
+          <strong>Format</strong>
+          <p>{{certification.format}}</p>
+        </div>
+        <div class="col-md-3">
+          <strong>Language</strong>
+          <p>{{certification.language}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESCRIPTION -->
+  <section class="py-5 neon-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <!-- Imagen -->
+        <div class="col-md-6 mb-4 mb-md-0 text-center">
+          <img
+            src="/images/{{certification.image.id}}"
+            class="img-fluid rounded shadow"
+            alt="{{certification.name}}"
+          />
+        </div>
+
+        <!-- Texto -->
+        <div class="col-md-6">
+          <h2 class="mb-4">Description</h2>
+          <p class="description">{{certification.description}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <section class="py-5 bg-dark neon-section">
+    <div class="container">
+      <div class="row">
+        <!-- Contents -->
+        <div class="col-md-6 mb-4 mb-md-0">
+          <h2 class="mb-4">Contents</h2>
+          <ul class="list-group list-group-flush">
+            {{#certification.contents}}
+            <li class="list-group-item neon-li">{{.}}</li>
+            {{/certification.contents}}
+          </ul>
+        </div>
+
+        <!-- Requisites -->
+        <div class="col-md-6">
+          <h2 class="mb-4">Requisites</h2>
+          <ul class="list-group list-group-flush">
+            {{#certification.requirements}}
+            <li class="list-group-item neon-li">{{.}}</li>
+            {{/certification.requirements}}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-5 text-center neon-section">
+    <div class="container">
+      <h2 class="mb-3">¿Ready to get your certificate?</h2>
+      <p class="mb-4">Make the next step in your cybersecurity carrer.</p>
+      {{^logged}}
+      <a href="/login" class="btn neon-button">Login to buy</a>
+      {{/logged}} {{#logged}} {{#alreadyOwned}}
+      <button class="btn neon-button" disabled>Already purchased</button>
+      {{/alreadyOwned}} {{^alreadyOwned}} {{#alreadyInCart}}
+      <form method="post" action="/shoppingcart/remove/{{certification.id}}">
+        <input type="hidden" name="_csrf" value="{{token}}" />
+        <button type="submit" class="btn neon-button">Remove from cart</button>
+      </form>
+      {{/alreadyInCart}} {{^alreadyInCart}}
+      <form method="post" action="/shoppingcart/add/{{certification.id}}">
+        <input type="hidden" name="_csrf" value="{{token}}" />
+        <button type="submit" class="btn neon-button">Add to cart</button>
+      </form>
+      {{/alreadyInCart}} {{/alreadyOwned}} {{/logged}}
+    </div>
+  </section>
+
+  <!-- Review -->
+  <section class="py-5 neon-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <h2 class="mb-4 text-center">Comments</h2>
+
+          {{#comments}}
+          <div class="mt-4 card neon-card">
+            <div class="card-body comment-card">
+              <h5 class="card-title">{{user.username}}</h5>
+              <p class="card-text">{{text}}</p>
+              <div class="mt-2 text-end">
+                Rating: {{rating}} / 5
+                <i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+          </div>
+          {{/comments}}
+
+          <h3 class="mt-4">Add your review</h3>
+          <form
+            method="post"
+            action="/certification/{{certification.id}}/comment"
+            class="comment-form"
+          >
+            <input type="hidden" name="_csrf" value="{{token}}" />
+            <div class="mb-3">
+              <input type="hidden" name="rating" id="ratingInput" value="0" />
+              <label class="form-label">Rating</label>
+              <div class="d-flex gap-2 fs-4">
+                <i class="fa-regular fa-star star" data-value="1"></i>
+                <i class="fa-regular fa-star star" data-value="2"></i>
+                <i class="fa-regular fa-star star" data-value="3"></i>
+                <i class="fa-regular fa-star star" data-value="4"></i>
+                <i class="fa-regular fa-star star" data-value="5"></i>
+              </div>
+              <small class="text-secondary">Click to rate</small>
+            </div>
+            <div class="mb-4">
+              <label class="form-label">Your review</label>
+              <textarea
+                name="text"
+                class="form-control"
+                rows="4"
+                placeholder="Share your experience with this certification..."
+                required
+              ></textarea>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn neon-button">
+                Submit review
+              </button>
+            </div>
+            {{#error}}
+            <div class="alert alert-danger mt-3" role="alert">{{error}}</div>
+            {{/error}}
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+{{>footer}}
+
+<script>
+  const stars = document.querySelectorAll(".star");
+  const ratingInput = document.getElementById("ratingInput");
+
+  stars.forEach((star) => {
+    star.addEventListener("click", () => {
+      const value = star.getAttribute("data-value");
+      ratingInput.value = value;
+
+      stars.forEach((s) => {
+        if (s.getAttribute("data-value") <= value) {
+          s.classList.remove("fa-regular");
+          s.classList.add("fa-solid");
+        } else {
+          s.classList.remove("fa-solid");
+          s.classList.add("fa-regular");
+        }
+      });
+    });
+  });
+
+  const commentForm = document.querySelector(".comment-form");
+  commentForm.addEventListener("submit", function (e) {
+    const ratingValue = ratingInput.value;
+    if (ratingValue < 1 || ratingValue > 5) {
+      e.preventDefault();
+      alert("Please select a rating between 1 and 5 stars.");
+    }
+  });
+</script>
