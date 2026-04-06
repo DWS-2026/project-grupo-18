@@ -194,8 +194,8 @@ Solo si han cambiado.
 2. **AQUÍ INDICAR LO SIGUIENTES PASOS**
 
 #### **Credenciales de prueba**
-- **Usuario Admin**: usuario: `admin`, contraseña: `admin`
-- **Usuario Registrado**: usuario: `user`, contraseña: `user`
+- **Usuario Admin**: usuario: `admin`, contraseña: `admin123`
+- **Usuario Registrado**: usuario: `user`, contraseña: `user123`
 
 ### **Diagrama de Entidades de Base de Datos**
 
@@ -229,17 +229,17 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 ---
 
-#### **Alumno 2 - [Nombre Completo]**
+#### **Alumno 2 - Jaime Bonafé Macedo**
 
 [Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Comment section added and services for users,comments and certifications too](https://github.com/DWS-2026/dws-2026-project-base/commit/9ed546fc7d946207b66efc1e37dcaef85304c7b3)  | [CertificationService.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/Services/CertificationService.java), [Comment.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/Models/Comment.java), [CommentService.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/Services/CommentService.java), [CommentsRepository.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/Repositories/CommentsRepository.java)  |
+|2| [Admin can now view users on admin panel](https://github.com/DWS-2026/dws-2026-project-base/commit/405cf922379af5581fde138454c577a33d92564e)  | [AdminController.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/Controllers/AdminController.java)   |
+|3| [Solved the problem with csrf tokens and with duplicate email registration](https://github.com/DWS-2026/dws-2026-project-base/commit/9ae458cd6c63372fd74fd309439e58f5d26eca91)  | [CyberController.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/Controllers/CyberController.java)   |
+|4| [added basic logic for editing profile](https://github.com/DWS-2026/dws-2026-project-base/commit/c96251a184e7ca3304d41ed5fa8d04cb4d06c49e)  | [CyberController.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/Controllers/CyberController.java)   |
+|5| [Added header stuff](https://github.com/DWS-2026/dws-2026-project-base/commit/18103e9e24d062938827cce1d0e3bffa997a262b)  | [CyberController.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/Controllers/CyberController.java)   |
 
 ---
 
