@@ -16,6 +16,13 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
+
+    <!-- Quill -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.2/dist/quill.snow.css"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="/assets/css/style.css" />
     <link rel="stylesheet" href="/assets/css/{{pageCss}}.css" />
   </head>
@@ -52,28 +59,26 @@
                 </span>
                 {{/hasCartItems}}
               </a>
-              {{/logged}}
-              
-
-              {{^logged}}
+              {{/logged}} {{^logged}}
               <a href="/login" class="btn btn-outline nav-btn">
                 <i class="fa-solid fa-right-to-bracket me-1"></i> Login
               </a>
               <a href="/register" class="btn btn-outline nav-btn">
                 <i class="fa-solid fa-user-plus me-1"></i> Register
               </a>
-              {{/logged}}
-
-              {{#isAdmin}}
+              {{/logged}} {{#isAdmin}}
               <a href="/admin" class="btn btn-outline nav-btn">
                 <i class="fa-solid fa-user-shield me-1"></i> Admin Panel
               </a>
-              {{/isAdmin}}
-              {{#logged}}
+              {{/isAdmin}} {{#logged}}
               <a href="/profile" class="btn btn-outline nav-btn">
                 <i class="fa-solid fa-user me-1"></i> Profile
               </a>
-              <form action="/logout" method="post" style="display:inline; margin:0;">
+              <form
+                action="/logout"
+                method="post"
+                style="display: inline; margin: 0"
+              >
                 <input type="hidden" name="_csrf" value="{{token}}" />
                 <button type="submit" class="btn btn-outline nav-btn">
                   <i class="fa-solid fa-right-from-bracket me-1"></i> Logout

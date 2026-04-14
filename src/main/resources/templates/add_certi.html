@@ -86,12 +86,14 @@
               <label for="description" class="form-label">Description</label>
               <textarea
                 class="form-control input-neon"
-                id="description"
                 name="description"
                 rows="4"
                 required
                 placeholder="Certification desciption"
+                id="description-textarea"
+                style="display: none"
               ></textarea>
+              <div id="editor"></div>
             </div>
 
             <!-- Requirements -->
@@ -150,6 +152,8 @@
 
 {{>footer}}
 
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.2/dist/quill.js"></script>
+
 <script>
   const imageInput = document.getElementById("imageFile");
   const imageLabel = document.getElementById("imageLabel");
@@ -160,5 +164,15 @@
     } else {
       imageLabel.textContent = "Select Image to upload...";
     }
+  });
+</script>
+
+<script>
+  const quill = new Quill("#editor", {
+    theme: "snow",
+  });
+  quill.on("text-change", function () {
+    document.getElementById("description-textarea").value =
+      quill.root.innerHTML;
   });
 </script>
