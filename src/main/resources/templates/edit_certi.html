@@ -89,13 +89,15 @@
               <label for="description" class="form-label">Description</label>
               <textarea
                 class="form-control input-neon"
-                id="description"
+                id="description-textarea"
                 name="description"
                 rows="4"
                 required
                 placeholder="Certification desciption"
-              >{{certification.description}}</textarea>
+                style="display: none;"
+              >{{{certification.description}}}</textarea>
             </div>
+            <div id="editor"></div>
 
             <!-- Requirements -->
             <div class="mb-3">
@@ -173,5 +175,22 @@
     } else {
       imageLabel.textContent = "Select Image to upload...";
     }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.2/dist/quill.js"></script>
+
+<script>
+  const quill = new Quill("#editor", {
+    theme: "snow",
+  });
+
+  quill.setContents([
+    { insert: "{{{certification.description}}}" }
+  ])
+
+  quill.on("text-change", function () {
+    document.getElementById("description-textarea").value =
+      quill.root.innerHTML;
   });
 </script>
