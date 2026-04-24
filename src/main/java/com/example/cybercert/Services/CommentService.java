@@ -9,12 +9,21 @@ import com.example.cybercert.Repositories.CommentsRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CommentService {
 
     @Autowired
     private CommentsRepository commentsRepository;
+
+    public List<Comment> findAll() {
+        return commentsRepository.findAll();
+    }
+
+    public Optional<Comment> findById(Long id) {
+        return commentsRepository.findById(id);
+    }
 
     public List<Comment> getCommentsByCertification(Long certificationId) {
         return commentsRepository.findByCertificationIdOrderByCreatedAtDesc(certificationId);
