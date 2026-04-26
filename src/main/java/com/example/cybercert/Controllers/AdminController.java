@@ -6,9 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.Files;
 import java.io.IOException;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,14 +18,6 @@ import com.example.cybercert.Services.ImageService;
 import com.example.cybercert.Services.UserService;
 
 import java.security.Principal;
-
-import java.io.InputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.security.Principal;
-import java.sql.Blob;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -37,7 +26,6 @@ import java.util.Optional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.transaction.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class AdminController {

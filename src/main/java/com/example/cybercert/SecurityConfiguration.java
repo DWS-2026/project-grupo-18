@@ -50,18 +50,8 @@ public class SecurityConfiguration {
 
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        // PRIVATE ENDPOINTS
-                        // Images
-                        // .requestMatchers(HttpMethod.PUT, "/api/images/*/media").hasRole("USER")
-                        // .requestMatchers(HttpMethod.DELETE, "/api/books/*/images/*").hasRole("USER")
-                        // Books
-                        // .requestMatchers(HttpMethod.POST, "/api/books/**").hasRole("USER")
-                        // .requestMatchers(HttpMethod.PUT, "/api/books/**").hasRole("USER")
-                        // .requestMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("ADMIN")
-                        // Shops
-                        // .requestMatchers(HttpMethod.PUT, "/api/shops/**").hasRole("ADMIN")
-                        // .requestMatchers(HttpMethod.PUT, "/api/shops/**").hasRole("ADMIN")
-                        // .requestMatchers(HttpMethod.DELETE, "/api/shops/**").hasRole("ADMIN")
+                        // Protect users endpoints
+                        .requestMatchers("/api/v1/users/**").authenticated()
                         // PUBLIC ENDPOINTS
                         .anyRequest().permitAll());
 
@@ -74,8 +64,8 @@ public class SecurityConfiguration {
         // Disable Basic Authentication
         http.httpBasic(httpBasic -> httpBasic.disable());
 
-        // Stateless session
-        http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        // Allow stateful sessions for API (inherit from web session)
+        http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
 
         // Add JWT Token filter
         // http.addFilterBefore(new JwtRequestFilter(userDetailService,
