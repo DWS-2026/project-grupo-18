@@ -3,8 +3,6 @@ package com.example.cybercert.Controllers.rest;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import javax.print.attribute.standard.Media;
-
 import org.springframework.core.io.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.cybercert.Models.Image;
 import com.example.cybercert.Services.ImageService;
 import com.example.cybercert.dto.ImageDTO;
 import com.example.cybercert.dto.ImageMapper;

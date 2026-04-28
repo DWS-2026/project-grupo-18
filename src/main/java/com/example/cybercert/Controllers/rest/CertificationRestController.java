@@ -27,7 +27,7 @@ public class CertificationRestController {
         this.certificationMapper = certificationMapper;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<CertificationDTO>> getAllCertifications() {
         List<Certification> certifications = certificationService.findAll();
         return ResponseEntity.ok(certificationMapper.toDTOs(certifications));
@@ -41,7 +41,7 @@ public class CertificationRestController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<CertificationDTO> createCertification(@RequestBody CertificationDTO certificationDTO) {
 
         Certification certification = certificationMapper.toDomain(certificationDTO);

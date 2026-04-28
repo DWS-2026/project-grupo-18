@@ -38,20 +38,24 @@ public class CertificationService {
 
     public Certification createCertification(Certification certification) {
         if (certification.getId() != null) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Certification ID must be null for creation");
         }
 
-        if (certification.getImage() != null && certification.getImage().getId() != null) {
+        if (certification.getImage() != null) {
 
-            Image image = imageRepository
-                    .findById(certification.getImage().getId())
-                    .orElseThrow();
+            Long imageId = certification.getImage().getId();
 
-            certification.setImage(image);
+            if (imageId != null) {
+                Image image = imageRepository.findById(imageId)
+                        .orElseThrow(() -> new RuntimeException("Image not found with id: " + imageId));
+
+                certification.setImage(image);
+            } else {
+                certification.setImage(null);
+            }
         }
 
         return certificationRepository.save(certification);
-
     }
 
     public int count() {
