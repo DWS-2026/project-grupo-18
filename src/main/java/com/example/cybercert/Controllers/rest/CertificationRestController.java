@@ -8,6 +8,9 @@ import com.example.cybercert.Services.CertificationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
+
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -23,7 +26,7 @@ public class CertificationRestController {
         this.certificationMapper = certificationMapper;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<CertificationDTO>> getAllCertifications() {
         List<Certification> certifications = certificationService.findAll();
         return ResponseEntity.ok(certificationMapper.toDTOs(certifications));
@@ -35,6 +38,18 @@ public class CertificationRestController {
                 .map(certificationMapper::toDTO)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/")
+    public ResponseEntity<CertificationDTO> createCertification(@RequestBody CertificationDTO certificationDTO) {
+
+        Certification certification = certificationMapper.toDomain(certificationDTO);
+        certification = certificationService.createCertification(certification);
+        certificationDTO = certificationMapper.toDTO(certification);
+
+        URI location = fromCurrentRequest().path("/{id}").buildAndExpand(certificationDTO.id()).toUri();
+
+        return ResponseEntity.created(location).body(certificationDTO);
     }
 
 }

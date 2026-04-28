@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.cybercert.Models.Certification;
+import com.example.cybercert.Models.Image;
 import com.example.cybercert.Repositories.CertificationRepository;
+import com.example.cybercert.Repositories.ImageRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +16,9 @@ public class CertificationService {
 
     @Autowired
     private CertificationRepository certificationRepository;
+
+    @Autowired
+    private ImageRepository imageRepository;
 
     public Optional<Certification> findById(Long id) {
         return certificationRepository.findById(id);
@@ -29,6 +34,15 @@ public class CertificationService {
 
     public void deleteById(Long id) {
         certificationRepository.deleteById(id);
+    }
+
+    public Certification createCertification(Certification certification) {
+        if (certification.getId() != null) {
+            throw new IllegalArgumentException();
+        }
+
+        return certificationRepository.save(certification);
+
     }
 
     public int count() {
