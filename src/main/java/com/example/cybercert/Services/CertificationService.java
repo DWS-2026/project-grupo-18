@@ -2,6 +2,7 @@ package com.example.cybercert.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.cybercert.Models.Certification;
 import com.example.cybercert.Models.Image;
@@ -32,6 +33,7 @@ public class CertificationService {
         return certificationRepository.save(certification);
     }
 
+    @Transactional
     public void deleteById(Long id) {
         certificationRepository.deleteById(id);
     }

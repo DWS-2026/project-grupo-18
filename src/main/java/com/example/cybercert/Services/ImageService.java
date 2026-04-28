@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.cybercert.Repositories.ImageRepository;
 import com.example.cybercert.Models.Image;
@@ -64,6 +65,7 @@ public class ImageService {
         return image;
     }
 
+    @Transactional
     public Image deleteImage(long id) {
         Image image = imageRepository.findById(id).orElseThrow();
         imageRepository.deleteById(id);
