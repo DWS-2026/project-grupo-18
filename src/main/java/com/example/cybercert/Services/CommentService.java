@@ -25,6 +25,14 @@ public class CommentService {
         return commentsRepository.findById(id);
     }
 
+    public Comment save(Comment comment) {
+        return commentsRepository.save(comment);
+    }
+
+    public void deleteById(Long id) {
+        commentsRepository.deleteById(id);
+    }
+
     public List<Comment> getCommentsByCertification(Long certificationId) {
         return commentsRepository.findByCertificationIdOrderByCreatedAtDesc(certificationId);
     }
