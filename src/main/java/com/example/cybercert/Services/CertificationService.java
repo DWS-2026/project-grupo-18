@@ -41,6 +41,15 @@ public class CertificationService {
             throw new IllegalArgumentException();
         }
 
+        if (certification.getImage() != null && certification.getImage().getId() != null) {
+
+            Image image = imageRepository
+                    .findById(certification.getImage().getId())
+                    .orElseThrow();
+
+            certification.setImage(image);
+        }
+
         return certificationRepository.save(certification);
 
     }

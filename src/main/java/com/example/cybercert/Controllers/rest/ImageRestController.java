@@ -12,6 +12,7 @@ import org.springframework.http.MediaTypeFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.cybercert.Models.Image;
 import com.example.cybercert.Services.ImageService;
@@ -19,6 +20,7 @@ import com.example.cybercert.dto.ImageDTO;
 import com.example.cybercert.dto.ImageMapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
@@ -42,6 +44,14 @@ public class ImageRestController {
 
         MediaType mediaType = MediaTypeFactory.getMediaType(imageFile).orElse(MediaType.IMAGE_JPEG);
         return ResponseEntity.ok().contentType(mediaType).body(imageFile);
+    }
+
+    @PutMapping("/{id}/media")
+    public ResponseEntity<Object> replaceImageFile(@PathVariable long id,
+            @RequestParam MultipartFile imageFile) throws IOException {
+
+        imageService.replaceImageFile(id, imageFile.getInputStream());
+        return ResponseEntity.noContent().build();
     }
 
 }

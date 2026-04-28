@@ -12,6 +12,7 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/certifications")
@@ -52,4 +53,14 @@ public class CertificationRestController {
         return ResponseEntity.created(location).body(certificationDTO);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CertificationDTO> deleteCertification(@PathVariable Long id) {
+        Optional<Certification> certification = certificationService.findById(id);
+        if (!certification.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        certificationService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
