@@ -15,6 +15,7 @@ public interface CertificationMapper {
     List<CertificationDTO> toDTOs(Collection<Certification> certifications);
 
     @Mapping(target = "image", ignore = true)
+    @Mapping(target = "comments", ignore = true)
     Certification toDomain(CertificationDTO certificationDTO);
 
 }

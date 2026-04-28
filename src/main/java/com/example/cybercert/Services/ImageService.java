@@ -38,7 +38,7 @@ public class ImageService {
         return image;
     }
 
-    public Resource getImageFile(long id) throws SQLException {
+    public Resource getImageFile(Long id) throws SQLException {
 
         Image image = imageRepository.findById(id).orElseThrow();
 
