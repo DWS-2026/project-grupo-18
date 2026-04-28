@@ -50,8 +50,8 @@ public class SecurityConfiguration {
 
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        // Protect users endpoints
-                        .requestMatchers("/api/v1/users/**").authenticated()
+                        // Public users endpoints
+                        .requestMatchers("/api/v1/users/**").permitAll()
                         // PUBLIC ENDPOINTS
                         .anyRequest().permitAll());
 

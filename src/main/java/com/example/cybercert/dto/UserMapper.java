@@ -14,4 +14,15 @@ public interface UserMapper {
 
     List<UserDTO> toDTOs(Collection<User> users);
 
+    default User toEntity(UserDTO userDTO) {
+        if (userDTO == null) {
+            return null;
+        }
+
+        User user = new User();
+        user.setUsername(userDTO.username());
+        user.setEmail(userDTO.email());
+        return user;
+    }
+
 }
