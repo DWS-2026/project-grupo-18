@@ -123,7 +123,5 @@ public class CertificationRestController {
         certificationService.removeImageFromCertification(id);
         imageService.deleteImage(image.getId());
         return ResponseEntity.noContent().build();
-
     }
-
 }
