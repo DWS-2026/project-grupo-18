@@ -87,7 +87,7 @@ public class CertificationService {
         return updatedCertification;
     }
 
-    public Certification addImageTocertification(long id, Image image) {
+    public Certification addImageToCertification(long id, Image image) {
         Certification certification = certificationRepository.findById(id).orElseThrow();
         certification.setImage(image);
         certificationRepository.save(certification);
@@ -95,7 +95,7 @@ public class CertificationService {
         return certification;
     }
 
-    public Certification removeImageFromBook(long id) {
+    public Certification removeImageFromCertification(long id) {
         Certification certification = certificationRepository.findById(id).orElseThrow();
         certification.setImage(null);
         certificationRepository.save(certification);
