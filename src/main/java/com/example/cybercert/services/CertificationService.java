@@ -1,6 +1,8 @@
 package com.example.cybercert.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +29,10 @@ public class CertificationService {
 
     public List<Certification> findAll() {
         return certificationRepository.findAll();
+    }
+
+    public Page<Certification> findAll(Pageable pageable) {
+        return certificationRepository.findAll(pageable);
     }
 
     public Certification save(Certification certification) {

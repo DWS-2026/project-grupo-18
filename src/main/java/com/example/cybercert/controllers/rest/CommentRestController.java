@@ -7,12 +7,13 @@ import com.example.cybercert.services.CommentService;
 import com.example.cybercert.services.UserService;
 import com.example.cybercert.dto.CommentDTO;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/comments")
@@ -32,11 +33,16 @@ public class CommentRestController {
         this.userService = userService;
         this.certificationService = certificationService;
     }
-
+    
     @GetMapping
-    public ResponseEntity<List<CommentDTO>> getAllComments() {
-        List<Comment> comments = commentService.findAll();
-        return ResponseEntity.ok(commentMapper.toDTOs(comments));
+    public ResponseEntity<Page<CommentDTO>> getAllComments(
+            @RequestParam(required = false) Long certificationId,
+            Pageable pageable) {
+        Page<Comment> comments = certificationId == null
+                ? commentService.findAll(pageable)
+                : commentService.getCommentsByCertification(certificationId, pageable);
+        Page<CommentDTO> dtoPage = comments.map(commentMapper::toDTO);
+        return ResponseEntity.ok(dtoPage);
     }
 
     @GetMapping("/{id}")
