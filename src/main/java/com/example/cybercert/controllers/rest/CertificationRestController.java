@@ -1,26 +1,44 @@
 package com.example.cybercert.controllers.rest;
 
 import com.example.cybercert.dto.CertificationMapper;
+import com.example.cybercert.dto.ImageDTO;
 import com.example.cybercert.models.Certification;
 import com.example.cybercert.services.CertificationService;
 import com.example.cybercert.dto.CertificationDTO;
 
+import com.example.cybercert.models.Image;
+import com.example.cybercert.services.ImageService;
+import com.example.cybercert.dto.ImageMapper;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentContextPath;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
+import java.io.IOException;
 import java.net.URI;
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/certifications")
 public class CertificationRestController {
 
-    private final CertificationService certificationService;
-    private final CertificationMapper certificationMapper;
+    @Autowired
+    private CertificationService certificationService;
+
+    @Autowired
+    private CertificationMapper certificationMapper;
+
+    @Autowired
+    private ImageService imageService;
+
+    @Autowired
+    private ImageMapper imageMapper;
 
     public CertificationRestController(CertificationService certificationService,
             CertificationMapper certificationMapper) {
@@ -55,4 +73,55 @@ public class CertificationRestController {
         return ResponseEntity.created(location).body(certificationDTO);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<CertificationDTO> updateCertification(@PathVariable Long id,
+            @RequestBody CertificationDTO certificationDTO) {
+        Optional<Certification> existingCertification = certificationService.findById(id);
+        if (existingCertification.isPresent()) {
+            Certification updatedCertification = certificationMapper.toDomain(certificationDTO);
+            updatedCertification = certificationService.updateCertification(id, updatedCertification);
+            return ResponseEntity.ok(certificationMapper.toDTO(updatedCertification));
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CertificationDTO> deleteCertification(@PathVariable Long id) {
+        Optional<Certification> existingCertification = certificationService.findById(id);
+        if (existingCertification.isPresent()) {
+            certificationService.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/{id}/image")
+    public ResponseEntity<ImageDTO> createCertificationImage(@PathVariable Long id, MultipartFile imageFile)
+            throws IOException {
+        if (imageFile.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        Image image = imageService.createImage(imageFile.getInputStream());
+        certificationService.addImageToCertification(id, image);
+
+        URI location = fromCurrentContextPath()
+                .path("/api/images/{imageId}/media")
+                .buildAndExpand(image.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(imageMapper.toDTO(image));
+    }
+
+    @DeleteMapping("/{id}/image")
+    public ResponseEntity<ImageDTO> deleteCertificationImage(@PathVariable Long id) throws IOException {
+        Certification certification = certificationService.findById(id).orElseThrow();
+        Image image = certification.getImage();
+        if (image == null) {
+            return ResponseEntity.notFound().build();
+        }
+        certificationService.removeImageFromCertification(id);
+        imageService.deleteImage(image.getId());
+        return ResponseEntity.noContent().build();
+    }
 }

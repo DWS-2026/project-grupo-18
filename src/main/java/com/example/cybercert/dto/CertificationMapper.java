@@ -7,14 +7,14 @@ import org.mapstruct.Mapping;
 
 import com.example.cybercert.models.Certification;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = { ImageMapper.class })
 public interface CertificationMapper {
 
     CertificationDTO toDTO(Certification certification);
 
     List<CertificationDTO> toDTOs(Collection<Certification> certifications);
 
-    @Mapping(target = "image", ignore = true)
+    @Mapping(target = "comments", ignore = true)
     Certification toDomain(CertificationDTO certificationDTO);
 
 }
