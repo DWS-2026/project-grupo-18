@@ -1,4 +1,4 @@
-﻿package com.example.cybercert.controllers.rest;
+package com.example.cybercert.controllers.rest;
 
 import com.example.cybercert.dto.CommentMapper;
 import com.example.cybercert.models.Comment;

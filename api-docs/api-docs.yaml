@@ -1,0 +1,724 @@
+openapi: 3.1.0
+info:
+  title: CyberCert API
+  description: Documentación REST de CyberCert
+  version: 1.0.0
+servers:
+- url: https://localhost:8443
+  description: Generated server url
+tags:
+- name: Users
+  description: Operaciones REST sobre usuarios
+paths:
+  /api/v1/images/{id}/media:
+    get:
+      tags:
+      - image-rest-controller
+      operationId: getImageFile
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    put:
+      tags:
+      - image-rest-controller
+      operationId: replaceImageFile
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                imageFile:
+                  type: string
+                  format: binary
+              required:
+              - imageFile
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/v1/comments/{id}:
+    get:
+      tags:
+      - comment-rest-controller
+      operationId: getCommentById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CommentDTO"
+    put:
+      tags:
+      - comment-rest-controller
+      operationId: updateComment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CommentDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CommentDTO"
+    delete:
+      tags:
+      - comment-rest-controller
+      operationId: deleteComment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/v1/certifications/{id}:
+    get:
+      tags:
+      - certification-rest-controller
+      operationId: getCertificationById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CertificationDTO"
+    put:
+      tags:
+      - certification-rest-controller
+      operationId: updateCertification
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CertificationDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CertificationDTO"
+    delete:
+      tags:
+      - certification-rest-controller
+      operationId: deleteCertification
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CertificationDTO"
+  /api/v1/users/create:
+    post:
+      tags:
+      - Users
+      summary: Crear un usuario
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FullUserDTO"
+        required: true
+      responses:
+        "200":
+          description: Usuario creado correctamente
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/FullUserDTO"
+  /api/v1/comments:
+    get:
+      tags:
+      - comment-rest-controller
+      operationId: getAllComments
+      parameters:
+      - name: certificationId
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageCommentDTO"
+    post:
+      tags:
+      - comment-rest-controller
+      operationId: createComment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CommentDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CommentDTO"
+  /api/v1/certifications/{id}/image:
+    post:
+      tags:
+      - certification-rest-controller
+      operationId: createCertificationImage
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: imageFile
+        in: query
+        required: true
+        schema:
+          type: string
+          format: binary
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ImageDTO"
+    delete:
+      tags:
+      - certification-rest-controller
+      operationId: deleteCertificationImage
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ImageDTO"
+  /api/v1/certifications/:
+    get:
+      tags:
+      - certification-rest-controller
+      operationId: getAllCertifications
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageCertificationDTO"
+    post:
+      tags:
+      - certification-rest-controller
+      operationId: createCertification
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CertificationDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CertificationDTO"
+  /api/auth/refresh:
+    post:
+      tags:
+      - login-controller
+      operationId: refreshToken
+      parameters:
+      - name: RefreshToken
+        in: cookie
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+  /api/auth/logout:
+    post:
+      tags:
+      - login-controller
+      operationId: logOut
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+  /api/auth/login:
+    post:
+      tags:
+      - login-controller
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+  /api/v1/users/update/{id}:
+    patch:
+      tags:
+      - Users
+      summary: Actualizar parcialmente un usuario
+      operationId: updateUser
+      parameters:
+      - name: id
+        in: path
+        description: Identificador del usuario
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FullUserDTO"
+        required: true
+      responses:
+        "200":
+          description: Usuario actualizado correctamente
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/FullUserDTO"
+        "404":
+          description: Usuario no encontrado
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/FullUserDTO"
+  /api/v1/users:
+    get:
+      tags:
+      - Users
+      summary: Obtener todos los usuarios
+      operationId: getAllUsers
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "200":
+          description: Listado de usuarios devuelto correctamente
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageUserDTO"
+  /api/v1/users/{id}:
+    get:
+      tags:
+      - Users
+      summary: Obtener un usuario por id
+      operationId: getUserById
+      parameters:
+      - name: id
+        in: path
+        description: Identificador del usuario
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Usuario encontrado
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserDTO"
+        "404":
+          description: Usuario no encontrado
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserDTO"
+  /api/v1/images/{id}:
+    get:
+      tags:
+      - image-rest-controller
+      operationId: getImage
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ImageDTO"
+  /api/v1/users/delete/{id}:
+    delete:
+      tags:
+      - Users
+      summary: Eliminar un usuario
+      operationId: deleteUser
+      parameters:
+      - name: id
+        in: path
+        description: Identificador del usuario
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: Usuario eliminado correctamente
+        "404":
+          description: Usuario no encontrado
+components:
+  schemas:
+    CommentDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        content:
+          type: string
+        authorUsername:
+          type: string
+        certificationId:
+          type: integer
+          format: int64
+        rating:
+          type: integer
+          format: int32
+    CertificationDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        duration:
+          type: integer
+          format: int32
+        format:
+          type: string
+        language:
+          type: string
+        level:
+          type: string
+        requirements:
+          type: array
+          items:
+            type: string
+        contents:
+          type: array
+          items:
+            type: string
+        image:
+          $ref: "#/components/schemas/ImageDTO"
+    ImageDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+    FullUserDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        username:
+          type: string
+          example: juan
+        email:
+          type: string
+          example: juan@mail.com
+        password:
+          type: string
+          example: secret123
+    AuthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - SUCCESS
+          - FAILURE
+        message:
+          type: string
+        error:
+          type: string
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    Pageable:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+          minimum: 0
+        size:
+          type: integer
+          format: int32
+          minimum: 1
+        sort:
+          type: array
+          items:
+            type: string
+    PageUserDTO:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserDTO"
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        sort:
+          $ref: "#/components/schemas/SortObject"
+        empty:
+          type: boolean
+    PageableObject:
+      type: object
+      properties:
+        offset:
+          type: integer
+          format: int64
+        unpaged:
+          type: boolean
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        paged:
+          type: boolean
+        sort:
+          $ref: "#/components/schemas/SortObject"
+    SortObject:
+      type: object
+      properties:
+        empty:
+          type: boolean
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
+    UserDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        username:
+          type: string
+          example: juan
+        email:
+          type: string
+          example: juan@mail.com
+    PageCommentDTO:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/CommentDTO"
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        sort:
+          $ref: "#/components/schemas/SortObject"
+        empty:
+          type: boolean
+    PageCertificationDTO:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/CertificationDTO"
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        sort:
+          $ref: "#/components/schemas/SortObject"
+        empty:
+          type: boolean

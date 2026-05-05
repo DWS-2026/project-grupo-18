@@ -72,7 +72,7 @@ public class SecurityConfiguration {
                         
                         // CERTIFICATIONS API - Público para GET, privado para POST/PUT/DELETE
                         .requestMatchers(HttpMethod.GET, "/api/v1/certifications/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/certifications/**").hasRole("USER")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/certifications/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/certifications/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/certifications/**").hasRole("ADMIN")
                         
@@ -81,6 +81,8 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/api/v1/comments").hasRole("USER")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/comments/**").hasRole("USER")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/comments/**").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/images/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/images/**").hasRole("ADMIN")
                         
                         // Resto de endpoints
                         .anyRequest().authenticated());
@@ -113,7 +115,7 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/", "/login", "/register").permitAll()
                 .requestMatchers("/certification/**").permitAll()
-                .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/**").permitAll()
+                .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/**", "/v3/api-docs.yaml", "/v3/api-docs.yml").permitAll()
 
                 // recursos estáticos
                 .requestMatchers("/css/**").permitAll()
