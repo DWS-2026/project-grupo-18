@@ -1,4 +1,4 @@
-package com.example.cybercert.controllers.rest;
+﻿package com.example.cybercert.controllers.rest;
 
 import com.example.cybercert.dto.CommentMapper;
 import com.example.cybercert.models.Comment;
@@ -33,7 +33,7 @@ public class CommentRestController {
         this.userService = userService;
         this.certificationService = certificationService;
     }
-    
+
     @GetMapping
     public ResponseEntity<Page<CommentDTO>> getAllComments(
             @RequestParam(required = false) Long certificationId,
