@@ -6,7 +6,8 @@ public record FullUserDTO(
     @Schema(example = "1") Long id,
     @Schema(example = "juan") String username,
     @Schema(example = "juan@mail.com") String email,
-    @Schema(example = "secret123") String password
+    @Schema(example = "secret123") String password,
+    @Schema(example = "10") Long profileImageId
     ) {
 }
 

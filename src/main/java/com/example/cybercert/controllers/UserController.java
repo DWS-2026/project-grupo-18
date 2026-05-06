@@ -210,7 +210,7 @@ public class UserController {
 
             if (password != null && !password.isEmpty()) {
 
-                // CIFRAR PASSWORD NUEVA
+                // Encrypt new password
                 user.setPassword(passwordEncoder.encode(password));
             }
 
@@ -293,7 +293,7 @@ public class UserController {
         }
 
         if (file.isEmpty()) {
-            model.addAttribute("error", "Debes seleccionar una imagen");
+            model.addAttribute("error", "You must select an image");
             model.addAttribute("user", user);
             model.addAttribute("logged", true);
             model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
@@ -308,7 +308,7 @@ public class UserController {
                         contentType.equals("image/png") ||
                         contentType.equals("image/webp"))) {
 
-            model.addAttribute("error", "Formato no permitido. Usa JPG, PNG o WEBP");
+            model.addAttribute("error", "Unsupported format. Use JPG, PNG, or WEBP");
             model.addAttribute("user", user);
             model.addAttribute("logged", true);
             model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
@@ -317,7 +317,7 @@ public class UserController {
         }
 
         if (file.getSize() > 10 * 1024 * 1024) {
-            model.addAttribute("error", "La imagen no puede superar 10MB");
+            model.addAttribute("error", "The image cannot exceed 10MB");
             model.addAttribute("user", user);
             model.addAttribute("logged", true);
             model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
@@ -338,7 +338,7 @@ public class UserController {
         // Path path = Paths.get(uploadDir + fileName);
         // Files.write(path, file.getBytes());
 
-        model.addAttribute("success", "Imagen de perfil actualizada");
+        model.addAttribute("success", "Profile image updated");
         return "redirect:/profile";
     }
 

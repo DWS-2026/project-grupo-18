@@ -61,22 +61,24 @@ public class SecurityConfiguration {
 
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        // AUTH API - Público
-                        .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
+                        // AUTH API 
+                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/login", "/api/v1/auth/refresh", "/api/v1/auth/logout").permitAll()
                         
-                        // USERS API - Público para crear, admin para GET/PATCH/DELETE
+                        // USERS API 
+                        .requestMatchers(HttpMethod.GET, "/api/v1/users/me").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/users/me/profile-image").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/v1/users/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/v1/users/create").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/users/register").permitAll()
                         .requestMatchers(HttpMethod.PATCH, "/api/v1/users/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/users/**").hasRole("ADMIN")
                         
-                        // CERTIFICATIONS API - Público para GET, privado para POST/PUT/DELETE
+                        // CERTIFICATIONS API
                         .requestMatchers(HttpMethod.GET, "/api/v1/certifications/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/certifications/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/certifications/**").hasRole("USER")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/certifications/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/certifications/**").hasRole("ADMIN")
                         
-                        // COMMENTS API - Público para GET, privado para POST/PUT/DELETE
+                        // COMMENTS API
                         .requestMatchers(HttpMethod.GET, "/api/v1/comments/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/comments").hasRole("USER")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/comments/**").hasRole("USER")
@@ -84,7 +86,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/api/v1/images/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/v1/images/**").hasRole("ADMIN")
                         
-                        // Resto de endpoints
+                        
                         .anyRequest().authenticated());
 
         // Disable Form login Authentication
@@ -117,17 +119,17 @@ public class SecurityConfiguration {
                 .requestMatchers("/certification/**").permitAll()
                 .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/**", "/v3/api-docs.yaml", "/v3/api-docs.yml").permitAll()
 
-                // recursos estáticos
+                // static
                 .requestMatchers("/css/**").permitAll()
                 .requestMatchers("/403", "/404", "/error").permitAll()
                 .requestMatchers("/js/**").permitAll()
                 .requestMatchers("/images/**").permitAll()
                 .requestMatchers("/assets/**").permitAll()
 
-                // upload de imagen de perfil (logged in)
+                // upload profile image (logged in)
                 .requestMatchers("/uploadProfileImage").authenticated()
 
-                // rutas protegidas
+                // admin paths
                 .requestMatchers("/admin/**").hasRole("ADMIN")
 
                 .anyRequest().authenticated());
