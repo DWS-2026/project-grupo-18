@@ -105,19 +105,105 @@ public class UsersRestController {
                 return ResponseEntity.ok().build();
     }
 
-    @Operation(summary = "Partially update a user")
+    @Operation(summary = "Update your own profile",
+                                                description = "Allows the authenticated user to update their own username and email")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "User updated successfully"),
-            @ApiResponse(responseCode = "404", description = "User not found")
+                        @ApiResponse(responseCode = "200", description = "Profile updated successfully"),
+                        @ApiResponse(responseCode = "400", description = "Invalid request data (e.g., attempting to modify id or profileImageId)"),
+                        @ApiResponse(responseCode = "401", description = "Unauthorized or expired token")
+    })
+    @PatchMapping("/me")
+    public ResponseEntity<Void> updateMyProfile(HttpServletRequest request,
+                        @RequestBody FullUserDTO fullUserDTO) {
+
+        try {
+            // Reject attempts to modify id or profileImageId
+            if (fullUserDTO.id() != null || fullUserDTO.profileImageId() != null) {
+                return ResponseEntity.badRequest().build();
+            }
+
+            // Get JWT token (try cookies first, then headers)
+            Claims claims;
+            try {
+                claims = jwtTokenProvider.validateToken(request, true);
+            } catch (Exception e) {
+                try {
+                    claims = jwtTokenProvider.validateToken(request, false);
+                } catch (Exception e2) {
+                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+                }
+            }
+
+            String username = claims.getSubject();
+            User authenticatedUser = userService.findByUsername(username).orElse(null);
+            if (authenticatedUser == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+
+            if (fullUserDTO.username() != null) {
+                authenticatedUser.setUsername(fullUserDTO.username());
+            }
+            if (fullUserDTO.email() != null) {
+                authenticatedUser.setEmail(fullUserDTO.email());
+            }
+            userService.save(authenticatedUser);
+            return ResponseEntity.ok().build();
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+
+    @Operation(summary = "Update a user by id (ADMIN only)",
+                                                description = "Allows ADMIN to update any user's username and email")
+    @ApiResponses({
+                        @ApiResponse(responseCode = "200", description = "User updated successfully"),
+                        @ApiResponse(responseCode = "400", description = "Invalid request data (e.g., attempting to modify id or profileImageId)"),
+                        @ApiResponse(responseCode = "403", description = "Forbidden - ADMIN role required"),
+                        @ApiResponse(responseCode = "404", description = "User not found")
     })
     @PatchMapping("/update/{id}")
-        public ResponseEntity<FullUserDTO> updateUser(@Parameter(description = "User identifier") @PathVariable Long id, @RequestBody FullUserDTO fullUserDTO) {
-           
-        Optional<User> user = userService.findById(id);
+    public ResponseEntity<Void> updateUser(HttpServletRequest request,
+                        @Parameter(description = "User identifier") @PathVariable Long id,
+                        @RequestBody FullUserDTO fullUserDTO) {
 
-        if(user.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }else{
+        try {
+            // Reject attempts to modify id or profileImageId
+            if (fullUserDTO.id() != null && !fullUserDTO.id().equals(id)) {
+                return ResponseEntity.badRequest().build();
+            }
+
+            if (fullUserDTO.profileImageId() != null) {
+                return ResponseEntity.badRequest().build();
+            }
+
+            // Get JWT token (try cookies first, then headers)
+            Claims claims;
+            try {
+                claims = jwtTokenProvider.validateToken(request, true); //in cookies
+            } catch (Exception e) {
+                try {
+                    claims = jwtTokenProvider.validateToken(request, false); // in headers
+                } catch (Exception e2) {
+                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+                }
+            }
+
+            String username = claims.getSubject();
+            User authenticatedUser = userService.findByUsername(username).orElse(null);
+            if (authenticatedUser == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+
+            // Only ADMIN can update other users
+            if (authenticatedUser.getRole() != Role.ADMIN) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            }
+
+            Optional<User> user = userService.findById(id);
+            if (user.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+
             User existingUser = user.get();
             if (fullUserDTO.username() != null) {
                 existingUser.setUsername(fullUserDTO.username());
@@ -125,10 +211,11 @@ public class UsersRestController {
             if (fullUserDTO.email() != null) {
                 existingUser.setEmail(fullUserDTO.email());
             }
-            User updatedUser = userService.save(existingUser);
-            return ResponseEntity.ok(userMapper.toFullDTO(updatedUser));
+            userService.save(existingUser);
+            return ResponseEntity.ok().build();
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-
     }
 
     @Operation(summary = "Delete a user")
@@ -183,8 +270,8 @@ public class UsersRestController {
             @ApiResponse(responseCode = "400", description = "Empty file, unsupported format, or file too large"),
             @ApiResponse(responseCode = "401", description = "Unauthorized or expired token")
     })
-    public ResponseEntity<UserDTO> uploadProfileImage(HttpServletRequest request,
-                    @org.springframework.web.bind.annotation.RequestParam("imageFile") org.springframework.web.multipart.MultipartFile imageFile) throws IOException {
+        public ResponseEntity<UserDTO> uploadProfileImage(HttpServletRequest request,
+                                        @org.springframework.web.bind.annotation.RequestParam("imageFile") org.springframework.web.multipart.MultipartFile imageFile) throws IOException {
 
             try {
                     Claims claims = jwtTokenProvider.validateToken(request, true);
@@ -225,7 +312,7 @@ public class UsersRestController {
             } catch (Exception ex) {
                     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
-    }
+        }
 
 }
   
