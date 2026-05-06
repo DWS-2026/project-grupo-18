@@ -2,6 +2,7 @@ package com.example.cybercert.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,10 @@ public class ShoppingCartService {
     public List<UserCertification> findByUserIdOrderByPurchasedAtDesc(Long userId) {
         return userCertificationRepository.findByUserIdOrderByPurchasedAtDesc(userId);
     }
+    public List<ShoppingCartItem> findByUserId(Long userId) {
+
+    return shoppingCartItemRepository.findByUserId(userId);
+}
 
     public boolean hasPurchasedCertification(Long userId, Long certificationId) {
         if (userId == null || certificationId == null) {
@@ -89,6 +94,24 @@ public class ShoppingCartService {
     }
 
     @Transactional
+    public void removeOwnedCertificationsFromCart(Long userId) {
+        if (userId == null) {
+            return;
+        }
+
+        List<ShoppingCartItem> items = shoppingCartItemRepository.findByUserId(userId);
+        for (ShoppingCartItem item : items) {
+            if (item.getCertification() == null) {
+                continue;
+            }
+
+            if (userCertificationRepository.existsByUserIdAndCertificationId(userId, item.getCertification().getId())) {
+                shoppingCartItemRepository.deleteByUserIdAndCertificationId(userId, item.getCertification().getId());
+            }
+        }
+    }
+
+    @Transactional
     public void completeCheckout(User user) {
         if (user == null) {
             return;
@@ -112,25 +135,7 @@ public class ShoppingCartService {
         shoppingCartItemRepository.deleteByUserId(user.getId());
     }
 
-    @Transactional
-    public void removeOwnedCertificationsFromCart(Long userId) {
-        if (userId == null) {
-            return;
-        }
-
-        List<ShoppingCartItem> items = shoppingCartItemRepository.findByUserId(userId);
-        for (ShoppingCartItem item : items) {
-            Certification certification = item.getCertification();
-            if (certification == null) {
-                shoppingCartItemRepository.deleteById(item.getId());
-                continue;
-            }
-
-            boolean alreadyOwned = userCertificationRepository.existsByUserIdAndCertificationId(userId,
-                    certification.getId());
-            if (alreadyOwned) {
-                shoppingCartItemRepository.deleteById(item.getId());
-            }
-        }
+    public Optional<ShoppingCartItem> findById(Long id) {
+        return shoppingCartItemRepository.findById(id);
     }
 }

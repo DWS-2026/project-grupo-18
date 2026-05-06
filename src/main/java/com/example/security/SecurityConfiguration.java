@@ -86,6 +86,13 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/api/v1/images/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/v1/images/**").hasRole("ADMIN")
                         
+                        // SHOPPING CART API
+                        .requestMatchers(HttpMethod.GET, "/api/v1/shopping-cart-items/me").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/shopping-cart-items/me/certifications").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/shopping-cart-items/{id}").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/shopping-cart-items/**").hasRole("USER")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/shopping-cart-items/**").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/shopping-cart-items/user/**").hasRole("ADMIN")
                         
                         .anyRequest().authenticated());
 
