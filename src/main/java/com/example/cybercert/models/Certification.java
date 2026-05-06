@@ -46,7 +46,10 @@ public class Certification {
     private Image image;
 
     @OneToMany(mappedBy = "certification", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> comments;;
+    private List<Comment> comments;
+
+    @Column(nullable = true)
+    private String documentPath;
 
     public Certification() {
     }
@@ -63,6 +66,7 @@ public class Certification {
         this.contents = contents;
         this.image = image;
         this.comments = new ArrayList<>();
+        this.documentPath = null;
     }
 
     public Long getId() {
@@ -153,4 +157,11 @@ public class Certification {
         this.comments = comments;
     }
 
+    public String getDocumentPath() {
+        return documentPath;
+    }
+
+    public void setDocumentPath(String documentPath) {
+        this.documentPath = documentPath;
+    }
 }

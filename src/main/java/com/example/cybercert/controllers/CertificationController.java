@@ -1,14 +1,18 @@
 package com.example.cybercert.controllers;
 
+import java.net.MalformedURLException;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.cybercert.models.Certification;
@@ -17,7 +21,16 @@ import com.example.cybercert.services.CertificationService;
 import com.example.cybercert.services.CommentService;
 import com.example.cybercert.services.ShoppingCartService;
 import com.example.cybercert.services.UserService;
+import com.example.cybercert.services.CertificationDocumentService;
 import com.example.security.Role;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.http.HttpHeaders;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Controller
 public class CertificationController {
@@ -99,5 +112,34 @@ public class CertificationController {
     @PostMapping("/certification/{id}/remove-comment")
     public String removeComment(@PathVariable Long id) {
         return "redirect:/certification/" + id;
+    }
+
+    @GetMapping("/certification/{id}/document")
+    public String getMethodName(@RequestParam String param) {
+        return new String();
+    }
+
+    @GetMapping("/certification/{id}/download-document")
+    public ResponseEntity<Resource> downloadDocument(@PathVariable Long id) throws MalformedURLException {
+
+        Certification cert = certificationService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Certification not found"));
+
+        if (cert.getDocumentPath() == null) {
+            throw new RuntimeException("No document associated with this certification");
+        }
+
+        Path filePath = Paths.get(cert.getDocumentPath())
+                .normalize();
+
+        Resource resource = new UrlResource(filePath.toUri());
+
+        if (!resource.exists()) {
+            throw new RuntimeException("File not found");
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("application/pdf"))
+                .body(resource);
     }
 }
