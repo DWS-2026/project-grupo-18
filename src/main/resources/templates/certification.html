@@ -41,6 +41,14 @@
         <div class="col-md-6">
           <h2 class="mb-4">Description</h2>
           <p class="description">{{{certification.description}}}</p>
+          {{#certification.documentPath}}
+          <a
+            href="/certification/{{certification.id}}/download-document"
+            class="btn neon-button"
+            style="margin-top: 20px"
+            >Download Full Pdf</a
+          >
+          {{/certification.documentPath}}
         </div>
       </div>
     </div>

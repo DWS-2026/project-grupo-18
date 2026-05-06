@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.cybercert.models.Certification;
 import com.example.cybercert.models.Image;
 import com.example.cybercert.models.User;
+import com.example.cybercert.services.CertificationDocumentService;
 import com.example.cybercert.services.CertificationService;
 import com.example.cybercert.services.ImageService;
 import com.example.cybercert.services.UserService;
@@ -26,6 +27,7 @@ import java.util.Optional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.transaction.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class AdminController {
@@ -38,6 +40,9 @@ public class AdminController {
 
     @Autowired
     private ImageService imageService;
+
+    @Autowired
+    private CertificationDocumentService certificationDocumentService;
 
     // ADMIN PAGE
     @GetMapping("/admin")
@@ -249,6 +254,26 @@ public class AdminController {
         return "redirect:/admin";
     }
 
+    @PostMapping("/admin/add-certi-document")
+    public String addCertificationDoc(Model model, Principal principal, @RequestParam("id") Long id,
+            @RequestParam("documentFile") MultipartFile documentFile) throws Exception {
+
+        if (principal != null) {
+            model.addAttribute("logged", true);
+
+            User user = userService.findByUsername(principal.getName()).orElse(null);
+
+            if (user != null) {
+                model.addAttribute("isAdmin", user.getRole() == Role.ADMIN);
+            }
+        }
+        if (!documentFile.isEmpty()) {
+            certificationDocumentService.store(documentFile, id);
+        }
+
+        return "redirect:/admin";
+    }
+
     @PostMapping("/admin/delete-certi")
     public String deleteCertification(@RequestParam Long certId) {
         certificationService.deleteById(certId);
@@ -284,4 +309,5 @@ public class AdminController {
     public String getViewUser(Model model, Principal principal) {
         return "redirect:/admin";
     }
+
 }
