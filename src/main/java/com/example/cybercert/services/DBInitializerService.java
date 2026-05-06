@@ -189,7 +189,7 @@ public class DBInitializerService {
             System.out.println("CERTIFICACIONES CREADAS:");
         }
         } catch (Exception e) {
-            System.err.println("Error al inicializar BD: " + e.getMessage());
+            System.err.println("Error initializing database: " + e.getMessage());
             e.printStackTrace();
         }
     }

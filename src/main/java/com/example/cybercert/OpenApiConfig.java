@@ -14,6 +14,6 @@ public class OpenApiConfig {
                 .info(new Info()
                         .title("CyberCert API")
                         .version("1.0.0")
-                        .description("Documentación REST de CyberCert"));
+                    .description("CyberCert REST API documentation"));
     }
 }

@@ -140,19 +140,19 @@
 
   if (!file) {
     e.preventDefault();
-    alert("Debes seleccionar una imagen");
+    alert("You must select an image");
     return;
   }
 
   if (!file.type.startsWith("image/")) {
     e.preventDefault();
-    alert("El archivo debe ser una imagen");
+    alert("The file must be an image");
     return;
   }
 
   if (file.size > 2 * 1024 * 1024) {
     e.preventDefault();
-    alert("La imagen no puede superar 2MB");
+    alert("The image cannot exceed 2MB");
     return;
   }
 });

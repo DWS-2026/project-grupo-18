@@ -276,6 +276,7 @@ public class AdminController {
 
         User user = userOptional.get();
         model.addAttribute("user", user);
+        model.addAttribute("userRole", user.getRole() != null ? user.getRole().name() : "USER");
         return "view";
     }
 
