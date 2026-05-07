@@ -480,15 +480,16 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 Diagrama actualizado incluyendo los @RestController y su relación con los @Service compartidos:
 
-![Diagrama de Clases Actualizado](images/complete-classes-diagram.png)
+<img width="1284" height="719" alt="image" src="https://github.com/user-attachments/assets/2eb9f6ab-55cf-45f0-8525-9e745cd8fd4b" />
+
 
 #### **Credenciales de Usuarios de Ejemplo**
 
 | Rol                | Usuario | Contraseña |
 | :----------------- | :------ | :--------- |
 | Administrador      | admin   | admin123   |
-| Usuario Registrado | user1   | user123    |
-| Usuario Registrado | user2   | user123    |
+| Usuario Registrado | user   | user123    |
+
 
 ### **Participación de Miembros en la Práctica 3**
 
