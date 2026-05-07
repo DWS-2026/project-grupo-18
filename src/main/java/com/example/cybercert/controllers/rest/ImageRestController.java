@@ -43,7 +43,7 @@ public class ImageRestController {
         return ResponseEntity.ok().contentType(mediaType).body(imageFile);
     }
 
-    @PutMapping("/{id}/media")
+    @PutMapping(value = "/{id}/media", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Object> replaceImageFile(@PathVariable long id,
             @RequestParam MultipartFile imageFile) throws IOException {
 
