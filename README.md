@@ -507,17 +507,17 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 
 ---
 
-#### **Alumno 2 - [Nombre Completo]**
+#### **Alumno 2 - [Ricardo De Francisco Alfonso]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Creacion de controladores rest, Dtos y mappers de los comentarios e items del shoping cart, coleccion de postman y modificacion de metodos en los controladores para tengan paginacion]
 
 | Nº  |               Commits                |           Files           |
 | :-: | :----------------------------------: | :-----------------------: |
-|  1  | [Descripción commit 1](URL_commit_1) | [Archivo1](URL_archivo_1) |
-|  2  | [Descripción commit 2](URL_commit_2) | [Archivo2](URL_archivo_2) |
-|  3  | [Descripción commit 3](URL_commit_3) | [Archivo3](URL_archivo_3) |
-|  4  | [Descripción commit 4](URL_commit_4) | [Archivo4](URL_archivo_4) |
-|  5  | [Descripción commit 5](URL_commit_5) | [Archivo5](URL_archivo_5) |
+|  1  | [Creacion del shopingcart rest controller junto con sus DTOs y su mapper](https://github.com/DWS-2026/dws-2026-project-base/commit/6dcd0e697f3566c6ffe7718ceaefb4e053dd7347) | [ShopingCartRestController.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/controllers/rest/ShoppingCartItemsRestController.java) |
+|  2  | [Creacion del Comments rest controller junto con sus DTOs y su mapper](https://github.com/DWS-2026/dws-2026-project-base/commit/70d4803cc6fec6213a04f192d81a79ec038921da) | [CommentsRestController.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/controllers/rest/CommentRestController.java) |
+|  3  | [Coleccion de postman](https://github.com/DWS-2026/dws-2026-project-base/commit/4b1e2e3d9634cb4c6b359baaa543dd9f92dd4152) | [CyberCert.postman_collection.json](https://github.com/DWS-2026/project-grupo-18/blob/main/CyberCert.postman_collection.json) |
+|  4  | [Metodos Pageable](https://github.com/DWS-2026/dws-2026-project-base/commit/798e2db0ffcdd18ec9a22d03530098956c100d59) | [Todos los Rest Controller](https://github.com/DWS-2026/project-grupo-18/tree/main/src/main/java/com/example/cybercert/controllers/rest) |
+|  5  | [Descripción commit 5](URL_commit_5) | [](URL_archivo_5) |
 
 ---
 
