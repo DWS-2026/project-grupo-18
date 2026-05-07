@@ -24,15 +24,9 @@
               "raw": "{\n  \"username\": \"user@example.com\",\n  \"password\": \"password\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/api/auth/login",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "auth",
-                "login"
-              ]
+              "raw": "{{baseUrl}}/api/v1/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "login"]
             }
           }
         },
@@ -42,15 +36,9 @@
             "method": "POST",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/auth/refresh",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "auth",
-                "refresh"
-              ]
+              "raw": "{{baseUrl}}/api/v1/auth/refresh",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "refresh"]
             }
           }
         },
@@ -60,15 +48,9 @@
             "method": "POST",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/auth/logout",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "auth",
-                "logout"
-              ]
+              "raw": "{{baseUrl}}/api/v1/auth/logout",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "logout"]
             }
           }
         }
@@ -83,15 +65,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/v1/certifications/?page=0&size=20",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "certifications"
-              ],
+              "raw": "{{baseUrl}}/api/v1/certifications?page=0&size=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "certifications"],
               "query": [
                 {
                   "key": "page",
@@ -112,15 +88,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/certifications/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "certifications",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "certifications", "1"]
             }
           }
         },
@@ -139,16 +108,9 @@
               "raw": "{\n  \"name\": \"New Course\",\n  \"description\": \"Curso nuevo de ejemplo\",\n  \"duration\": 50,\n  \"format\": \"Online\",\n  \"language\": \"English\",\n  \"level\": \"Beginner\",\n  \"requirements\": [\"Internet\", \"PC\"],\n  \"contents\": [\"Módulo 1\", \"Módulo 2\"]\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/api/v1/certifications/",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "certifications",
-                ""
-              ]
+              "raw": "{{baseUrl}}/api/v1/certifications",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "certifications"]
             }
           }
         },
@@ -168,15 +130,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/certifications/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "certifications",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "certifications", "1"]
             }
           }
         },
@@ -187,15 +142,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/certifications/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "certifications",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "certifications", "1"]
             }
           }
         },
@@ -221,16 +169,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/certifications/1/image",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "certifications",
-                "1",
-                "image"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "certifications", "1", "image"]
             }
           }
         },
@@ -241,16 +181,47 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/certifications/1/image",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "certifications",
-                "1",
-                "image"
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "certifications", "1", "image"]
+            }
+          }
+        },
+        {
+          "name": "Upload Certification Document",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "documentFile",
+                  "type": "file",
+                  "src": ""
+                }
               ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/certifications/1/document",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "certifications", "1", "document"]
+            }
+          }
+        },
+        {
+          "name": "Get Certification Document",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/certifications/1/document",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "certifications", "1", "document"]
             }
           }
         }
@@ -266,14 +237,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/comments?page=0&size=20",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "comments"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "comments"],
               "query": [
                 {
                   "key": "page",
@@ -294,14 +259,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/comments?certificationId=1&page=0&size=20",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "comments"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "comments"],
               "query": [
                 {
                   "key": "certificationId",
@@ -326,15 +285,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/comments/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "comments",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "comments", "1"]
             }
           }
         },
@@ -354,14 +306,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/comments",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "comments"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "comments"]
             }
           }
         },
@@ -381,15 +327,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/comments/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "comments",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "comments", "1"]
             }
           }
         },
@@ -400,15 +339,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/comments/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "comments",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "comments", "1"]
             }
           }
         }
@@ -424,14 +356,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/users?page=0&size=20",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users"],
               "query": [
                 {
                   "key": "page",
@@ -452,15 +378,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/users/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "1"]
             }
           }
         },
@@ -476,19 +395,12 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"id\": 0,\n  \"username\": \"newuser\",\n  \"email\": \"newuser@example.com\",\n  \"password\": \"password123\"\n}"
+              "raw": "{\n  \"username\": \"newuser\",\n  \"email\": \"newuser@example.com\",\n  \"password\": \"password123\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/api/v1/users/create",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users",
-                "create"
-              ]
+              "raw": "{{baseUrl}}/api/v1/users/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "register"]
             }
           }
         },
@@ -508,16 +420,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/users/update/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users",
-                "update",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "update", "1"]
             }
           }
         },
@@ -528,16 +432,121 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/users/delete/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users",
-                "delete",
-                "1"
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "delete", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get My Profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "me"]
+            }
+          }
+        },
+        {
+          "name": "Update My Profile",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"updateduser\",\n  \"email\": \"meupdated@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "me"]
+            }
+          }
+        },
+        {
+          "name": "Upload Profile Image",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "imageFile",
+                  "type": "file",
+                  "src": ""
+                }
               ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/me/profile-image",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "me", "profile-image"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Shopping Cart Items",
+      "item": [
+        {
+          "name": "Get My Cart Items",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/shopping-cart-items/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "shopping-cart-items", "me"]
+            }
+          }
+        },
+        {
+          "name": "Add Item to Cart",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/shopping-cart-items/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "shopping-cart-items", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Item from Cart",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/shopping-cart-items/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "shopping-cart-items", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get User Cart (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/shopping-cart-items/user/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "shopping-cart-items", "user", "1"]
             }
           }
         }
@@ -553,15 +562,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/images/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "images",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "images", "1"]
             }
           }
         },
@@ -572,16 +574,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/images/1/media",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "images",
-                "1",
-                "media"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "images", "1", "media"]
             }
           }
         },
@@ -607,16 +601,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/images/1/media",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "images",
-                "1",
-                "media"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "images", "1", "media"]
             }
           }
         }

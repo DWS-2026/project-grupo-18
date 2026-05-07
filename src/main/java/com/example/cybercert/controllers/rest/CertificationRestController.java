@@ -60,7 +60,7 @@ public class CertificationRestController {
         this.certificationMapper = certificationMapper;
     }
 
-    @GetMapping("/")
+    @GetMapping()
     public ResponseEntity<Page<CertificationDTO>> getAllCertifications(Pageable pageable) {
         Page<Certification> certifications = certificationService.findAll(pageable);
         Page<CertificationDTO> dtoPage = certifications.map(certificationMapper::toDTO);
@@ -75,7 +75,7 @@ public class CertificationRestController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/")
+    @PostMapping()
     public ResponseEntity<CertificationDTO> createCertification(@RequestBody CertificationDTO certificationDTO) {
 
         Certification certification = certificationMapper.toDomain(certificationDTO);
@@ -161,7 +161,7 @@ public class CertificationRestController {
                 .body(resource);
     }
 
-    @PostMapping(value="/{id}/document", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/{id}/document", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> uploadCertificationDocument(@PathVariable Long id, MultipartFile documentFile)
             throws IOException {
         if (documentFile.isEmpty()) {
