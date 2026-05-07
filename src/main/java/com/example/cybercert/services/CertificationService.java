@@ -11,6 +11,8 @@ import com.example.cybercert.models.Image;
 import com.example.cybercert.repositories.CertificationRepository;
 import com.example.cybercert.repositories.ImageRepository;
 
+import com.example.security.HtmlSanitizer;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +51,8 @@ public class CertificationService {
             throw new IllegalArgumentException("Certification ID must be null for creation");
         }
 
+        certification.setDescription(HtmlSanitizer.sanitize(certification.getDescription()));
+
         if (certification.getImage() != null) {
 
             Long imageId = certification.getImage().getId();
@@ -75,6 +79,8 @@ public class CertificationService {
         if (existingCertification.getImage() != null) {
             updatedCertification.setImage(existingCertification.getImage());
         }
+
+        updatedCertification.setDescription(HtmlSanitizer.sanitize(updatedCertification.getDescription()));
 
         if (updatedCertification.getComments() == null) {
             updatedCertification.setComments(existingCertification.getComments());
