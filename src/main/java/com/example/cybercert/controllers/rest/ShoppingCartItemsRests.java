@@ -140,6 +140,28 @@ public class ShoppingCartItemsRests {
 
                 return ResponseEntity.noContent().build();
         }
+        // =====================================================
+    // ADMIN GET USER CART
+    // =====================================================
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<ShoppingCartItemDTO>> showUserCart(
+            @PathVariable Long userId,
+            HttpServletRequest request) {
+
+        User authenticatedUser = getAuthenticatedUser(request);
+
+        if (authenticatedUser.getRole() != Role.ADMIN) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        List<ShoppingCartItem> items =
+                shoppingCartService.findByUserId(userId);
+
+        return ResponseEntity.ok(
+                shoppingCartItemMapper.toDTOs(items));
+    }
+
 
         // =====================================================
         // AUTH HELPER
