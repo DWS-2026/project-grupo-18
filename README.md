@@ -521,17 +521,17 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 
 ---
 
-#### **Alumno 3 - [Nombre Completo]**
+#### **Alumno 3 - [Erik Halasz]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Me he encargado de crear los controladores REST relacionados con la gestión de la entidad Certificación, gestión de las imagenes y la funcionalidad de subida de un archivo y su guardado en disco]
 
 | Nº  |               Commits                |           Files           |
 | :-: | :----------------------------------: | :-----------------------: |
-|  1  | [Descripción commit 1](URL_commit_1) | [Archivo1](URL_archivo_1) |
-|  2  | [Descripción commit 2](URL_commit_2) | [Archivo2](URL_archivo_2) |
-|  3  | [Descripción commit 3](URL_commit_3) | [Archivo3](URL_archivo_3) |
-|  4  | [Descripción commit 4](URL_commit_4) | [Archivo4](URL_archivo_4) |
-|  5  | [Descripción commit 5](URL_commit_5) | [Archivo5](URL_archivo_5) |
+|  1  | [Added certification mapper, dto and getters](https://github.com/DWS-2026/project-grupo-18/commit/45d9555c018039b9a272642ac21fe750817b8ca1) | [CertificationRestController.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/controllers/rest/CertificationRestController.java) |
+|  2  | [implemented ImageRestController](https://github.com/DWS-2026/project-grupo-18/commit/ced31a8dd2ab628ff8a83acebb1d5703ce068105) | [ImageRestController.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/controllers/rest/ImageRestController.java) |
+|  3  | [Finish CertificationRestController and Service](https://github.com/DWS-2026/project-grupo-18/commit/d8f5c1ff785f0d00cf22fcc0881cf7a04f3037d4) | [CertificationRestController.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/controllers/rest/CertificationRestController.java) |
+|  4  | [Added file upload/visualization](https://github.com/DWS-2026/project-grupo-18/commit/80370fa42830f31855ecf36d203cd86660338057) | [CertificationDocumentService.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/services/CertificationDocumentService.java) |
+|  5  | [Added document upload/visualization in API REST](https://github.com/DWS-2026/project-grupo-18/commit/4f70faf177e79be779345902f3ade0f91521013c) | [CertificationRestController.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/controllers/rest/CertificationRestController.java) |
 
 ---
 
