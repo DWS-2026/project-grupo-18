@@ -110,7 +110,7 @@ public class CertificationRestController {
         }
     }
 
-    @PostMapping("/{id}/image")
+    @PostMapping(value = "/{id}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ImageDTO> createCertificationImage(@PathVariable Long id, MultipartFile imageFile)
             throws IOException {
         if (imageFile.isEmpty()) {
@@ -161,7 +161,7 @@ public class CertificationRestController {
                 .body(resource);
     }
 
-    @PostMapping("/{id}/document")
+    @PostMapping(value="/{id}/document", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> uploadCertificationDocument(@PathVariable Long id, MultipartFile documentFile)
             throws IOException {
         if (documentFile.isEmpty()) {
