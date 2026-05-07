@@ -493,17 +493,17 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 
 ### **Participación de Miembros en la Práctica 3**
 
-#### **Alumno 1 - [Nombre Completo]**
+#### **Alumno 1 - [Jaime Bonafé Macedo]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Me he encargado del controlador Rest de los usuarios, la implementación de JWT tokens, y todo lo referente a OpenApi]
 
 | Nº  |               Commits                |           Files           |
 | :-: | :----------------------------------: | :-----------------------: |
-|  1  | [Descripción commit 1](URL_commit_1) | [Archivo1](URL_archivo_1) |
-|  2  | [Descripción commit 2](URL_commit_2) | [Archivo2](URL_archivo_2) |
-|  3  | [Descripción commit 3](URL_commit_3) | [Archivo3](URL_archivo_3) |
-|  4  | [Descripción commit 4](URL_commit_4) | [Archivo4](URL_archivo_4) |
-|  5  | [Descripción commit 5](URL_commit_5) | [Archivo5](URL_archivo_5) |
+|  1  | [Api docs](https://github.com/DWS-2026/dws-2026-project-base/commit/ed9a0a5d961b97cc6dad94de6c0d5c854764e1fe) | [api-docs.yaml](https://github.com/DWS-2026/project-grupo-18/blob/main/api-docs/api-docs.yaml) [apidocs.html](https://github.com/DWS-2026/project-grupo-18/blob/main/api-docs/apidocs.html) |
+|  2  | [added jwt](https://github.com/DWS-2026/dws-2026-project-base/commit/3c8360b9acd19e445b0b3caef614e70c7a317cee) | [jwt](https://github.com/DWS-2026/project-grupo-18/tree/main/src/main/java/com/example/security/jwt) |
+|  3  | [User API update, new endpoint and jwt logic](github.com/DWS-2026/dws-2026-project-base/commit/395dfdbe5fe7602e6dd43df62070f68b5cf7c5a8) | [UserRestController.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/controllers/rest/UsersRestController.java) |
+|  4  | [added OpenApi swagger](https://github.com/DWS-2026/dws-2026-project-base/commit/de6d35cf6491ccde9f9f04bc3297215ab490c664) | [OpenApiConfig.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/OpenApiConfig.java) |
+|  5  | [API REST GET for users added](https://github.com/DWS-2026/dws-2026-project-base/commit/5645b9d6aee05455f40411f4d2d31e58320b576f) | [UserRestController.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/controllers/rest/UsersRestController.java) |
 
 ---
 
