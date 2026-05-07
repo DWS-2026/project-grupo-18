@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.example.cybercert.dto.CertificationDTO;
-import com.example.cybercert.dto.CertificationMapper;
 import com.example.cybercert.dto.ShoppingCartItemDTO;
 import com.example.cybercert.dto.ShoppingCartItemMapper;
 
@@ -38,7 +36,7 @@ import io.jsonwebtoken.Claims;
 
 @RestController
 @RequestMapping("/api/v1/shopping-cart-items")
-public class ShoppingCartItemsRests {
+public class ShoppingCartItemsRestController {
 
         @Autowired
         private UserService userService;
@@ -54,9 +52,6 @@ public class ShoppingCartItemsRests {
 
         @Autowired
         private ShoppingCartItemMapper shoppingCartItemMapper;
-
-        @Autowired
-        private CertificationMapper certificationMapper;
 
         // =====================================================
         // GET MY CART ITEMS

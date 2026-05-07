@@ -23,7 +23,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping("/api/v1/auth")
 @Tag(name = "Authentication", description = "Authentication endpoints")
-public class LoginController {
+public class LoginRestController {
 
         @Autowired
         private UserLoginService userService;
