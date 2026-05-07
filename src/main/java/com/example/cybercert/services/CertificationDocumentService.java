@@ -26,7 +26,7 @@ public class CertificationDocumentService {
     private CertificationRepository certificationRepository;
 
     public final Path documentStorageLocation = Paths.get("./uploads/").toAbsolutePath().normalize();
-
+//Crea ruta y carpeta para almacenar los documentos, si no existe ya y normalize borra ../
     public CertificationDocumentService() {
         try {
             Files.createDirectories(documentStorageLocation);
@@ -40,8 +40,9 @@ public class CertificationDocumentService {
             throw new RuntimeException("Invalid file name");
         }
 
+    
         String cleaned = StringUtils.cleanPath(originalFilename);
-
+        //Clean path limpia rutas.
         if (cleaned.contains("..") || cleaned.startsWith("/") || cleaned.startsWith("\\") || Paths.get(cleaned).isAbsolute()) {
             throw new RuntimeException("Invalid file name");
         }
