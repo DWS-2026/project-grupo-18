@@ -26,7 +26,7 @@
             "url": {
               "raw": "{{baseUrl}}/api/v1/auth/login",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "login"]
+              "path": ["api", "v1", "auth", "login"]
             }
           }
         },
@@ -38,7 +38,7 @@
             "url": {
               "raw": "{{baseUrl}}/api/v1/auth/refresh",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "refresh"]
+              "path": ["api", "v1", "auth", "refresh"]
             }
           }
         },
@@ -50,7 +50,7 @@
             "url": {
               "raw": "{{baseUrl}}/api/v1/auth/logout",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "logout"]
+              "path": ["api", "v1", "auth", "logout"]
             }
           }
         }
@@ -65,7 +65,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/v1/certifications/?page=0&size=20",
+              "raw": "{{baseUrl}}/api/v1/certifications?page=0&size=20",
               "host": ["{{baseUrl}}"],
               "path": ["api", "v1", "certifications"],
               "query": [
@@ -108,9 +108,9 @@
               "raw": "{\n  \"name\": \"New Course\",\n  \"description\": \"Curso nuevo de ejemplo\",\n  \"duration\": 50,\n  \"format\": \"Online\",\n  \"language\": \"English\",\n  \"level\": \"Beginner\",\n  \"requirements\": [\"Internet\", \"PC\"],\n  \"contents\": [\"Módulo 1\", \"Módulo 2\"]\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/api/v1/certifications/",
+              "raw": "{{baseUrl}}/api/v1/certifications",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "certifications", ""]
+              "path": ["api", "v1", "certifications"]
             }
           }
         },
