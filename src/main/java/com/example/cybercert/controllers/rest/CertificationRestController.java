@@ -21,8 +21,19 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.Optional;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+
+import com.example.cybercert.services.CertificationDocumentService;
 
 @RestController
 @RequestMapping("/api/v1/certifications")
@@ -39,6 +50,9 @@ public class CertificationRestController {
 
     @Autowired
     private ImageMapper imageMapper;
+
+    @Autowired
+    private CertificationDocumentService certificationDocumentService;
 
     public CertificationRestController(CertificationService certificationService,
             CertificationMapper certificationMapper) {
@@ -123,5 +137,41 @@ public class CertificationRestController {
         certificationService.removeImageFromCertification(id);
         imageService.deleteImage(image.getId());
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/document")
+    public ResponseEntity<Resource> getCertificationDocument(@PathVariable Long id) throws MalformedURLException {
+        Certification certification = certificationService.findById(id).orElseThrow();
+        if (certification.getDocumentPath() == null) {
+            return ResponseEntity.notFound().build();
+        }
+        Path filePath = Paths.get(certification.getDocumentPath()).normalize();
+
+        Resource resource = new UrlResource(filePath.toUri());
+
+        if (!resource.exists()) {
+            return ResponseEntity.notFound().build();
+
+        }
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_PDF)
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=\"" +
+                                filePath.getFileName().toString() + "\"")
+                .body(resource);
+    }
+
+    @PostMapping("/{id}/document")
+    public ResponseEntity<String> uploadCertificationDocument(@PathVariable Long id, MultipartFile documentFile)
+            throws IOException {
+        if (documentFile.isEmpty()) {
+            return ResponseEntity.badRequest().body("No file uploaded");
+        }
+        try {
+            certificationDocumentService.store(documentFile, id);
+            return ResponseEntity.ok("Document uploaded successfully");
+        } catch (IOException e) {
+            return ResponseEntity.status(500).body("Error storing document");
+        }
     }
 }

@@ -61,23 +61,25 @@ public class SecurityConfiguration {
 
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        // AUTH API 
-                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/login", "/api/v1/auth/refresh", "/api/v1/auth/logout").permitAll()
-                        
-                        // USERS API 
+                        // AUTH API
+                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/login", "/api/v1/auth/refresh",
+                                "/api/v1/auth/logout")
+                        .permitAll()
+
+                        // USERS API
                         .requestMatchers(HttpMethod.GET, "/api/v1/users/me").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/v1/users/me/profile-image").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/v1/users/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/v1/users/register").permitAll()
                         .requestMatchers(HttpMethod.PATCH, "/api/v1/users/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/users/**").hasRole("ADMIN")
-                        
+
                         // CERTIFICATIONS API
                         .requestMatchers(HttpMethod.GET, "/api/v1/certifications/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/certifications/**").hasRole("USER")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/certifications/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/certifications/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/certifications/**").hasRole("ADMIN")
-                        
+
                         // COMMENTS API
                         .requestMatchers(HttpMethod.GET, "/api/v1/comments/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/comments").hasRole("USER")
@@ -85,15 +87,16 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/comments/**").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/api/v1/images/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/v1/images/**").hasRole("ADMIN")
-                        
+
                         // SHOPPING CART API
                         .requestMatchers(HttpMethod.GET, "/api/v1/shopping-cart-items/me").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/shopping-cart-items/me/certifications").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/shopping-cart-items/me/certifications")
+                        .authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/v1/shopping-cart-items/{id}").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/v1/shopping-cart-items/**").hasRole("USER")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/shopping-cart-items/**").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/api/v1/shopping-cart-items/user/**").hasRole("ADMIN")
-                        
+
                         .anyRequest().authenticated());
 
         // Disable Form login Authentication
@@ -124,7 +127,9 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/", "/login", "/register").permitAll()
                 .requestMatchers("/certification/**").permitAll()
-                .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/**", "/v3/api-docs.yaml", "/v3/api-docs.yml").permitAll()
+                .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/**",
+                        "/v3/api-docs.yaml", "/v3/api-docs.yml")
+                .permitAll()
 
                 // static
                 .requestMatchers("/css/**").permitAll()
@@ -150,10 +155,10 @@ public class SecurityConfiguration {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/"));
 
-        // Enable CSRF with cookie repository para que el token esté disponible en templates
+        // Enable CSRF with cookie repository para que el token esté disponible en
+        // templates
         http.csrf(csrf -> csrf
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-        );
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
 
         return http.build();
     }
