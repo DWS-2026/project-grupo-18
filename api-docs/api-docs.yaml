@@ -1,14 +1,16 @@
 openapi: 3.1.0
 info:
   title: CyberCert API
-  description: Documentación REST de CyberCert
+  description: CyberCert REST API documentation
   version: 1.0.0
 servers:
 - url: https://localhost:8443
   description: Generated server url
 tags:
 - name: Users
-  description: Operaciones REST sobre usuarios
+  description: REST operations on users
+- name: Authentication
+  description: Authentication endpoints
 paths:
   /api/v1/images/{id}/media:
     get:
@@ -23,7 +25,7 @@ paths:
           type: integer
           format: int64
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
@@ -52,7 +54,7 @@ paths:
               required:
               - imageFile
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
@@ -71,12 +73,12 @@ paths:
           type: integer
           format: int64
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/CommentDTO"
+                $ref: '#/components/schemas/CommentDTO'
     put:
       tags:
       - comment-rest-controller
@@ -92,15 +94,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CommentDTO"
+              $ref: '#/components/schemas/CommentDTO'
         required: true
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/CommentDTO"
+                $ref: '#/components/schemas/CommentDTO'
     delete:
       tags:
       - comment-rest-controller
@@ -113,7 +115,7 @@ paths:
           type: integer
           format: int64
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
@@ -132,12 +134,12 @@ paths:
           type: integer
           format: int64
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/CertificationDTO"
+                $ref: '#/components/schemas/CertificationDTO'
     put:
       tags:
       - certification-rest-controller
@@ -153,15 +155,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CertificationDTO"
+              $ref: '#/components/schemas/CertificationDTO'
         required: true
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/CertificationDTO"
+                $ref: '#/components/schemas/CertificationDTO'
     delete:
       tags:
       - certification-rest-controller
@@ -174,31 +176,96 @@ paths:
           type: integer
           format: int64
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/CertificationDTO"
-  /api/v1/users/create:
+                $ref: '#/components/schemas/CertificationDTO'
+  /api/v1/users/register:
     post:
       tags:
       - Users
-      summary: Crear un usuario
+      summary: Create a user
       operationId: createUser
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/FullUserDTO"
+              $ref: '#/components/schemas/FullUserDTO'
         required: true
       responses:
-        "200":
-          description: Usuario creado correctamente
+        '200':
+          description: User created successfully
+  /api/v1/users/me/profile-image:
+    post:
+      tags:
+      - Users
+      summary: Upload or update profile image
+      description: 'Allows the authenticated user to upload or update their profile
+        image. Supported formats: JPEG, PNG, WebP. Maximum size: 10MB'
+      operationId: uploadProfileImage
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                imageFile:
+                  type: string
+                  format: binary
+              required:
+              - imageFile
+      responses:
+        '200':
+          description: Image uploaded successfully, the updated profile is returned
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/FullUserDTO"
+                $ref: '#/components/schemas/UserDTO'
+        '400':
+          description: Empty file, unsupported format, or file too large
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        '401':
+          description: Unauthorized or expired token
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+      security:
+      - bearerAuth: []
+  /api/v1/shopping-cart-items/{certificationId}:
+    post:
+      tags:
+      - shopping-cart-items-rests
+      operationId: addCartItem
+      parameters:
+      - name: certificationId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+      - shopping-cart-items-rests
+      operationId: deleteCartItem
+      parameters:
+      - name: certificationId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
   /api/v1/comments:
     get:
       tags:
@@ -215,14 +282,14 @@ paths:
         in: query
         required: true
         schema:
-          $ref: "#/components/schemas/Pageable"
+          $ref: '#/components/schemas/Pageable'
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/PageCommentDTO"
+                $ref: '#/components/schemas/PageCommentDTO'
     post:
       tags:
       - comment-rest-controller
@@ -231,15 +298,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CommentDTO"
+              $ref: '#/components/schemas/CommentDTO'
         required: true
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/CommentDTO"
+                $ref: '#/components/schemas/CommentDTO'
   /api/v1/certifications/{id}/image:
     post:
       tags:
@@ -252,19 +319,22 @@ paths:
         schema:
           type: integer
           format: int64
-      - name: imageFile
-        in: query
-        required: true
-        schema:
-          type: string
-          format: binary
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                imageFile:
+                  type: string
+                  format: binary
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/ImageDTO"
+                $ref: '#/components/schemas/ImageDTO'
     delete:
       tags:
       - certification-rest-controller
@@ -277,12 +347,59 @@ paths:
           type: integer
           format: int64
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/ImageDTO"
+                $ref: '#/components/schemas/ImageDTO'
+  /api/v1/certifications/{id}/document:
+    get:
+      tags:
+      - certification-rest-controller
+      operationId: getCertificationDocument
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+    post:
+      tags:
+      - certification-rest-controller
+      operationId: uploadCertificationDocument
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                documentFile:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
   /api/v1/certifications/:
     get:
       tags:
@@ -293,14 +410,14 @@ paths:
         in: query
         required: true
         schema:
-          $ref: "#/components/schemas/Pageable"
+          $ref: '#/components/schemas/Pageable'
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/PageCertificationDTO"
+                $ref: '#/components/schemas/PageCertificationDTO'
     post:
       tags:
       - certification-rest-controller
@@ -309,19 +426,21 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CertificationDTO"
+              $ref: '#/components/schemas/CertificationDTO'
         required: true
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/CertificationDTO"
-  /api/auth/refresh:
+                $ref: '#/components/schemas/CertificationDTO'
+  /api/v1/auth/refresh:
     post:
       tags:
-      - login-controller
+      - Authentication
+      summary: Refresh token
+      description: Obtains a new access token using the refresh token
       operationId: refreshToken
       parameters:
       - name: RefreshToken
@@ -330,52 +449,69 @@ paths:
         schema:
           type: string
       responses:
-        "200":
-          description: OK
+        '200':
+          description: Token refreshed successfully
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/AuthResponse"
-  /api/auth/logout:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          description: Invalid or expired refresh token
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+  /api/v1/auth/logout:
     post:
       tags:
-      - login-controller
+      - Authentication
+      summary: Log out
+      description: Invalidates the user's JWT tokens
       operationId: logOut
       responses:
-        "200":
-          description: OK
+        '200':
+          description: Logged out successfully
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/AuthResponse"
-  /api/auth/login:
+                $ref: '#/components/schemas/AuthResponse'
+  /api/v1/auth/login:
     post:
       tags:
-      - login-controller
+      - Authentication
+      summary: User login
+      description: Authenticates a user and returns JWT tokens in cookies
       operationId: login
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/LoginRequest"
+              $ref: '#/components/schemas/LoginRequest'
         required: true
       responses:
-        "200":
-          description: OK
+        '200':
+          description: Login successful, tokens created in cookies
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/AuthResponse"
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          description: Invalid credentials
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
   /api/v1/users/update/{id}:
     patch:
       tags:
       - Users
-      summary: Actualizar parcialmente un usuario
+      summary: Update a user by id (ADMIN only)
+      description: Allows ADMIN to update any user's username and email
       operationId: updateUser
       parameters:
       - name: id
         in: path
-        description: Identificador del usuario
+        description: User identifier
         required: true
         schema:
           type: integer
@@ -384,67 +520,149 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/FullUserDTO"
+              $ref: '#/components/schemas/FullUserDTO'
         required: true
       responses:
-        "200":
-          description: Usuario actualizado correctamente
+        '200':
+          description: User updated successfully
+        '400':
+          description: Invalid request data (e.g., attempting to modify id or profileImageId)
+        '403':
+          description: Forbidden - ADMIN role required
+        '404':
+          description: User not found
+  /api/v1/users/me:
+    get:
+      tags:
+      - Users
+      summary: Get the authenticated user's profile
+      description: Returns the information for the currently authenticated user, including
+        the ID of their profile image
+      operationId: getMe
+      responses:
+        '200':
+          description: User profile returned successfully
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/FullUserDTO"
-        "404":
-          description: Usuario no encontrado
+                $ref: '#/components/schemas/UserDTO'
+        '401':
+          description: Unauthorized or expired token
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/FullUserDTO"
+                $ref: '#/components/schemas/UserDTO'
+      security:
+      - bearerAuth: []
+    patch:
+      tags:
+      - Users
+      summary: Update your own profile
+      description: Allows the authenticated user to update their own username and
+        email
+      operationId: updateMyProfile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FullUserDTO'
+        required: true
+      responses:
+        '200':
+          description: Profile updated successfully
+        '400':
+          description: Invalid request data (e.g., attempting to modify id or profileImageId)
+        '401':
+          description: Unauthorized or expired token
   /api/v1/users:
     get:
       tags:
       - Users
-      summary: Obtener todos los usuarios
+      summary: Get all users
       operationId: getAllUsers
       parameters:
       - name: pageable
         in: query
         required: true
         schema:
-          $ref: "#/components/schemas/Pageable"
+          $ref: '#/components/schemas/Pageable'
       responses:
-        "200":
-          description: Listado de usuarios devuelto correctamente
+        '200':
+          description: User list returned successfully
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/PageUserDTO"
+                $ref: '#/components/schemas/PageUserDTO'
   /api/v1/users/{id}:
     get:
       tags:
       - Users
-      summary: Obtener un usuario por id
+      summary: Get a user by id
+      description: Returns the information for a specific user, including the ID of
+        their profile image (requires ADMIN role)
       operationId: getUserById
       parameters:
       - name: id
         in: path
-        description: Identificador del usuario
+        description: User identifier
         required: true
         schema:
           type: integer
           format: int64
       responses:
-        "200":
-          description: Usuario encontrado
+        '200':
+          description: User found
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/UserDTO"
-        "404":
-          description: Usuario no encontrado
+                $ref: '#/components/schemas/UserDTO'
+        '404':
+          description: User not found
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/UserDTO"
+                $ref: '#/components/schemas/UserDTO'
+        '403':
+          description: Forbidden - ADMIN role required
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+  /api/v1/shopping-cart-items/user/{userId}:
+    get:
+      tags:
+      - shopping-cart-items-rests
+      operationId: showUserCart
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ShoppingCartItemDTO'
+  /api/v1/shopping-cart-items/me:
+    get:
+      tags:
+      - shopping-cart-items-rests
+      operationId: showMyItems
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ShoppingCartItemDTO'
   /api/v1/images/{id}:
     get:
       tags:
@@ -458,31 +676,31 @@ paths:
           type: integer
           format: int64
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/ImageDTO"
+                $ref: '#/components/schemas/ImageDTO'
   /api/v1/users/delete/{id}:
     delete:
       tags:
       - Users
-      summary: Eliminar un usuario
+      summary: Delete a user
       operationId: deleteUser
       parameters:
       - name: id
         in: path
-        description: Identificador del usuario
+        description: User identifier
         required: true
         schema:
           type: integer
           format: int64
       responses:
-        "204":
-          description: Usuario eliminado correctamente
-        "404":
-          description: Usuario no encontrado
+        '204':
+          description: User deleted successfully
+        '404':
+          description: User not found
 components:
   schemas:
     CommentDTO:
@@ -529,7 +747,7 @@ components:
           items:
             type: string
         image:
-          $ref: "#/components/schemas/ImageDTO"
+          $ref: '#/components/schemas/ImageDTO'
     ImageDTO:
       type: object
       properties:
@@ -543,6 +761,7 @@ components:
           type: integer
           format: int64
           example: 1
+          readOnly: true
         username:
           type: string
           example: juan
@@ -552,6 +771,30 @@ components:
         password:
           type: string
           example: secret123
+        profileImageId:
+          type: integer
+          format: int64
+          example: 10
+          readOnly: true
+    UserDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          readOnly: true
+        username:
+          type: string
+          example: juan
+        email:
+          type: string
+          example: juan@mail.com
+        profileImageId:
+          type: integer
+          format: int64
+          example: 10
+          readOnly: true
     AuthResponse:
       type: object
       properties:
@@ -605,7 +848,7 @@ components:
         content:
           type: array
           items:
-            $ref: "#/components/schemas/UserDTO"
+            $ref: '#/components/schemas/UserDTO'
         number:
           type: integer
           format: int32
@@ -613,9 +856,9 @@ components:
           type: integer
           format: int32
         pageable:
-          $ref: "#/components/schemas/PageableObject"
+          $ref: '#/components/schemas/PageableObject'
         sort:
-          $ref: "#/components/schemas/SortObject"
+          $ref: '#/components/schemas/SortObject'
         empty:
           type: boolean
     PageableObject:
@@ -624,7 +867,7 @@ components:
         offset:
           type: integer
           format: int64
-        unpaged:
+        paged:
           type: boolean
         pageNumber:
           type: integer
@@ -632,10 +875,10 @@ components:
         pageSize:
           type: integer
           format: int32
-        paged:
-          type: boolean
         sort:
-          $ref: "#/components/schemas/SortObject"
+          $ref: '#/components/schemas/SortObject'
+        unpaged:
+          type: boolean
     SortObject:
       type: object
       properties:
@@ -645,19 +888,21 @@ components:
           type: boolean
         unsorted:
           type: boolean
-    UserDTO:
+    ShoppingCartItemDTO:
       type: object
       properties:
         id:
           type: integer
           format: int64
-          example: 1
-        username:
-          type: string
-          example: juan
-        email:
-          type: string
-          example: juan@mail.com
+        userId:
+          type: integer
+          format: int64
+        certificationId:
+          type: integer
+          format: int64
+        quantity:
+          type: integer
+          format: int32
     PageCommentDTO:
       type: object
       properties:
@@ -677,7 +922,7 @@ components:
         content:
           type: array
           items:
-            $ref: "#/components/schemas/CommentDTO"
+            $ref: '#/components/schemas/CommentDTO'
         number:
           type: integer
           format: int32
@@ -685,9 +930,9 @@ components:
           type: integer
           format: int32
         pageable:
-          $ref: "#/components/schemas/PageableObject"
+          $ref: '#/components/schemas/PageableObject'
         sort:
-          $ref: "#/components/schemas/SortObject"
+          $ref: '#/components/schemas/SortObject'
         empty:
           type: boolean
     PageCertificationDTO:
@@ -709,7 +954,7 @@ components:
         content:
           type: array
           items:
-            $ref: "#/components/schemas/CertificationDTO"
+            $ref: '#/components/schemas/CertificationDTO'
         number:
           type: integer
           format: int32
@@ -717,8 +962,9 @@ components:
           type: integer
           format: int32
         pageable:
-          $ref: "#/components/schemas/PageableObject"
+          $ref: '#/components/schemas/PageableObject'
         sort:
-          $ref: "#/components/schemas/SortObject"
+          $ref: '#/components/schemas/SortObject'
         empty:
           type: boolean
+

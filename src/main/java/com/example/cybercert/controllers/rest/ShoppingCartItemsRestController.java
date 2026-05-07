@@ -38,7 +38,7 @@ import io.jsonwebtoken.Claims;
 
 @RestController
 @RequestMapping("/api/v1/shopping-cart-items")
-public class ShoppingCartItemsRests {
+public class ShoppingCartItemsRestController {
 
         @Autowired
         private UserService userService;

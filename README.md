@@ -480,43 +480,44 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 Diagrama actualizado incluyendo los @RestController y su relación con los @Service compartidos:
 
-![Diagrama de Clases Actualizado](images/complete-classes-diagram.png)
+<img width="1284" height="719" alt="image" src="https://github.com/user-attachments/assets/2eb9f6ab-55cf-45f0-8525-9e745cd8fd4b" />
+
 
 #### **Credenciales de Usuarios de Ejemplo**
 
 | Rol                | Usuario | Contraseña |
 | :----------------- | :------ | :--------- |
 | Administrador      | admin   | admin123   |
-| Usuario Registrado | user1   | user123    |
-| Usuario Registrado | user2   | user123    |
+| Usuario Registrado | user   | user123    |
+
 
 ### **Participación de Miembros en la Práctica 3**
 
-#### **Alumno 1 - [Nombre Completo]**
+#### **Alumno 1 - [Jaime Bonafé Macedo]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Me he encargado del controlador Rest de los usuarios, la implementación de JWT tokens, y todo lo referente a OpenApi]
 
 | Nº  |               Commits                |           Files           |
 | :-: | :----------------------------------: | :-----------------------: |
-|  1  | [Descripción commit 1](URL_commit_1) | [Archivo1](URL_archivo_1) |
-|  2  | [Descripción commit 2](URL_commit_2) | [Archivo2](URL_archivo_2) |
-|  3  | [Descripción commit 3](URL_commit_3) | [Archivo3](URL_archivo_3) |
-|  4  | [Descripción commit 4](URL_commit_4) | [Archivo4](URL_archivo_4) |
-|  5  | [Descripción commit 5](URL_commit_5) | [Archivo5](URL_archivo_5) |
+|  1  | [Api docs](https://github.com/DWS-2026/dws-2026-project-base/commit/ed9a0a5d961b97cc6dad94de6c0d5c854764e1fe) | [api-docs.yaml](https://github.com/DWS-2026/project-grupo-18/blob/main/api-docs/api-docs.yaml) [apidocs.html](https://github.com/DWS-2026/project-grupo-18/blob/main/api-docs/apidocs.html) |
+|  2  | [added jwt](https://github.com/DWS-2026/dws-2026-project-base/commit/3c8360b9acd19e445b0b3caef614e70c7a317cee) | [jwt](https://github.com/DWS-2026/project-grupo-18/tree/main/src/main/java/com/example/security/jwt) |
+|  3  | [User API update, new endpoint and jwt logic](github.com/DWS-2026/dws-2026-project-base/commit/395dfdbe5fe7602e6dd43df62070f68b5cf7c5a8) | [UserRestController.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/controllers/rest/UsersRestController.java) |
+|  4  | [added OpenApi swagger](https://github.com/DWS-2026/dws-2026-project-base/commit/de6d35cf6491ccde9f9f04bc3297215ab490c664) | [OpenApiConfig.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/OpenApiConfig.java) |
+|  5  | [API REST GET for users added](https://github.com/DWS-2026/dws-2026-project-base/commit/5645b9d6aee05455f40411f4d2d31e58320b576f) | [UserRestController.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/controllers/rest/UsersRestController.java) |
 
 ---
 
-#### **Alumno 2 - [Nombre Completo]**
+#### **Alumno 2 - [Ricardo De Francisco Alfonso]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Creacion de controladores rest, Dtos y mappers de los comentarios e items del shoping cart, coleccion de postman y modificacion de metodos en los controladores para tengan paginacion]
 
 | Nº  |               Commits                |           Files           |
 | :-: | :----------------------------------: | :-----------------------: |
-|  1  | [Descripción commit 1](URL_commit_1) | [Archivo1](URL_archivo_1) |
-|  2  | [Descripción commit 2](URL_commit_2) | [Archivo2](URL_archivo_2) |
-|  3  | [Descripción commit 3](URL_commit_3) | [Archivo3](URL_archivo_3) |
-|  4  | [Descripción commit 4](URL_commit_4) | [Archivo4](URL_archivo_4) |
-|  5  | [Descripción commit 5](URL_commit_5) | [Archivo5](URL_archivo_5) |
+|  1  | [Creacion del shopingcart rest controller junto con sus DTOs y su mapper](https://github.com/DWS-2026/dws-2026-project-base/commit/6dcd0e697f3566c6ffe7718ceaefb4e053dd7347) | [ShopingCartRestController.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/controllers/rest/ShoppingCartItemsRestController.java) |
+|  2  | [Creacion del Comments rest controller junto con sus DTOs y su mapper](https://github.com/DWS-2026/dws-2026-project-base/commit/70d4803cc6fec6213a04f192d81a79ec038921da) | [CommentsRestController.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/controllers/rest/CommentRestController.java) |
+|  3  | [Coleccion de postman](https://github.com/DWS-2026/dws-2026-project-base/commit/4b1e2e3d9634cb4c6b359baaa543dd9f92dd4152) | [CyberCert.postman_collection.json](https://github.com/DWS-2026/project-grupo-18/blob/main/CyberCert.postman_collection.json) |
+|  4  | [Metodos Pageable](https://github.com/DWS-2026/dws-2026-project-base/commit/798e2db0ffcdd18ec9a22d03530098956c100d59) | [Todos los Rest Controller](https://github.com/DWS-2026/project-grupo-18/tree/main/src/main/java/com/example/cybercert/controllers/rest) |
+|  5  | [Descripción commit 5](URL_commit_5) | [](URL_archivo_5) |
 
 ---
 
