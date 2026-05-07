@@ -58,6 +58,10 @@ public class ShoppingCartItemsRests {
     @Autowired
     private CertificationMapper certificationMapper;
 
+    // =====================================================
+    // GET MY CART ITEMS
+    // =====================================================
+
     @GetMapping("/me")
     public ResponseEntity<List<ShoppingCartItemDTO>> showMyItems(
             HttpServletRequest request) {
@@ -72,6 +76,9 @@ public class ShoppingCartItemsRests {
                 shoppingCartItemMapper.toDTOs(items));
     }
 
+    // =====================================================
+    // GET MY CART CERTIFICATIONS
+    // =====================================================
 
     @GetMapping("/me/certifications")
     public ResponseEntity<List<CertificationDTO>> showMyCertifications(
@@ -87,7 +94,9 @@ public class ShoppingCartItemsRests {
                 certificationMapper.toDTOs(certifications));
     }
 
-
+    // =====================================================
+    // ADMIN GET USER CART
+    // =====================================================
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<ShoppingCartItemDTO>> showUserCart(
@@ -107,6 +116,9 @@ public class ShoppingCartItemsRests {
                 shoppingCartItemMapper.toDTOs(items));
     }
 
+    // =====================================================
+    // ADMIN GET USER CART CERTIFICATIONS
+    // =====================================================
 
     @GetMapping("/user/{userId}/certifications")
     public ResponseEntity<List<CertificationDTO>> showUserCartCertifications(
@@ -126,6 +138,9 @@ public class ShoppingCartItemsRests {
                 certificationMapper.toDTOs(certifications));
     }
 
+    // =====================================================
+    // GET SINGLE CART ITEM
+    // =====================================================
 
     @GetMapping("/{id}")
     public ResponseEntity<ShoppingCartItemDTO> getCartItemById(
@@ -154,6 +169,9 @@ public class ShoppingCartItemsRests {
                 shoppingCartItemMapper.toDTO(item));
     }
 
+    // =====================================================
+    // ADD ITEM TO CART
+    // =====================================================
 
     @PostMapping("/{certificationId}")
     public ResponseEntity<Void> addCartItem(
@@ -194,6 +212,10 @@ public class ShoppingCartItemsRests {
         return ResponseEntity.created(location).build();
     }
 
+    // =====================================================
+    // REMOVE ITEM FROM CART
+    // =====================================================
+
     @DeleteMapping("/{certificationId}")
     public ResponseEntity<Void> deleteCartItem(
             @PathVariable Long certificationId,
@@ -215,6 +237,9 @@ public class ShoppingCartItemsRests {
         return ResponseEntity.noContent().build();
     }
 
+    // =====================================================
+    // AUTH HELPER
+    // =====================================================
 
     private User getAuthenticatedUser(HttpServletRequest request) {
 
