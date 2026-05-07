@@ -1,4 +1,5 @@
 package com.example.cybercert.controllers.rest;
+
 import com.example.cybercert.dto.FullUserDTO;
 import com.example.cybercert.dto.UserDTO;
 import com.example.cybercert.dto.UserMapper;
@@ -40,39 +41,36 @@ public class UsersRestController {
     private final UserMapper userMapper;
     private final ImageService imageService;
     private final JwtTokenProvider jwtTokenProvider;
-        private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     public UsersRestController(UserService userService,
             UserMapper userMapper,
             ImageService imageService,
-                        JwtTokenProvider jwtTokenProvider,
-                        PasswordEncoder passwordEncoder) {
+            JwtTokenProvider jwtTokenProvider,
+            PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.userMapper = userMapper;
         this.imageService = imageService;
         this.jwtTokenProvider = jwtTokenProvider;
-                this.passwordEncoder = passwordEncoder;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @Operation(summary = "Get a user by id", 
-            description = "Returns the information for a specific user, including the ID of their profile image (requires ADMIN role)")
+    @Operation(summary = "Get a user by id", description = "Returns the information for a specific user, including the ID of their profile image (requires ADMIN role)")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "User found", 
-                    content = @Content(schema = @Schema(implementation = UserDTO.class))),
+            @ApiResponse(responseCode = "200", description = "User found", content = @Content(schema = @Schema(implementation = UserDTO.class))),
             @ApiResponse(responseCode = "404", description = "User not found"),
             @ApiResponse(responseCode = "403", description = "Forbidden - ADMIN role required")
     })
     @GetMapping("/{id}")
-        public ResponseEntity<UserDTO> getUserById(@Parameter(description = "User identifier") @PathVariable Long id) {
-            Optional<User> user = userService.findById(id);
-            if (user.isEmpty()) {
-                return ResponseEntity.notFound().build();
-            }
-            return ResponseEntity.ok(userMapper.toDTO(user.get()));
+    public ResponseEntity<UserDTO> getUserById(@Parameter(description = "User identifier") @PathVariable Long id) {
+        Optional<User> user = userService.findById(id);
+        if (user.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(userMapper.toDTO(user.get()));
     }
 
-
-        @Operation(summary = "Get all users")
+    @Operation(summary = "Get all users")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "User list returned successfully")
     })
@@ -89,32 +87,31 @@ public class UsersRestController {
     })
     @PostMapping("/register")
     public ResponseEntity<Void> createUser(@RequestBody FullUserDTO fullUserDTO) {
-                if (userService.findByUsername(fullUserDTO.username()).isPresent()) {
-                        return ResponseEntity.badRequest().build();
-                }
+        if (userService.findByUsername(fullUserDTO.username()).isPresent()) {
+            return ResponseEntity.badRequest().build();
+        }
 
-                if (userService.findByEmail(fullUserDTO.email()).isPresent()) {
+        if (userService.findByEmail(fullUserDTO.email()).isPresent()) {
             return ResponseEntity.badRequest().build();
         }
 
         User user = userMapper.toEntity(fullUserDTO);
-                user.setId(null);
-                user.setRole(Role.USER);
-                user.setPassword(passwordEncoder.encode(user.getPassword()));
-                userService.save(user);
-                return ResponseEntity.ok().build();
+        user.setId(null);
+        user.setRole(Role.USER);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userService.save(user);
+        return ResponseEntity.ok().build();
     }
 
-    @Operation(summary = "Update your own profile",
-                                                description = "Allows the authenticated user to update their own username and email")
+    @Operation(summary = "Update your own profile", description = "Allows the authenticated user to update their own username and email")
     @ApiResponses({
-                        @ApiResponse(responseCode = "200", description = "Profile updated successfully"),
-                        @ApiResponse(responseCode = "400", description = "Invalid request data (e.g., attempting to modify id or profileImageId)"),
-                        @ApiResponse(responseCode = "401", description = "Unauthorized or expired token")
+            @ApiResponse(responseCode = "200", description = "Profile updated successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid request data (e.g., attempting to modify id or profileImageId)"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized or expired token")
     })
     @PatchMapping("/me")
     public ResponseEntity<Void> updateMyProfile(HttpServletRequest request,
-                        @RequestBody FullUserDTO fullUserDTO) {
+            @RequestBody FullUserDTO fullUserDTO) {
 
         try {
             // Reject attempts to modify id or profileImageId
@@ -153,18 +150,17 @@ public class UsersRestController {
         }
     }
 
-    @Operation(summary = "Update a user by id (ADMIN only)",
-                                                description = "Allows ADMIN to update any user's username and email")
+    @Operation(summary = "Update a user by id (ADMIN only)", description = "Allows ADMIN to update any user's username and email")
     @ApiResponses({
-                        @ApiResponse(responseCode = "200", description = "User updated successfully"),
-                        @ApiResponse(responseCode = "400", description = "Invalid request data (e.g., attempting to modify id or profileImageId)"),
-                        @ApiResponse(responseCode = "403", description = "Forbidden - ADMIN role required"),
-                        @ApiResponse(responseCode = "404", description = "User not found")
+            @ApiResponse(responseCode = "200", description = "User updated successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid request data (e.g., attempting to modify id or profileImageId)"),
+            @ApiResponse(responseCode = "403", description = "Forbidden - ADMIN role required"),
+            @ApiResponse(responseCode = "404", description = "User not found")
     })
     @PatchMapping("/update/{id}")
     public ResponseEntity<Void> updateUser(HttpServletRequest request,
-                        @Parameter(description = "User identifier") @PathVariable Long id,
-                        @RequestBody FullUserDTO fullUserDTO) {
+            @Parameter(description = "User identifier") @PathVariable Long id,
+            @RequestBody FullUserDTO fullUserDTO) {
 
         try {
             // Reject attempts to modify id or profileImageId
@@ -179,7 +175,7 @@ public class UsersRestController {
             // Get JWT token (try cookies first, then headers)
             Claims claims;
             try {
-                claims = jwtTokenProvider.validateToken(request, true); //in cookies
+                claims = jwtTokenProvider.validateToken(request, true); // in cookies
             } catch (Exception e) {
                 try {
                     claims = jwtTokenProvider.validateToken(request, false); // in headers
@@ -225,94 +221,91 @@ public class UsersRestController {
     })
     @DeleteMapping("/delete/{id}")
     @Transactional
-        public ResponseEntity<Void> deleteUser(@Parameter(description = "User identifier") @PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@Parameter(description = "User identifier") @PathVariable Long id) {
         Optional<User> user = userService.findById(id);
-        if(user.isEmpty()){
+        if (user.isEmpty()) {
             return ResponseEntity.notFound().build();
-        }else{
+        } else {
             userService.deleteByUsername(user.get().getUsername());
-            return ResponseEntity.noContent().build();  
+            return ResponseEntity.noContent().build();
         }
     }
 
     @GetMapping("/me")
-    @Operation(summary = "Get the authenticated user's profile", 
-            description = "Returns the information for the currently authenticated user, including the ID of their profile image")
+    @Operation(summary = "Get the authenticated user's profile", description = "Returns the information for the currently authenticated user, including the ID of their profile image")
     @SecurityRequirement(name = "bearerAuth")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "User profile returned successfully",
-                    content = @Content(schema = @Schema(implementation = UserDTO.class))),
+            @ApiResponse(responseCode = "200", description = "User profile returned successfully", content = @Content(schema = @Schema(implementation = UserDTO.class))),
             @ApiResponse(responseCode = "401", description = "Unauthorized or expired token")
     })
     public ResponseEntity<UserDTO> getMe(HttpServletRequest request) {
-            try {
-                    Claims claims = jwtTokenProvider.validateToken(request, true);
-                    String username = claims.getSubject();
-                    
-                    User user = userService.findByUsername(username).orElse(null);
-                    if (user == null) {
-                            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-                    }
-                    
-                    return ResponseEntity.ok(userMapper.toDTO(user));
-            } catch (Exception ex) {
-                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        try {
+            Claims claims = jwtTokenProvider.validateToken(request, true);
+            String username = claims.getSubject();
+
+            User user = userService.findByUsername(username).orElse(null);
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
+
+            return ResponseEntity.ok(userMapper.toDTO(user));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     @PostMapping(value = "/me/profile-image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @Operation(summary = "Upload or update profile image", 
-            description = "Allows the authenticated user to upload or update their profile image. Supported formats: JPEG, PNG, WebP. Maximum size: 10MB")
+    @Operation(summary = "Upload or update profile image", description = "Allows the authenticated user to upload or update their profile image. Supported formats: JPEG, PNG, WebP. Maximum size: 10MB")
     @SecurityRequirement(name = "bearerAuth")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Image uploaded successfully, the updated profile is returned",
-                    content = @Content(schema = @Schema(implementation = UserDTO.class))),
+            @ApiResponse(responseCode = "200", description = "Image uploaded successfully, the updated profile is returned", content = @Content(schema = @Schema(implementation = UserDTO.class))),
             @ApiResponse(responseCode = "400", description = "Empty file, unsupported format, or file too large"),
             @ApiResponse(responseCode = "401", description = "Unauthorized or expired token")
     })
-        public ResponseEntity<UserDTO> uploadProfileImage(HttpServletRequest request,
-                                        @org.springframework.web.bind.annotation.RequestParam("imageFile") org.springframework.web.multipart.MultipartFile imageFile) throws IOException {
+    public ResponseEntity<UserDTO> uploadProfileImage(HttpServletRequest request,
+            @org.springframework.web.bind.annotation.RequestParam("imageFile") org.springframework.web.multipart.MultipartFile imageFile)
+            throws IOException {
 
-            try {
-                    Claims claims = jwtTokenProvider.validateToken(request, true);
-                    String username = claims.getSubject();
-                    
-                    User user = userService.findByUsername(username).orElse(null);
-                    if (user == null) {
-                            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-                    }
+        try {
+            Claims claims = jwtTokenProvider.validateToken(request, true);
+            String username = claims.getSubject();
 
-                    if (imageFile.isEmpty()) {
-                            return ResponseEntity.badRequest().build();
-                    }
-
-                    String contentType = imageFile.getContentType();
-                    if (contentType == null ||
-                                    !(contentType.equals("image/jpeg") ||
-                                                    contentType.equals("image/png") ||
-                                                    contentType.equals("image/webp"))) {
-                            return ResponseEntity.badRequest().build();
-                    }
-
-                    if (imageFile.getSize() > 10 * 1024 * 1024) {
-                            return ResponseEntity.badRequest().build();
-                    }
-
-                    Image profileImage;
-                    if (user.getProfileImage() != null) {
-                            profileImage = imageService.replaceImageFile(user.getProfileImage().getId(), imageFile.getInputStream());
-                    } else {
-                            profileImage = imageService.createImage(imageFile.getInputStream());
-                    }
-
-                    user.setProfileImage(profileImage);
-                    User updatedUser = userService.save(user);
-
-                    return ResponseEntity.ok(userMapper.toDTO(updatedUser));
-            } catch (Exception ex) {
-                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            User user = userService.findByUsername(username).orElse(null);
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
+
+            if (imageFile.isEmpty()) {
+                return ResponseEntity.badRequest().build();
+            }
+
+            String contentType = imageFile.getContentType();
+            if (contentType == null ||
+                    !(contentType.equals("image/jpeg") ||
+                            contentType.equals("image/png") ||
+                            contentType.equals("image/webp"))) {
+                return ResponseEntity.badRequest().build();
+            }
+
+            if (imageFile.getSize() > 10 * 1024 * 1024) {
+                return ResponseEntity.badRequest().build();
+            }
+
+            Image profileImage;
+            if (user.getProfileImage() != null) {
+                profileImage = imageService.replaceImageFile(user.getProfileImage().getId(),
+                        imageFile.getInputStream());
+            } else {
+                profileImage = imageService.createImage(imageFile.getInputStream());
+            }
+
+            user.setProfileImage(profileImage);
+            User updatedUser = userService.save(user);
+
+            return ResponseEntity.ok(userMapper.toDTO(updatedUser));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+    }
 
 }
-  
