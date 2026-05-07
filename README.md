@@ -472,7 +472,7 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 #### **Documentación HTML**
 
-📖 **[Documentación API REST (HTML)](https://raw.githack.com/[usuario]/[repositorio]/main/api-docs/api-docs.html)**
+📖 **[Documentación API REST (HTML)](https://raw.githack.com/DWS-2026/project-grupo-18/main/api-docs/apidocs.html)**
 
 > La documentación de la API REST se encuentra en la carpeta `/api-docs` del repositorio. Se ha generado automáticamente con SpringDoc a partir de las anotaciones en el código Java.
 
@@ -517,7 +517,7 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 |  2  | [Creacion del Comments rest controller junto con sus DTOs y su mapper](https://github.com/DWS-2026/dws-2026-project-base/commit/70d4803cc6fec6213a04f192d81a79ec038921da) | [CommentsRestController.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/controllers/rest/CommentRestController.java) |
 |  3  | [Coleccion de postman](https://github.com/DWS-2026/dws-2026-project-base/commit/4b1e2e3d9634cb4c6b359baaa543dd9f92dd4152) | [CyberCert.postman_collection.json](https://github.com/DWS-2026/project-grupo-18/blob/main/CyberCert.postman_collection.json) |
 |  4  | [Metodos Pageable](https://github.com/DWS-2026/dws-2026-project-base/commit/798e2db0ffcdd18ec9a22d03530098956c100d59) | [Todos los Rest Controller](https://github.com/DWS-2026/project-grupo-18/tree/main/src/main/java/com/example/cybercert/controllers/rest) |
-|  5  | [Descripción commit 5](URL_commit_5) | [](URL_archivo_5) |
+|  5  | [Path traversal sanitize](https://github.com/DWS-2026/dws-2026-project-base/commit/7292d218018ee701d92a0b0922b1cbcf306e0f7d#diff-787508caa8db09927490252661b97cf0fb0b085bb88ad1dc5733cb54b1dabc1a) | [CertificationDocumentService.java](https://github.com/DWS-2026/project-grupo-18/blob/main/src/main/java/com/example/cybercert/services/CertificationDocumentService.java) |
 
 ---
 
