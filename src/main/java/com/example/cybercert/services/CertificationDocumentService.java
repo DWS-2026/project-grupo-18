@@ -25,7 +25,7 @@ public class CertificationDocumentService {
     @Autowired
     private CertificationRepository certificationRepository;
 
-    public final Path documentStorageLocation = Paths.get("./uploads/").normalize();
+    public final Path documentStorageLocation = Paths.get("./uploads/").toAbsolutePath().normalize();
 
     public CertificationDocumentService() {
         try {
@@ -35,19 +35,52 @@ public class CertificationDocumentService {
         }
     }
 
-    public void store(MultipartFile file, Long certID) throws IOException {
-
-        String originalName = StringUtils.cleanPath(file.getOriginalFilename());
-
-        if (originalName == null || originalName.contains("..")) {
+    private String sanitizeFilename(String originalFilename) {
+        if (originalFilename == null) {
             throw new RuntimeException("Invalid file name");
         }
+
+        String cleaned = StringUtils.cleanPath(originalFilename);
+
+        if (cleaned.contains("..") || cleaned.startsWith("/") || cleaned.startsWith("\\") || Paths.get(cleaned).isAbsolute()) {
+            throw new RuntimeException("Invalid file name");
+        }
+
+        return cleaned;
+    }
+
+    public Path getDocumentPath(String documentPath) {
+        Path filePath = Paths.get(documentPath);
+        if (!filePath.isAbsolute()) {
+            filePath = documentStorageLocation.resolve(filePath);
+        }
+        filePath = filePath.normalize();
+
+        if (!filePath.startsWith(documentStorageLocation)) {
+            throw new SecurityException("Path traversal detected");
+        }
+
+        return filePath;
+    }
+
+    public Resource loadDocumentAsResource(String documentPath) throws MalformedURLException {
+        Path filePath = getDocumentPath(documentPath);
+        Resource resource = new UrlResource(filePath.toUri());
+        if (!resource.exists()) {
+            throw new RuntimeException("File not found");
+        }
+        return resource;
+    }
+
+    public void store(MultipartFile file, Long certID) throws IOException {
+
+        String originalName = sanitizeFilename(file.getOriginalFilename());
 
         if (!"application/pdf".equals(file.getContentType())) {
             throw new RuntimeException("Content type not allowed");
         }
 
-        Path target = documentStorageLocation.resolve(originalName);
+        Path target = documentStorageLocation.resolve(originalName).normalize();
 
         if (!target.startsWith(documentStorageLocation)) {
             throw new SecurityException("Path traversal detected");
@@ -57,7 +90,7 @@ public class CertificationDocumentService {
         Certification cert = certificationRepository.findById(certID)
                 .orElseThrow(() -> new RuntimeException("Certification not found with id: " + certID));
 
-        cert.setDocumentPath(target.toString());
+        cert.setDocumentPath(documentStorageLocation.relativize(target).toString());
         certificationRepository.save(cert);
 
     }

@@ -47,6 +47,9 @@ public class CertificationController {
     @Autowired
     private ShoppingCartService shoppingCartService;
 
+    @Autowired
+    private CertificationDocumentService certificationDocumentService;
+
     @GetMapping("/certification/{id}")
     public String certification(@PathVariable Long id, Model model, Principal principal) {
         model.addAttribute("pageCss", "certification");
@@ -129,14 +132,7 @@ public class CertificationController {
             throw new RuntimeException("No document associated with this certification");
         }
 
-        Path filePath = Paths.get(cert.getDocumentPath())
-                .normalize();
-
-        Resource resource = new UrlResource(filePath.toUri());
-
-        if (!resource.exists()) {
-            throw new RuntimeException("File not found");
-        }
+        Resource resource = certificationDocumentService.loadDocumentAsResource(cert.getDocumentPath());
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType("application/pdf"))

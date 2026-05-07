@@ -145,14 +145,10 @@ public class CertificationRestController {
         if (certification.getDocumentPath() == null) {
             return ResponseEntity.notFound().build();
         }
-        Path filePath = Paths.get(certification.getDocumentPath()).normalize();
 
-        Resource resource = new UrlResource(filePath.toUri());
+        Resource resource = certificationDocumentService.loadDocumentAsResource(certification.getDocumentPath());
+        Path filePath = certificationDocumentService.getDocumentPath(certification.getDocumentPath());
 
-        if (!resource.exists()) {
-            return ResponseEntity.notFound().build();
-
-        }
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_PDF)
                 .header(HttpHeaders.CONTENT_DISPOSITION,
