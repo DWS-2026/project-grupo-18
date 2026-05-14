@@ -117,11 +117,6 @@ public class CertificationController {
         return "redirect:/certification/" + id;
     }
 
-    @GetMapping("/certification/{id}/document")
-    public String getMethodName(@RequestParam String param) {
-        return new String();
-    }
-
     @GetMapping("/certification/{id}/download-document")
     public ResponseEntity<Resource> downloadDocument(@PathVariable Long id) throws MalformedURLException {
 

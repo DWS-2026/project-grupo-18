@@ -79,6 +79,8 @@ public class SecurityConfiguration {
                                                 // CERTIFICATIONS API
                                                 .requestMatchers(HttpMethod.GET, "/api/v1/certifications/**")
                                                 .permitAll()
+                                                .requestMatchers(HttpMethod.GET, "/api/v1/certifications/**/document")
+                                                .hasRole("ADMIN")
                                                 .requestMatchers(HttpMethod.POST, "/api/v1/certifications/**")
                                                 .hasRole("ADMIN")
                                                 .requestMatchers(HttpMethod.PUT, "/api/v1/certifications/**")
@@ -158,6 +160,7 @@ public class SecurityConfiguration {
 
                                 // admin paths
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/certification/**/download-document").hasRole("ADMIN")
 
                                 .anyRequest().authenticated());
 

@@ -17,6 +17,7 @@ import com.example.cybercert.services.CertificationService;
 import com.example.cybercert.services.ImageService;
 import com.example.cybercert.services.UserService;
 import com.example.security.Role;
+import com.example.security.HtmlSanitizer;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -125,7 +126,7 @@ public class AdminController {
                 duration,
                 format,
                 language,
-                description,
+                HtmlSanitizer.sanitize(description),
                 reqList,
                 contList,
                 null);
@@ -213,7 +214,7 @@ public class AdminController {
         cert.setDuration(duration);
         cert.setFormat(format);
         cert.setLanguage(language);
-        cert.setDescription(description);
+        cert.setDescription(HtmlSanitizer.sanitize(description));
 
         if (requirements != null) {
             cert.setRequirements(new ArrayList<>(Arrays.asList(requirements.split(","))));
