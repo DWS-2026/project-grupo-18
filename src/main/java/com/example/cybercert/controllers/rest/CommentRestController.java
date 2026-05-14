@@ -2,9 +2,11 @@ package com.example.cybercert.controllers.rest;
 
 import com.example.cybercert.dto.CommentMapper;
 import com.example.cybercert.models.Comment;
+import com.example.cybercert.models.User;
 import com.example.cybercert.services.CertificationService;
 import com.example.cybercert.services.CommentService;
 import com.example.cybercert.services.UserService;
+import com.example.security.Role;
 import com.example.security.jwt.JwtTokenProvider;
 
 import io.jsonwebtoken.Claims;
@@ -142,10 +144,12 @@ public class CommentRestController {
             Claims claims = jwtTokenProvider.validateToken(request, true);
             String username = claims.getSubject();
 
+            User loggedUser = userService.findByUsername(username).orElse(null);
+
             return commentService.findById(id)
                     .map(comment -> {
-
-                        if (!comment.getUser().getUsername().equals(username)) {
+                        if (loggedUser.getRole() != Role.ADMIN
+                                && !comment.getUser().getUsername().equals(username)) {
                             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
                         }
 
