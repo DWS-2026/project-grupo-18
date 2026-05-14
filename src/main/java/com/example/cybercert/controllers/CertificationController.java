@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.cybercert.models.Certification;
+import com.example.cybercert.models.Comment;
 import com.example.cybercert.models.User;
 import com.example.cybercert.services.CertificationService;
 import com.example.cybercert.services.CommentService;
@@ -113,8 +114,34 @@ public class CertificationController {
     }
 
     @PostMapping("/certification/{id}/remove-comment")
-    public String removeComment(@PathVariable Long id) {
-        return "redirect:/certification/" + id;
+    public String removeComment(@PathVariable Long id,
+            @RequestParam("commentId") Long commentId,
+            RedirectAttributes redirectAttributes,
+            Principal principal) {
+
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        User user = userService.findByUsername(principal.getName()).orElse(null);
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        Comment comment = commentService.findById(commentId).orElse(null);
+
+        if (comment == null) {
+            redirectAttributes.addFlashAttribute("error", "Comment not found.");
+            return "redirect:/certification/" + id;
+        }
+
+        if (!comment.getUser().getUsername().equals(user.getUsername())) {
+            redirectAttributes.addFlashAttribute("error", "No puedes borrar un comentario que no es tuyo.");
+            return "redirect:/certification/" + comment.getCertification().getId();
+        }
+
+        commentService.deleteById(commentId);
+        return "redirect:/certification/" + comment.getCertification().getId();
     }
 
     @GetMapping("/certification/{id}/download-document")
